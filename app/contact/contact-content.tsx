@@ -50,7 +50,7 @@ export default function ContactContent() {
             <div id="whatsapp" className="card stack" style={{ scrollMarginTop: "var(--header-h)" }}>
               <h3>{t.contact.whatsappCtaTitle}</h3>
               <p className="small muted">{t.contact.whatsappCtaText}</p>
-              <p className="small" style={{ color: "#8a93a3" }}>
+              <p className="small" style={{ color: "var(--tas-gray-mid)" }}>
                 {t.contact.whatsappLabel}: {t.contact.whatsapp}
               </p>
               <a

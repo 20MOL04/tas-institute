@@ -101,7 +101,7 @@ function ProgramCard({
           {t.common.viewProgram} →
         </Link>
       ) : (
-        <span className="small" style={{ marginTop: 4, color: "#8a93a3" }}>
+        <span className="placeholder-note" style={{ marginTop: 4, alignSelf: "flex-start" }}>
           {t.common.exampleBadge}
         </span>
       )}

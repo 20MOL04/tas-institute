@@ -26,6 +26,18 @@
   --tas-navy-soft: rgba(11, 28, 33, 0.04);
   --tas-navy-wash: rgba(11, 28, 51, 0.9);
   --tas-focus: rgba(30, 95, 191, 0.35);
+  /* Was typed raw in five separate files (stepper dots, example badges,
+     form hints) before being promoted here — same gray value each time,
+     never a token. */
+  --tas-gray-mid: #8a93a3;
+  /* Form-error red: not in the approved "No Saturation" palette, but a
+     danger state genuinely needs one (spec §57 lists a "danger" button
+     variant) — formalized as a token instead of left as an inline
+     one-off in apply-content.tsx. */
+  --tas-danger: #b3261e;
+  /* Muted body text on a navy background (footer, hero-on-navy CTAs) —
+     was retyped as rgba(255,255,255,.72/.75) in four different files. */
+  --tas-on-navy-muted: rgba(255, 255, 255, 0.72);
 
   /* Spacing scale — base 4/8, per spec section 5 */
   --space-1: 8px;
@@ -253,6 +265,15 @@ h3,
 @media (max-width: 900px) {
   .grid-4 {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  /* Trust/Why-TAS/Values cards carry a heading + a full sentence each —
+     two columns of wrapped paragraph text at 375-400px reads as a
+     shrunk desktop, not a real mobile layout (spec §58). */
+  .grid-4 {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -593,7 +614,7 @@ h3,
   height: 2px;
   background: var(--tas-navy);
   position: relative;
-  transition: transform var(--transition);
+  transition: transform var(--transition), top var(--transition), background var(--transition);
 }
 
 .hamburger span::before {
@@ -636,7 +657,13 @@ h3,
   gap: var(--space-2);
 }
 
-@media (max-width: 900px) {
+/* 1180px, not 900px: at 6 nav links (the longest French label alone runs
+   "Parcours d'étudiants") + brand + WhatsApp/Apply buttons, the real
+   measured content needs ~1090-1140px — a 900px cutoff left a genuine
+   overflow gap on small-laptop/tablet-landscape widths. Same failure
+   class as the .split bug: a round breakpoint picked without checking
+   what actually has to fit. */
+@media (max-width: 1180px) {
   .main-nav {
     display: none;
   }
@@ -651,9 +678,34 @@ h3,
   }
 }
 
-@media (min-width: 901px) {
+@media (min-width: 1181px) {
   .mobile-nav {
     display: none !important;
+  }
+}
+
+/* Hamburger morphs to an X when open — was static 3 bars regardless of
+   state before; aria-expanded was already correct, only the visual was
+   missing. */
+.hamburger.open span {
+  background: transparent;
+}
+
+.hamburger.open span::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.hamburger.open span::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hamburger span,
+  .hamburger span::before,
+  .hamburger span::after {
+    transition: none;
   }
 }
 
@@ -661,7 +713,7 @@ h3,
 
 .site-footer {
   background: var(--tas-navy);
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--tas-on-navy-muted);
   padding-block: var(--space-8) var(--space-4);
 }
 
@@ -694,7 +746,7 @@ h3,
 }
 
 .footer-grid a {
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--tas-on-navy-muted);
   font-size: 0.92rem;
   transition: color var(--transition);
 }
@@ -744,6 +796,13 @@ h3,
   padding: 5px 12px;
   border-radius: 999px;
   transition: background var(--transition), color var(--transition);
+  /* Visual pill stays compact; the tap target still meets the ~44px
+     rule (spec §58) via min-height on an inline-flex box rather than
+     inflating the padding. */
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .lang-toggle button.active {
@@ -869,7 +928,7 @@ h3,
   justify-content: center;
   font-size: 0.82rem;
   font-weight: 700;
-  color: #8a93a3;
+  color: var(--tas-gray-mid);
 }
 
 .stepper .step.active .dot {
@@ -886,7 +945,7 @@ h3,
 .stepper .step .label {
   font-size: 0.78rem;
   font-weight: 600;
-  color: #8a93a3;
+  color: var(--tas-gray-mid);
 }
 
 .stepper .step.active .label,

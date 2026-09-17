@@ -271,14 +271,14 @@ export default function ApplyContent() {
                   <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
                   <span>{t.apply.consentLabel}</span>
                 </label>
-                <p className="small" style={{ color: "#8a93a3" }}>
+                <p className="small" style={{ color: "var(--tas-gray-mid)" }}>
                   {t.apply.demoNote}
                 </p>
               </fieldset>
             )}
 
             {error && (
-              <p className="small" style={{ color: "#b3261e" }}>
+              <p className="small" style={{ color: "var(--tas-danger)" }}>
                 {error}
               </p>
             )}

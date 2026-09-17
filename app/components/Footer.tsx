@@ -20,7 +20,7 @@ export default function Footer() {
         <div className="footer-grid">
           <div>
             <div className="footer-title">TAS English Institute</div>
-            <p className="small" style={{ maxWidth: "38ch", color: "rgba(255,255,255,0.72)" }}>
+            <p className="small" style={{ maxWidth: "38ch", color: "var(--tas-on-navy-muted)" }}>
               {t.footer.blurb}
             </p>
           </div>

@@ -148,7 +148,7 @@ export default function GeneralEnglishContent() {
       <section className="section-navy section-tight">
         <div className="container" style={{ textAlign: "center" }}>
           <h2>{p.ctaTitle}</h2>
-          <p className="lede" style={{ margin: "var(--space-2) auto", color: "rgba(255,255,255,0.75)" }}>
+          <p className="lede" style={{ margin: "var(--space-2) auto", color: "var(--tas-on-navy-muted)" }}>
             {p.ctaText}
           </p>
           <Link href="/apply" className="btn btn-primary" style={{ marginTop: "var(--space-2)" }}>

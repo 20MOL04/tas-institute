@@ -148,6 +148,7 @@ export default function HomeContent() {
           <div className="section-head">
             <span className="eyebrow">{t.home.teachersEyebrow}</span>
             <h2>{t.home.teachersTitle}</h2>
+            <span className="placeholder-note">{t.teachers.placeholderLabel}</span>
           </div>
           <div className="grid grid-3">
             {t.teachers.list.map((teacher) => (
@@ -188,7 +189,7 @@ export default function HomeContent() {
       <section className="section-navy section-tight">
         <div className="container" style={{ textAlign: "center" }}>
           <h2>{t.home.finalCtaTitle}</h2>
-          <p className="lede" style={{ margin: "var(--space-2) auto", color: "rgba(255,255,255,0.75)" }}>
+          <p className="lede" style={{ margin: "var(--space-2) auto", color: "var(--tas-on-navy-muted)" }}>
             {t.home.finalCtaText}
           </p>
           <Link href="/apply" className="btn btn-primary" style={{ marginTop: "var(--space-2)" }}>

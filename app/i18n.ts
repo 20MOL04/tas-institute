@@ -55,6 +55,11 @@ const fr = {
     requiredNote: "Les champs marqués * sont obligatoires.",
     toConfirm: "À confirmer",
   },
+  notFound: {
+    title: "Page introuvable",
+    text: "La page que tu cherches n'existe pas ou a changé d'adresse.",
+    cta: "Retour à l'accueil",
+  },
   home: {
     heroEyebrow: "École d'anglais & formation professionnelle — Accra, Ghana",
     heroTitle: "Apprenez l'anglais. Construisez votre avenir.",
@@ -325,6 +330,7 @@ const fr = {
       },
     ],
     experienceNote: "Instructeur(rice) expérimenté(e)",
+    placeholderLabel: "Exemple — à remplacer par un vrai enseignant",
   },
   stories: {
     heroEyebrow: "Parcours d'étudiants",
@@ -480,6 +486,11 @@ const en: typeof fr = {
     sendMessage: "Send Message",
     requiredNote: "Fields marked * are required.",
     toConfirm: "To confirm",
+  },
+  notFound: {
+    title: "Page not found",
+    text: "The page you're looking for doesn't exist or has moved.",
+    cta: "Back to home",
   },
   home: {
     heroEyebrow: "English School & Professional Training — Accra, Ghana",
@@ -749,6 +760,7 @@ const en: typeof fr = {
       },
     ],
     experienceNote: "Experienced English instructor",
+    placeholderLabel: "Example — replace with a real teacher",
   },
   stories: {
     heroEyebrow: "Student Stories",

@@ -124,7 +124,7 @@ export default function AboutContent() {
       <section className="section-navy section-tight">
         <div className="container" style={{ textAlign: "center" }}>
           <h2>{t.about.ctaTitle}</h2>
-          <p className="lede" style={{ margin: "var(--space-2) auto", color: "rgba(255,255,255,0.75)" }}>
+          <p className="lede" style={{ margin: "var(--space-2) auto", color: "var(--tas-on-navy-muted)" }}>
             {t.about.ctaText}
           </p>
           <Link href="/programs" className="btn btn-primary" style={{ marginTop: "var(--space-2)" }}>

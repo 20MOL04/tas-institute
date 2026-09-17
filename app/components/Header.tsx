@@ -52,16 +52,19 @@ export default function Header() {
         </nav>
 
         <div className="header-actions">
-          <Link href={WHATSAPP_HREF} className="btn btn-whatsapp btn-sm">
+          {/* Primary CTA on every page: kept at the default .btn 44px
+              min-height (spec §58 touch-target rule), not .btn-sm — a
+              header action is never "secondary UI chrome". */}
+          <Link href={WHATSAPP_HREF} className="btn btn-whatsapp">
             <span className="dot" aria-hidden="true" />
             {t.nav.whatsapp}
           </Link>
-          <Link href="/apply" className="btn btn-primary btn-sm">
+          <Link href="/apply" className="btn btn-primary">
             {t.nav.applyNow}
           </Link>
           <button
             type="button"
-            className="hamburger"
+            className={`hamburger${open ? " open" : ""}`}
             aria-label="Menu"
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
