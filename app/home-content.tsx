@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useLang } from "./LangProvider";
 import PhotoFrame from "./components/PhotoFrame";
 import Avatar from "./components/Avatar";
+import type { CSSProperties } from "react";
 
 export default function HomeContent() {
   const { t } = useLang();
@@ -12,7 +13,7 @@ export default function HomeContent() {
     <>
       {/* HERO */}
       <section className="hero-halo section" style={{ paddingTop: "var(--space-8)" }}>
-        <div className="container grid" style={{ gridTemplateColumns: "1.1fr 1fr", alignItems: "center", gap: "var(--space-6)" }}>
+        <div className="container split" style={{ "--split-ratio": "1.1fr 1fr", alignItems: "center", gap: "var(--space-6)" } as CSSProperties}>
           <div className="stack" style={{ gap: "var(--space-3)" }}>
             <span className="eyebrow">{t.home.heroEyebrow}</span>
             <h1>{t.home.heroTitle}</h1>
@@ -111,7 +112,7 @@ export default function HomeContent() {
 
       {/* LEARNING EXPERIENCE */}
       <section className="section section-alt">
-        <div className="container grid" style={{ gridTemplateColumns: "1fr 1fr", alignItems: "center", gap: "var(--space-6)" }}>
+        <div className="container split" style={{ "--split-ratio": "1fr 1fr", alignItems: "center", gap: "var(--space-6)" } as CSSProperties}>
           <PhotoFrame
             src="/images/classroom-1.jpg"
             alt="Salle de classe, étudiants en discussion de groupe"
@@ -169,7 +170,7 @@ export default function HomeContent() {
 
       {/* CAMPUS */}
       <section className="section">
-        <div className="container grid" style={{ gridTemplateColumns: "1fr 1fr", alignItems: "center", gap: "var(--space-6)" }}>
+        <div className="container split" style={{ "--split-ratio": "1fr 1fr", alignItems: "center", gap: "var(--space-6)" } as CSSProperties}>
           <div className="stack">
             <span className="eyebrow">{t.home.campusEyebrow}</span>
             <h2>{t.home.campusTitle}</h2>

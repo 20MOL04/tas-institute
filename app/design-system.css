@@ -263,6 +263,25 @@ h3,
   }
 }
 
+/* Two-column "split" sections (hero, about, program detail, etc.) need
+   arbitrary ratios (1.1fr 1fr, 1fr 1.4fr...) that .grid-2's fixed 1:1
+   can't express — but they still must collapse to one column on mobile.
+   The ratio travels through a custom property set inline on the element;
+   this media query overrides grid-template-columns directly (not through
+   the variable), so it always wins on small screens regardless of what
+   ratio was requested. Never set grid-template-columns via inline style
+   directly on a .split element — it would silently defeat this rule. */
+.split {
+  display: grid;
+  grid-template-columns: var(--split-ratio, 1fr 1fr);
+}
+
+@media (max-width: 780px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* --------------------------------- Buttons -------------------------------- */
 
 .btn {

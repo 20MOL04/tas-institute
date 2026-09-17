@@ -14,6 +14,7 @@ import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { useLang } from "../LangProvider";
 import PhotoFrame from "../components/PhotoFrame";
+import type { CSSProperties } from "react";
 
 interface FormState {
   fullName: string;
@@ -129,7 +130,7 @@ export default function ApplyContent() {
   return (
     <>
       <section className="section-tight hero-halo">
-        <div className="container grid" style={{ gridTemplateColumns: "1.1fr 1fr", alignItems: "center", gap: "var(--space-6)" }}>
+        <div className="container split" style={{ "--split-ratio": "1.1fr 1fr", alignItems: "center", gap: "var(--space-6)" } as CSSProperties}>
           <div className="section-head" style={{ marginBottom: 0 }}>
             <span className="eyebrow">{t.apply.heroEyebrow}</span>
             <h1>{t.apply.heroTitle}</h1>

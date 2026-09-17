@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { useLang } from "../LangProvider";
 import PhotoFrame from "../components/PhotoFrame";
+import type { CSSProperties } from "react";
 
 export default function ContactContent() {
   const { t } = useLang();
@@ -18,7 +19,7 @@ export default function ContactContent() {
   return (
     <>
       <section className="section-tight hero-halo">
-        <div className="container grid" style={{ gridTemplateColumns: "1.1fr 1fr", alignItems: "center", gap: "var(--space-6)" }}>
+        <div className="container split" style={{ "--split-ratio": "1.1fr 1fr", alignItems: "center", gap: "var(--space-6)" } as CSSProperties}>
           <div className="section-head" style={{ marginBottom: 0 }}>
             <span className="eyebrow">{t.contact.heroEyebrow}</span>
             <h1>{t.contact.heroTitle}</h1>
@@ -29,7 +30,7 @@ export default function ContactContent() {
       </section>
 
       <section className="section">
-        <div className="container grid" style={{ gridTemplateColumns: "0.9fr 1.1fr", gap: "var(--space-6)" }}>
+        <div className="container split" style={{ "--split-ratio": "0.9fr 1.1fr", gap: "var(--space-6)" } as CSSProperties}>
           {/* CONTACT INFO */}
           <div className="stack">
             <h2 style={{ fontSize: "1.2rem" }}>{t.contact.infoTitle}</h2>

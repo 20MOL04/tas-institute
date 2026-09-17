@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useLang } from "../LangProvider";
 import PhotoFrame from "../components/PhotoFrame";
+import type { CSSProperties } from "react";
 
 export default function ProgramsContent() {
   const { t } = useLang();
@@ -38,7 +39,7 @@ export default function ProgramsContent() {
             <p className="lede">{t.programs.category1Text}</p>
           </div>
 
-          <div className="grid" style={{ gridTemplateColumns: "1fr 1.4fr", gap: "var(--space-4)", marginBottom: "var(--space-4)" }}>
+          <div className="split" style={{ "--split-ratio": "1fr 1.4fr", gap: "var(--space-4)", marginBottom: "var(--space-4)" } as CSSProperties}>
             <PhotoFrame src="/images/classroom-2.jpg" alt="Enseignant devant un tableau blanc" ratio="4-3" />
             <div className="grid grid-2">
               {englishPrograms.map((program) => (
@@ -58,7 +59,7 @@ export default function ProgramsContent() {
             <p className="lede">{t.programs.category2Text}</p>
           </div>
 
-          <div className="grid" style={{ gridTemplateColumns: "1fr 1.4fr", gap: "var(--space-4)" }}>
+          <div className="split" style={{ "--split-ratio": "1fr 1.4fr", gap: "var(--space-4)" } as CSSProperties}>
             <PhotoFrame src="/images/computer-lab.jpg" alt="Salle informatique, étudiants sur ordinateur" ratio="4-3" />
             <div className="grid grid-2">
               {computerPrograms.map((program) => (

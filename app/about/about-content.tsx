@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useLang } from "../LangProvider";
 import PhotoFrame from "../components/PhotoFrame";
+import type { CSSProperties } from "react";
 
 export default function AboutContent() {
   const { t } = useLang();
@@ -26,7 +27,7 @@ export default function AboutContent() {
 
       {/* WHO IS TAS */}
       <section className="section">
-        <div className="container grid" style={{ gridTemplateColumns: "1fr 1fr", alignItems: "center", gap: "var(--space-6)" }}>
+        <div className="container split" style={{ "--split-ratio": "1fr 1fr", alignItems: "center", gap: "var(--space-6)" } as CSSProperties}>
           <div className="stack">
             <span className="eyebrow">{t.about.whoEyebrow}</span>
             <h2>{t.about.whoTitle}</h2>
@@ -93,7 +94,7 @@ export default function AboutContent() {
 
       {/* CAMPUS */}
       <section className="section section-alt">
-        <div className="container grid" style={{ gridTemplateColumns: "1fr 1fr", alignItems: "center", gap: "var(--space-6)" }}>
+        <div className="container split" style={{ "--split-ratio": "1fr 1fr", alignItems: "center", gap: "var(--space-6)" } as CSSProperties}>
           <PhotoFrame src="/images/library-study.jpg" alt="Espace bibliothèque, étudiants concentrés" ratio="4-3" />
           <div className="stack">
             <span className="eyebrow">{t.about.campusEyebrow}</span>

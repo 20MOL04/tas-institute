@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useLang } from "../LangProvider";
 import PhotoFrame from "../components/PhotoFrame";
+import type { CSSProperties } from "react";
 
 // Brief rule 9 / spec rule 9: never invent testimonials or results. This
 // page shows the intended layout fully styled, but every piece of story
@@ -32,7 +33,7 @@ export default function StudentStoriesContent() {
             <span className="placeholder-note">{t.stories.placeholderLabel}</span>
           </div>
 
-          <div className="card grid" style={{ gridTemplateColumns: "1fr 1.2fr", gap: "var(--space-5)", padding: "var(--space-4)" }}>
+          <div className="card split" style={{ "--split-ratio": "1fr 1.2fr", gap: "var(--space-5)", padding: "var(--space-4)" } as CSSProperties}>
             <PhotoFrame src="/images/student-story-1.jpg" alt={f.imageAlt} ratio="4-3" />
             <div className="stack">
               <div className="grid grid-2 small muted">

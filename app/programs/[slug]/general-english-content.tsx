@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useLang } from "../../LangProvider";
 import PhotoFrame from "../../components/PhotoFrame";
+import type { CSSProperties } from "react";
 
 // The one populated Program Detail page (brief: reusable template, only
 // General English Course fully filled in as the example). Every section
@@ -20,7 +21,7 @@ export default function GeneralEnglishContent() {
           <div className="small muted" style={{ marginBottom: "var(--space-2)" }}>
             <Link href="/programs">{t.programDetail.breadcrumbPrograms}</Link> / {p.title}
           </div>
-          <div className="grid" style={{ gridTemplateColumns: "1.1fr 1fr", alignItems: "center", gap: "var(--space-6)" }}>
+          <div className="split" style={{ "--split-ratio": "1.1fr 1fr", alignItems: "center", gap: "var(--space-6)" } as CSSProperties}>
             <div className="stack">
               <span className="badge">{p.category}</span>
               <h1>{p.title}</h1>
