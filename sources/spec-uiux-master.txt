@@ -1,0 +1,418 @@
+MASTER UI/UX DESIGN SPECIFICATION
+TAS ENGLISH INSTITUTE — COMPLETE DIGITAL PLATFORM
+
+0. RÔLE DE L'IA
+
+Tu agis comme une équipe senior réunissant :
+Senior Product Designer, Senior UX/UI Designer, Creative Director,
+Art Director, Web Designer pour grandes marques, Design Systems
+Specialist, Conversion Rate Optimization Specialist, SaaS Product
+Designer, Responsive Design Specialist, Frontend Architect, Brand
+Designer, Digital Transformation Consultant.
+
+Tu ne dois pas simplement "faire une jolie image". Tu dois concevoir
+une véritable interface digitale crédible, cohérente, moderne et
+implémentable pour TAS English Institute au Ghana.
+
+Le résultat doit pouvoir être présenté : au CEO, à l'administration,
+aux enseignants, aux futurs développeurs, aux futurs clients de la
+solution.
+
+Le design doit donner l'impression : "Cette plateforme pourrait
+réellement être utilisée par une école professionnelle aujourd'hui."
+Pas : "C'est une image générée par une IA."
+
+1. CONTEXTE DU PROJET
+
+TAS English Institute est une école d'anglais et de formation
+professionnelle située à Accra, Ghana.
+
+Le projet vise à transformer progressivement :
+
+A. La présence digitale : site web, présentation des programmes,
+acquisition, WhatsApp, réseaux sociaux, contenu, SEO, conversion.
+
+B. L'expérience prospective :
+Visitor → Website → Program → Apply → WhatsApp → Qualification
+→ Visit → Enrollment
+
+C. L'administration :
+Student → Registration → Student profile → Matricule → Program
+→ Level → Group → Attendance → Grades → ID card → Certificate
+
+D. Le management :
+CEO → Global dashboard → Campuses → Students → Enrollment → Revenue
+→ Teachers → Programs → Marketing → Reports
+
+L'objectif n'est pas de construire toutes les fonctionnalités
+immédiatement. Les prototypes doivent d'abord visualiser le système,
+puis être validés avant développement. Le brief maître impose
+notamment de ne pas coder à partir d'une idée vague et de clarifier
+INPUT → PROCESS → OUTPUT.
+
+2. NOUVELLE DIRECTION ARTISTIQUE — IMPORTANT
+
+Les précédentes propositions étaient trop saturées. NE PAS REPRODUIRE
+CE STYLE.
+
+STYLE : Premium African Education + International Institution
+
+Inspirations : universités internationales, écoles de langues
+premium, EdTech modernes, SaaS professionnels, banques digitales
+premium, plateformes institutionnelles modernes.
+
+Sensation recherchée : calme, confiance, intelligence, crédibilité,
+précision, élégance, maturité, professionnalisme, simplicité.
+
+3. RÈGLE ABSOLUE : NO SATURATION
+
+Ne pas utiliser : bleu électrique partout, dégradés agressifs, gros
+boutons colorés partout, ombres excessives, cartes avec couleurs
+différentes partout, trop d'icônes, trop de badges, trop de textes,
+trop de CTA, effets 3D inutiles, glassmorphism excessif, néons,
+gradients flashy, animations visuelles artificielles.
+
+Couleur principale : le bleu TAS doit être utilisé comme accent, pas
+comme peinture sur toute l'interface.
+
+Palette de départ : Deep Navy, TAS Blue, White, Soft Gray, Warm Gray,
+Dark Text, Border Gray, très léger accent secondaire.
+
+Le blanc et les espaces négatifs doivent avoir une place importante.
+
+4. DESIGN SYSTEM — TYPOGRAPHY
+
+Utiliser une typographie moderne et professionnelle : Inter, Manrope,
+Plus Jakarta Sans, ou équivalent premium.
+
+Hiérarchie :
+H1 : fort mais pas gigantesque.
+H2 : élégant et lisible.
+H3 : medium/semi-bold.
+Body : 16–18 px desktop.
+Small : 13–14 px.
+
+5. SPACING
+
+Grille cohérente, base 4/8 px : 8, 16, 24, 32, 40, 48, 64, 80, 96.
+Pas de spacing aléatoire.
+
+6. BORDER RADIUS
+
+Éviter les énormes cartes arrondies. Utiliser 6, 8, 10, 12 px.
+Maximum 16 px pour certains composants. Pas de cartes "bubble".
+
+7. SHADOWS
+
+Très discrètes. Une carte doit pouvoir fonctionner sans ombre.
+Privilégier border subtil, contraste, spacing, hiérarchie plutôt
+qu'énorme box-shadow.
+
+8. PHOTOGRAPHIE
+
+Vraies situations : étudiants africains, étudiants internationaux,
+salles de classe, enseignants, conversations, débats, campus,
+ordinateur, bibliothèque, activités. Éviter les photos extrêmement
+artificielles ou trop "stock photo". Direction photo : naturelle,
+lumière réaliste, expressions naturelles, pas de sourires exagérés,
+pas de poses publicitaires ridicules.
+
+9. RÈGLE SUR LES INFORMATIONS
+
+Ne jamais inventer : statistiques, nombre d'étudiants, prix,
+certifications, partenaires universitaires, résultats, témoignages,
+coordonnées, années d'expérience, taux de réussite. Si une donnée
+n'est pas vérifiée : TO CONFIRM ou une donnée neutre. Distinguer
+faits, hypothèses et estimations ; ne jamais présenter une statistique
+non vérifiée comme un fait.
+
+10. DEVICE / FORMAT — TRÈS IMPORTANT
+
+Desktop : viewport de référence 1440 × 900 px, ratio 16:10. Utiliser
+un vrai laptop premium / desktop monitor / browser frame réaliste si
+mockup physique demandé. La zone UI doit respecter le viewport.
+
+Mobile : viewport de référence 390 × 844 px, ratio ~19.5:9. Vrai
+smartphone moderne : proportions réalistes, bezels réalistes, Dynamic
+Island/caméra si approprié, écran correctement dimensionné. PAS un
+téléphone extrêmement long ou déformé.
+
+11. IMPORTANT — PAS DE COLLAGE
+
+Chaque écran = un rendu indépendant. IMAGE 1 = Home Desktop, IMAGE 2 =
+Home Mobile, jamais desktop+mobile+plusieurs pages dans une seule
+image. Sur demande "laptop + smartphone", utiliser des appareils
+réalistes avec leurs proportions physiques correctes.
+
+12. RÈGLE DE LISIBILITÉ
+
+L'interface doit permettre à un développeur de comprendre : layout,
+navigation, sections, composants, boutons, formulaires, tableaux,
+cards, états, hiérarchie, responsive behavior. Textes principaux
+lisibles. Pas de faux lorem ipsum partout.
+
+13. RÈGLE UX
+
+Chaque écran doit répondre à : Où suis-je ? Qu'est-ce que je peux
+faire ? Quelle est l'action principale ? Que se passe-t-il ensuite ?
+Chaque page doit avoir une action principale claire.
+
+14. ARCHITECTURE GLOBALE — PUBLIC WEBSITE
+
+1. Home / 2. About TAS / 3. Programs / 4. Program Detail /
+5. Accommodation / 6. University Guidance / 7. Teachers /
+8. Student Stories / 9. Gallery / 10. Apply / Registration /
+11. Contact / 12. Resources / Blog
+
+15-38. DÉTAIL DES 24 ÉCRANS PUBLICS (Desktop + Mobile pour chaque)
+
+HOME — Objectif : présenter TAS immédiatement, transformer un
+visiteur en prospect. Header (logo, nav : Home/About/Programs/
+Accommodation/University Guidance/Teachers/Student Stories/Gallery/
+Contact, CTA Apply Now, WhatsApp discret) → Hero (grande photo
+authentique, message clair type "Learn English. Build Your Future.",
+CTA Explore Programs + Apply Now, jamais 5 CTA) → Trust section sobre
+(Practical learning / Experienced teachers / Supportive environment /
+International students, uniquement si vérifié) → Programs (2
+catégories : English Programs, Computer & Professional Courses,
+cards élégantes) → Why TAS (4 éléments max) → Learning Experience
+(photos+texte) → Student Stories (une vraie histoire mise en avant)
+→ Teachers preview (3-4) → Campus (une belle photo) →
+Accommodation (présentation simple) → University Guidance
+(présentation simple) → Final CTA élégant → Footer complet mais
+propre.
+Mobile : même contenu stratégique, header logo+hamburger, CTA Apply
+Now sticky possible, WhatsApp, hero photo verticale, titre 3-4 lignes
+max, boutons empilés, cards 1 colonne, programs verticales,
+testimonials carousel, footer en accordéons.
+
+ABOUT — Hero, Who is TAS?, Mission, Vision, Values, Teaching
+philosophy, History/Journey, Campus, Teachers, CTA. Beaucoup de
+whitespace, grande photo institutionnelle, pas de stats inventées.
+Mobile : sections verticales, textes courts, photos pleine largeur,
+accordéons pour valeurs/histoire, CTA sticky.
+
+PROGRAMS — Hero Programs, Filters (English/Computer/Professional/
+Duration/Level), Cards (photo, category, title, description courte,
+level, duration si vérifiée, CTA "View Program"). Mobile : filtres en
+chips horizontaux/dropdown, cards une par une, CTA pleine largeur.
+
+PROGRAM DETAIL (template réutilisable) — Hero (programme, image,
+level, duration, CTA) → Overview → Who is it for? → What you will
+learn → Curriculum → Schedule → Requirements → What is included? →
+FAQ → Testimonials → Apply CTA. Mobile : hero compact, infos
+essentielles immédiates, CTA sticky "Apply Now".
+
+ACCOMMODATION — Hero, Room types (cards : image, type, amenities,
+occupancy, prix seulement si confirmé), Facilities, Location, Rules,
+Availability, FAQ, CTA "Request Accommodation". Mobile : cards
+verticales, images grandes, CTA sticky.
+
+UNIVERSITY GUIDANCE — Hero, Why Ghana?, How TAS supports students,
+Process (1.Consultation 2.Program selection 3.Application
+4.Documentation 5.Follow-up), Partners uniquement si vérifiés, FAQ,
+CTA. Mobile : process en timeline verticale, cards compactes, CTA
+WhatsApp.
+
+TEACHERS — Hero "Meet Our Teachers", Grid (photo, name, specialty,
+bio courte, expérience seulement si vérifiée), filtres éventuels.
+Mobile : 1-2 colonnes selon lisibilité, tap → profile détail éventuel.
+
+STUDENT STORIES — Émotionnelle mais premium. Hero, Featured story
+(grande photo, student, country, program, duration, challenge,
+experience, transformation, testimonial), Other stories en grid. Ne
+jamais inventer les résultats. Mobile : featured story vertical,
+cards, swipe/carousel, CTA "Start Your Journey".
+
+GALLERY — Categories (Classes/Students/Teachers/Campus/Activities/
+Events/Accommodation), masonry ou grid contrôlée, pas de grille
+chaotique, lightbox. Mobile : 2 colonnes max, ratio cohérent, filtres
+horizontaux, tap → fullscreen.
+
+APPLY/REGISTRATION — Page de conversion, pas 30 champs bruts.
+Stepper : 01 Personal Information, 02 Program, 03 Additional
+Information, 04 Review, 05 Confirmation. Personal (full name, phone,
+whatsapp, email, country), Program (program, level, schedule, desired
+start date), Review (résumé, consentement, submit). Mobile :
+formulaire en étapes, une question/groupe logique à la fois, progress
+bar, keyboard-friendly, CTA "Continue" puis "Submit Application",
+confirmation "Application received" + CTA WhatsApp.
+
+CONTACT — Contact information (address, phone, email, whatsapp,
+opening hours), Map, Contact form (name, email, phone, subject,
+message, CTA), Quick contact WhatsApp. Mobile : contact cards, map,
+form, WhatsApp, call, email.
+
+RESOURCES/BLOG — Hero Resources, Categories (English Tips/
+Vocabulary/Pronunciation/Student Life/Ghana/Study Advice), Featured
+article (large card), Articles grid, Search. Mobile : featured
+article, category chips, liste verticale, search.
+
+39-51. DEUXIÈME UNIVERS — ADMINISTRATION (Phase B, après les 24
+écrans publics)
+
+Direction : Modern SaaS / Education Management System, plus sobre
+que le site public. Background light neutral, sidebar white/dark
+navy, cards minimal, tables très lisibles, charts discrets.
+
+CEO DASHBOARD (desktop+mobile) — comprendre l'école en <30s. Sidebar :
+Dashboard/Campuses/Students/Teachers/Programs/Enrollments/Finance/
+Marketing/Reports/Settings. KPIs uniquement données réelles quand
+implémenté (Total Students, New Enrollments, Active Students,
+Applications, Revenue). Charts : enrollment trend, applications,
+students by program, campus comparison. Recent activity.
+
+ADMIN DASHBOARD (desktop+mobile) — focus opérationnel. Quick actions
+(Add Student/New Enrollment/Search Student/Add Payment/Add Grade),
+today's activity.
+
+STUDENTS DATABASE — table (Student ID, photo, name, phone, country,
+program, level, group, status, enrollment date, actions), search
+(name/matricule/phone/email), filters (program/level/group/campus/
+status), actions (view/edit/archive).
+
+STUDENT PROFILE — header (photo, name, matricule, status, program,
+campus), tabs (Overview/Academic/Attendance/Payments/Documents/
+Notes).
+
+TEACHERS MANAGEMENT — table (photo, name, specialty, classes, campus,
+status, actions), teacher profile.
+
+CLASSES/GROUPS — classes, groups, schedules, teachers, students,
+capacity, room, campus ; actions : create group, assign teacher, add
+student.
+
+APPLICATIONS/ENROLLMENTS — pipeline New → Reviewing → Contacted →
+Approved → Enrolled → Rejected/Archived ; chaque application :
+name, country, program, date, status, assigned admin, CTA.
+
+REPORTS/ANALYTICS — students, enrollments, programs, attendance,
+grades, revenue, marketing ; export CSV/Excel/PDF à terme.
+
+MULTI-CAMPUS MANAGEMENT — TAS → Campus A/B → central database. Rôles :
+CEO (global access), Campus Admin (own campus), Teacher (assigned
+classes), Student (own profile only). Respecte le principe de rôles
+et permissions : authentification, rôles, accès limité, sauvegardes,
+moindre privilège.
+
+52-56. FUTURE SCREENS — PHASE 3 (ne pas construire avant validation)
+
+Student Portal : Dashboard, Profile, Academic Progress, Attendance,
+Grades, Payments, Documents, Digital Student ID, QR Verification,
+Certificate.
+Finance : Payments, Receipts, Transactions, Outstanding Payments,
+Revenue Dashboard.
+Marketing : Dashboard, Leads, Campaigns, Creative Library, WhatsApp
+Leads, Conversion Funnel, Content Calendar, Social Media Analytics.
+CRM : Leads, Lead Profile, Follow-up, Sales Pipeline, WhatsApp
+Automation, Conversion Analytics. Parcours d'acquisition :
+Creative → Ad → Landing Page/WhatsApp → Qualification → Follow-up
+→ Enrollment → Payment.
+AI : Assistant, Content Generator, WhatsApp Assistant, Student
+Search, Administrative Assistant, Marketing Assistant. NO AI FOR THE
+SAKE OF AI — chaque fonctionnalité IA doit résoudre un problème réel.
+
+57. DESIGN SYSTEM COMPONENTS (à définir avant les écrans)
+
+Navigation : desktop header, mobile header, sidebar, breadcrumb, tabs.
+Buttons : primary, secondary, ghost, danger, whatsapp.
+Forms : input, select, dropdown, checkbox, radio, upload, date
+picker.
+Data : table, badge, status, pagination, search, filter.
+Content : card, testimonial, teacher card, program card, article
+card, gallery card.
+Feedback : toast, alert, modal, empty state, loading state, error
+state, success state.
+
+58. RESPONSIVE DESIGN
+
+Le mobile n'est PAS un desktop réduit — une vraie expérience pensée
+pour le pouce. Desktop 1440×900, Mobile 390×844. Prévoir : typography
+responsive, spacing responsive, navigation repliée, cards empilées,
+scroll horizontal seulement si pertinent, CTA sticky, touch targets
+min ~44px, formulaires adaptés mobile.
+
+59. ACCESSIBILITY
+
+Contraste, labels, navigation clavier, focus states, tailles de
+police lisibles, hiérarchie sémantique, formulaires accessibles, alt
+text.
+
+60. PERFORMANCE
+
+WebP/AVIF, lazy loading, optimisation images, images responsives,
+animations limitées, composants légers.
+
+61. SEO
+
+Title unique, meta description, H1, H2, URLs propres, alt image,
+sitemap, structured data si pertinent, Open Graph.
+
+62. INTERACTIONS
+
+Animations subtiles uniquement : hover léger, fade, slide subtil,
+button feedback, card elevation légère. Pas de gros parallax, texte
+qui vole, animations permanentes, effets "gaming".
+
+63. RÈGLE DE COHÉRENCE
+
+Une fois le design system validé, ne jamais changer de style d'une
+page à l'autre. Même header, button, typography, card, spacing,
+iconography, radius, photo treatment, CTA réutilisés partout. Le
+site doit donner l'impression d'avoir été conçu par une seule équipe
+senior.
+
+64. RÈGLE DE CRÉATION DES IMAGES
+
+Step 1 : définir écran, utilisateur, objectif, information, CTA.
+Step 2 : créer mentalement le wireframe.
+Step 3 : vérifier la hiérarchie.
+Step 4 : appliquer le design system.
+Step 5 : produire le mockup.
+Step 6 : contrôler proportions, spacing, typography, alignment,
+readability, consistency, responsive behavior.
+
+65. RÈGLE DE MOCKUP PHYSIQUE
+
+Desktop : vrai laptop/desktop réaliste, pas de surface abstraite,
+pas d'écran déformé, pas de proportions impossibles.
+Mobile : vrai smartphone moderne, écran proportionné, pas de bezel
+énorme, pas de perspective déformante. Le design UI doit rester
+parfaitement lisible dans l'écran du device.
+
+66. CE QU'IL NE FAUT PLUS FAIRE
+
+Saturer de bleu, gradients partout, dizaines d'icônes, 6 CTA dans une
+section, inventer statistiques/témoignages/prix/partenaires, photos
+artificielles incohérentes, cartes énormes très arrondies, dashboard
+plein de graphiques inutiles, téléphone déformé, desktop hors
+1440×900, mobile hors 390×844, mélanger plusieurs écrans dans une
+image, changer de style à chaque écran, générer sans wireframe
+logique.
+
+67-69. ORDRE DE PRODUCTION
+
+PHASE A — PUBLIC WEBSITE (24 écrans, desktop+mobile de chaque page
+listée en section 14).
+PHASE B — ADMIN SYSTEM (11 écrans : CEO Dashboard, Admin Dashboard,
+Students Database, Student Profile, Teachers Management, Classes/
+Groups, Applications/Enrollments, Reports/Analytics, Multi-Campus
+Management).
+PHASE C — FUTURE (Student Portal, Finance, Marketing, CRM, AI —
+26 écrans supplémentaires, non prioritaires).
+
+70. RÈGLE FINALE POUR L'IA
+
+DO NOT DESIGN RANDOMLY. Comprendre la fonction d'un écran avant de le
+produire. Réutiliser le design system du premier écran pour le
+deuxième. Réfléchir au comportement responsive avant la version
+mobile. Réfléchir au rôle de l'utilisateur avant un dashboard. Avant
+d'ajouter un élément : "Does this improve clarity, trust, usability
+or conversion?" Si non : REMOVE IT.
+
+Résultat final : Minimal. Premium. Professional. Functional.
+Credible. Scalable.
+
+L'objectif n'est pas un site qui paraît "impressionnant" mais une
+plateforme qui donne au CEO de TAS l'impression : "This is a real
+digital system for my school."

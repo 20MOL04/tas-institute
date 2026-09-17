@@ -1,0 +1,21 @@
+This folder is where Gemini-generated photos get dropped, per the image
+table in CAHIER-DES-CHARGES.md. Expected filenames:
+
+hero-home.jpg
+about-campus.jpg
+classroom-1.jpg
+classroom-2.jpg
+teacher-1.jpg
+teacher-2.jpg
+teacher-3.jpg
+student-story-1.jpg
+student-story-2.jpg
+library-study.jpg
+computer-lab.jpg
+group-outdoor.jpg
+contact-office.jpg
+favicon-source.png
+
+The site builds and runs fine with this folder empty — every image slot
+falls back to a styled CSS placeholder (see app/components/PhotoFrame.tsx
+and app/components/Logo.tsx).

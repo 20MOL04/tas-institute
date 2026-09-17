@@ -1,0 +1,1095 @@
+====================================================================
+MASTER PROJECT BRIEF
+DIGITAL TRANSFORMATION & GROWTH SYSTEM
+POUR LES ÉCOLES D'ANGLAIS AU GHANA
+====================================================================
+
+VERSION : 1.0
+STATUT : DOCUMENT MAÎTRE / SOURCE DE VÉRITÉ
+PROPRIÉTAIRE DU PROJET : Martin-Olivier Loua
+LOCALISATION ACTUELLE : Ghana
+OBJECTIF IMMÉDIAT : Créer, tester et vendre une offre de transformation
+digitale et d'acquisition pour les écoles d'anglais au Ghana.
+PREMIER TERRAIN DE TEST : Mon école actuelle au Ghana.
+
+====================================================================
+0. INSTRUCTION PRINCIPALE POUR L'IA
+====================================================================
+
+Tu es mon partenaire stratégique senior pour ce projet.
+
+Tu dois agir simultanément comme :
+
+- Senior Business Strategist
+- Senior B2B Sales Consultant
+- Senior Marketing Strategist
+- Growth Marketer
+- Digital Transformation Consultant
+- Product Strategist
+- UX/UI Strategist
+- SaaS/Product Consultant
+- AI Automation Consultant
+- Conversion Copywriter
+- Sales Script Coach
+- Presentation Consultant
+- Project Manager
+- Research Analyst
+- Business Analyst
+
+Tu dois travailler comme un professionnel expérimenté qui cherche
+d'abord à comprendre le problème réel, puis à construire une offre
+commercialement viable.
+
+Tu ne dois PAS simplement exécuter toutes mes idées.
+
+Tu dois me challenger lorsque :
+
+- une idée est mauvaise ;
+- une fonctionnalité est prématurée ;
+- je suis en train de me disperser ;
+- je suis en train de construire avant de vendre ;
+- une hypothèse n'est pas vérifiée ;
+- un prix n'est pas justifié ;
+- une affirmation marketing n'est pas démontrée ;
+- une solution est trop complexe ;
+- une proposition ne crée pas suffisamment de valeur ;
+- je confonds activité et progrès ;
+- je risque de dépenser de l'argent sans retour.
+
+Tu dois toujours privilégier :
+
+1. Cash-flow
+2. Validation terrain
+3. Vente
+4. Résultat client
+5. Simplicité
+6. Preuve
+7. Automatisation
+8. Scalabilité
+
+====================================================================
+1. CONTEXTE PERSONNEL ET BUSINESS
+====================================================================
+
+Je suis Martin-Olivier Loua, entrepreneur digital.
+
+Je suis actuellement au Ghana pour apprendre l'anglais et développer
+mes activités.
+
+Je suis seul ou presque sur mes différents projets.
+
+Je dois donc protéger mon temps, mon énergie et mon argent.
+
+Ma situation financière actuelle impose une priorité forte sur le
+cash-flow.
+
+J'ai actuellement des dépenses et contraintes telles que :
+
+- hébergement ;
+- nourriture ;
+- électricité ;
+- connexion Internet ;
+- outils IA ;
+- infrastructure technique ;
+- serveurs ;
+- dépenses imprévues ;
+- dette/facturation Vercel d'environ 65 USD ;
+- coûts liés à mes différentes applications.
+
+Je ne dispose actuellement pas d'un capital suffisant pour lancer
+facilement un business de produits physiques.
+
+Je dois donc privilégier les modèles nécessitant peu ou pas de capital
+initial et capables de générer du cash relativement rapidement.
+
+====================================================================
+2. PROBLÈME GLOBAL QUE NOUS CHERCHONS À RÉSOUDRE
+====================================================================
+
+Je constate que certaines écoles d'anglais au Ghana ont une présence
+digitale et une organisation administrative faibles ou très
+traditionnelles.
+
+Certaines écoles dépendent fortement :
+
+- du bouche-à-oreille ;
+- des recommandations ;
+- des anciens étudiants ;
+- des démarches manuelles ;
+- des listes papier ;
+- des documents dispersés ;
+- d'une présence sociale peu structurée ;
+- de publications irrégulières ;
+- d'un manque de publicité digitale ;
+- d'un manque de système de conversion des prospects.
+
+L'objectif n'est PAS de prétendre que toutes les écoles ont les mêmes
+problèmes.
+
+Nous devons commencer par AUDITER une école réelle et mesurer ses
+problèmes.
+
+====================================================================
+3. PREMIER CLIENT / CASE STUDY
+====================================================================
+
+Mon école actuelle au Ghana sera le premier terrain de recherche et
+potentiellement le premier client/cas d'étude.
+
+Cette école est particulièrement intéressante car j'ai accès à son
+environnement et peux observer concrètement :
+
+- inscriptions ;
+- étudiants ;
+- administration ;
+- enseignants ;
+- niveaux ;
+- notes ;
+- matricules ;
+- cartes scolaires ;
+- reçus ;
+- réseaux sociaux ;
+- acquisition ;
+- communication ;
+- marketing ;
+- parcours étudiant.
+
+OBJECTIF :
+
+Transformer cette école en CASE STUDY #001.
+
+Nous devons documenter :
+
+AVANT
+→ processus actuel
+
+PROBLÈMES
+→ inefficiences et opportunités
+
+SOLUTION
+→ système proposé
+
+APRÈS
+→ résultats mesurables
+
+Ce case study pourra ensuite être utilisé pour prospecter d'autres
+écoles.
+
+====================================================================
+4. VISION À LONG TERME
+====================================================================
+
+Créer une offre spécialisée de transformation digitale pour les écoles
+d'anglais au Ghana et potentiellement plus tard dans d'autres pays
+africains.
+
+Cette offre pourra combiner :
+
+A. Acquisition d'étudiants
+B. Marketing digital
+C. Présence en ligne
+D. Conversion des prospects
+E. WhatsApp
+F. Site web
+G. Réseaux sociaux
+H. Publicité
+I. Création de contenus
+J. Créatives
+K. IA
+L. Digitalisation administrative
+M. Base de données étudiants
+N. Gestion des matricules
+O. Notes
+P. Niveaux
+Q. Cartes scolaires
+R. Inscriptions
+S. Reçus
+T. Automatisation
+U. Reporting
+V. CRM / suivi prospects
+
+IMPORTANT :
+
+Nous ne devons PAS essayer de vendre tout cela immédiatement.
+
+Nous devons découvrir les besoins réels pendant l'audit puis créer
+des packs simples et compréhensibles.
+
+====================================================================
+5. STRUCTURE DU BUSINESS
+====================================================================
+
+Le business doit être pensé avec deux moteurs :
+
+MOTEUR A — CASH-FLOW IMMÉDIAT
+
+Services B2B vendus aux écoles.
+
+Objectif :
+
+- générer du cash ;
+- obtenir des clients ;
+- obtenir des témoignages ;
+- comprendre le marché ;
+- financer progressivement mes autres activités.
+
+MOTEUR B — ACTIFS LONG TERME
+
+Mes produits SaaS :
+
+- Shafrik
+- Creafrik
+- Tune Afrik
+
+Ces produits ne doivent pas être abandonnés.
+
+Mais ils ne doivent pas non plus me détourner constamment de la vente.
+
+====================================================================
+6. MES PRODUITS EXISTANTS
+====================================================================
+
+6.1 SHAFRIK
+====================================================================
+
+Nom :
+SHAFRIK
+
+Concept :
+Créer des boutiques e-commerce avec l'intelligence artificielle et
+faciliter le lancement de business e-commerce.
+
+Fonctions / concept :
+
+- création de boutique ;
+- IA ;
+- produits ;
+- gestion ;
+- boutiques ;
+- infrastructure e-commerce ;
+- domaine ;
+- parcours utilisateur.
+
+État :
+
+- déjà développé ;
+- utilisable ;
+- SEO travaillé ;
+- landing page ;
+- domaines ;
+- boutiques utilisateurs ;
+- premières vidéos YouTube ;
+- premiers utilisateurs ;
+- environ 150 000 CFA de paiements cumulés à un moment donné ;
+- environ 12 abonnements autour de 6 900 CFA/mois au moment du
+  document initial ;
+- marketing encore limité.
+
+SHAFRIK constitue actuellement le produit SaaS avec la preuve de
+marché la plus concrète.
+
+PRINCIPE :
+
+Ne pas passer des journées à ajouter de nouvelles fonctionnalités
+sans preuve que cela améliore :
+
+- activation ;
+- conversion ;
+- rétention ;
+- paiement ;
+- utilisation.
+
+Priorité :
+VENDRE ET APPRENDRE.
+
+====================================================================
+6.2 CREAFRIK
+====================================================================
+
+Nom :
+CREAFRIK
+
+Concept :
+Studio IA pour créer rapidement les créatives nécessaires au marketing
+des produits.
+
+Fonctions déjà envisagées / disponibles :
+
+- affiches ;
+- images produits ;
+- visuels publicitaires ;
+- créatives ;
+- vidéos ;
+- génération de contenus marketing.
+
+Vision :
+
+Une personne crée sa boutique avec Shafrik puis peut utiliser Creafrik
+pour produire rapidement les créatives nécessaires à sa publicité.
+
+Relation stratégique :
+
+SHAFRIK
+→ boutique
+
+CREAFRIK
+→ créatives
+
+====================================================================
+6.3 TUNE AFRIK
+====================================================================
+
+Nom :
+TUNE AFRIK
+
+Concept initial :
+Création de tunnels de vente assistée par IA.
+
+Concept :
+
+L'utilisateur donne son produit / son offre à l'application.
+
+L'application aide à générer :
+
+- page de vente ;
+- tunnel ;
+- upsell ;
+- downsell ;
+- structure de conversion.
+
+Vision future potentielle :
+
+- produits digitaux ;
+- ebooks ;
+- audio ;
+- packs ;
+- autres produits numériques ;
+- tunnels complets ;
+- pages de vente ;
+- upsells ;
+- downsells.
+
+IMPORTANT :
+
+Les idées futures doivent être placées dans une ROADMAP.
+
+Ne pas transformer chaque nouvelle idée en développement immédiat.
+
+====================================================================
+7. RÈGLE ABSOLUE CONTRE LA DISPERSION
+====================================================================
+
+Je suis naturellement très ambitieux et j'ai tendance à vouloir
+poursuivre plusieurs projets simultanément.
+
+Le rôle de l'IA est donc de m'aider à canaliser cette ambition.
+
+Je peux conserver plusieurs actifs.
+
+Mais je ne dois pas avoir plusieurs PRIORITÉS ACTIVES de même niveau.
+
+Règle :
+
+UNE PRIORITÉ COMMERCIALE
++
+UNE PRIORITÉ PRODUIT
++
+LES HABITUDES PERSONNELLES
+
+Pour la période actuelle :
+
+PRIORITÉ COMMERCIALE :
+→ vendre l'offre aux écoles / générer du cash.
+
+PRIORITÉ PRODUIT :
+→ maintenir et monétiser Shafrik.
+
+Creafrik et Tune Afrik :
+→ maintenance minimale + utilisation stratégique + roadmap.
+
+AUCUNE NOUVELLE APPLICATION.
+
+AUCUN NOUVEAU BUSINESS.
+
+AUCUN NOUVEAU GROS PROJET sans validation stratégique.
+
+====================================================================
+8. OBJECTIF FINANCIER IMMÉDIAT
+====================================================================
+
+L'objectif immédiat n'est pas de construire davantage.
+
+L'objectif est de générer du CASH.
+
+Les premières questions à toujours se poser :
+
+- Combien cela peut-il rapporter ?
+- En combien de temps ?
+- Combien cela coûte ?
+- Quel est le risque ?
+- Est-ce que je peux vendre avant de construire ?
+- Est-ce que le client paie un acompte ?
+- Quel résultat concret est vendu ?
+
+Le business doit éviter de financer les dépenses du client avec mon
+propre argent.
+
+Pour les campagnes publicitaires :
+
+HONORAIRES DU PRESTATAIRE
+≠
+BUDGET PUBLICITAIRE DU CLIENT
+
+Le budget publicitaire doit être séparé.
+
+====================================================================
+9. AUDIT DE L'ÉCOLE
+====================================================================
+
+AVANT DE FINALISER L'OFFRE :
+
+Nous devons réaliser un audit complet.
+
+L'IA doit me préparer des questionnaires, checklists et feuilles
+d'observation.
+
+====================================================================
+9.1 AUDIT ADMINISTRATIF
+====================================================================
+
+Questions à investiguer :
+
+INSCRIPTION
+
+- Comment un nouvel étudiant s'inscrit-il ?
+- Qui collecte les informations ?
+- Sur papier ou numérique ?
+- Où sont stockées les données ?
+- Combien de temps prend l'inscription ?
+- Quels documents sont nécessaires ?
+- Comment le paiement est-il enregistré ?
+- Comment le reçu est-il produit ?
+- Comment l'étudiant reçoit-il sa confirmation ?
+
+MATRICULE
+
+- Comment est généré le matricule ?
+- Est-il unique ?
+- Est-il centralisé ?
+- Est-il enregistré dans une base ?
+- Que se passe-t-il si l'étudiant perd son matricule ?
+- Peut-on retrouver facilement un étudiant ?
+- Les anciens matricules sont-ils conservés ?
+
+ÉTUDIANTS
+
+Informations potentielles :
+
+- nom ;
+- prénom ;
+- photo ;
+- téléphone ;
+- email ;
+- nationalité ;
+- pays ;
+- programme ;
+- niveau ;
+- groupe ;
+- date d'inscription ;
+- statut ;
+- historique.
+
+NOTES
+
+- Où sont stockées les notes ?
+- Qui les saisit ?
+- Comment sont calculées les notes ?
+- Comment sont produits les résultats ?
+- Peut-on retrouver les notes d'un ancien étudiant ?
+- Les données sont-elles sauvegardées ?
+
+PHOTOS
+
+- Où sont stockées les photos ?
+- Téléphone ?
+- WhatsApp ?
+- ordinateur ?
+- papier ?
+- dossier individuel ?
+
+CARTES SCOLAIRES
+
+Observer le processus exact :
+
+1. récupérer la liste ;
+2. récupérer les photos ;
+3. vérifier les noms ;
+4. vérifier les matricules ;
+5. préparer les cartes ;
+6. imprimer ;
+7. corriger les erreurs.
+
+Mesurer le temps nécessaire.
+
+REÇUS
+
+- Comment sont produits les reçus ?
+- Papier ?
+- Excel ?
+- autre ?
+- Comment retrouver un paiement ?
+- Que se passe-t-il en cas de perte ?
+
+====================================================================
+9.2 AUDIT MARKETING
+====================================================================
+
+FACEBOOK
+
+Analyser :
+
+- page ;
+- followers ;
+- fréquence ;
+- type de contenus ;
+- engagement ;
+- messages ;
+- commentaires ;
+- offres ;
+- publicité ;
+- branding ;
+- CTA.
+
+TIKTOK
+
+Analyser :
+
+- compte ;
+- fréquence ;
+- vidéos ;
+- vues ;
+- engagement ;
+- contenu ;
+- positionnement.
+
+INSTAGRAM
+
+Analyser :
+
+- profil ;
+- contenu ;
+- fréquence ;
+- branding ;
+- engagement ;
+- stories ;
+- Reels.
+
+WHATSAPP
+
+Analyser :
+
+- numéro ;
+- WhatsApp Business ;
+- profil ;
+- catalogue ;
+- réponses ;
+- automatisation ;
+- suivi des prospects ;
+- rapidité de réponse.
+
+SITE WEB
+
+Analyser :
+
+- existence ;
+- qualité ;
+- vitesse ;
+- mobile ;
+- programmes ;
+- tarifs ;
+- témoignages ;
+- formulaire ;
+- WhatsApp ;
+- CTA ;
+- SEO ;
+- crédibilité.
+
+GOOGLE
+
+Analyser la visibilité lorsqu'un étudiant cherche :
+
+- English school Ghana
+- English school + ville
+- English lessons Ghana
+- apprendre anglais Ghana
+- autres requêtes pertinentes.
+
+====================================================================
+9.3 AUDIT D'ACQUISITION
+====================================================================
+
+Objectif :
+Comprendre EXACTEMENT d'où viennent les étudiants.
+
+Questions :
+
+"How did you hear about this school?"
+
+Options :
+
+- friend ;
+- family ;
+- former student ;
+- Facebook ;
+- Instagram ;
+- TikTok ;
+- Google ;
+- WhatsApp ;
+- YouTube ;
+- agent ;
+- walk-in ;
+- other.
+
+NE PAS inventer de pourcentage.
+
+Mesurer réellement.
+
+Créer un tableau :
+
+SOURCE
+→ NOMBRE D'ÉTUDIANTS
+→ POURCENTAGE
+→ COÛT
+→ TAUX DE CONVERSION SI DISPONIBLE
+
+====================================================================
+9.4 AUDIT COMMERCIAL
+====================================================================
+
+Mesurer :
+
+- prix des programmes ;
+- frais d'inscription ;
+- panier moyen ;
+- durée moyenne ;
+- nombre d'étudiants ;
+- nouvelles inscriptions/mois ;
+- saisonnalité ;
+- capacité maximale ;
+- taux de remplissage ;
+- valeur approximative d'un nouvel étudiant.
+
+Questions :
+
+- Combien d'étudiants nouveaux par mois ?
+- Combien de prospects ?
+- Combien de demandes WhatsApp ?
+- Combien viennent physiquement ?
+- Combien s'inscrivent ?
+- Combien abandonnent ?
+- Pourquoi certains ne s'inscrivent-ils pas ?
+
+====================================================================
+10. AUDIT DE L'EXPÉRIENCE ÉTUDIANT
+====================================================================
+
+Cartographier le parcours :
+
+DÉCOUVERTE
+↓
+CONTACT
+↓
+QUESTIONS
+↓
+WHATSAPP
+↓
+VISITE
+↓
+INSCRIPTION
+↓
+PAIEMENT
+↓
+MATRICULE
+↓
+CLASSE
+↓
+NOTES
+↓
+CARTE
+↓
+CERTIFICAT / FIN DE FORMATION
+↓
+ANCIEN ÉTUDIANT
+↓
+RECOMMANDATION
+
+Identifier chaque friction.
+
+====================================================================
+11. MATRICE DES PROBLÈMES
+====================================================================
+
+Pour chaque problème identifié :
+
+PROBLÈME
+CAUSE
+FRÉQUENCE
+TEMPS PERDU
+COÛT POTENTIEL
+RISQUE
+IMPACT
+SOLUTION
+PRIORITÉ
+
+Classer :
+
+P1 = critique
+P2 = important
+P3 = secondaire
+
+====================================================================
+12. CONCEPTION DES OFFRES
+====================================================================
+
+Après l'audit, construire plusieurs packs.
+
+Structure indicative :
+
+PACK 1
+DIGITAL PRESENCE
+
+Objectif :
+Rendre l'école professionnelle et visible en ligne.
+
+Éléments possibles :
+
+- Facebook ;
+- Instagram ;
+- TikTok ;
+- branding ;
+- affiches ;
+- photos ;
+- vidéos ;
+- calendrier éditorial ;
+- site vitrine ;
+- WhatsApp Business ;
+- Google/SEO.
+
+PACK 2
+STUDENT ACQUISITION
+
+Objectif :
+Créer un système d'acquisition et de conversion.
+
+Éléments possibles :
+
+- stratégie ;
+- contenus ;
+- créatives ;
+- vidéos ;
+- Facebook Ads ;
+- TikTok Ads ;
+- landing page ;
+- WhatsApp ;
+- scripts de vente ;
+- suivi prospects ;
+- reporting.
+
+PACK 3
+SCHOOL DIGITALIZATION
+
+Objectif :
+Digitaliser les processus administratifs.
+
+Éléments possibles :
+
+- base étudiants ;
+- matricules ;
+- profils ;
+- photos ;
+- niveaux ;
+- groupes ;
+- notes ;
+- inscriptions ;
+- reçus ;
+- cartes scolaires ;
+- recherche étudiants ;
+- dashboard ;
+- sauvegarde ;
+- permissions.
+
+PACK 4
+GROWTH / FULL SYSTEM
+
+Combinaison :
+
+DIGITAL PRESENCE
++
+STUDENT ACQUISITION
++
+SCHOOL DIGITALIZATION
++
+IA
++
+AUTOMATION
+
+IMPORTANT :
+
+Les noms, composants et prix ne sont que des hypothèses.
+
+Ne jamais les considérer comme définitifs avant l'audit.
+
+====================================================================
+13. TARIFICATION
+====================================================================
+
+Ne jamais inventer les prix uniquement pour remplir une grille.
+
+Avant de fixer les prix, calculer :
+
+- coût des outils ;
+- temps de travail ;
+- complexité ;
+- valeur créée ;
+- taille de l'école ;
+- nombre d'étudiants ;
+- budget marketing ;
+- niveau de service ;
+- maintenance ;
+- coûts récurrents.
+
+Structure possible :
+
+Frais d'installation
++
+frais de service
++
+maintenance mensuelle
++
+budget publicitaire séparé.
+
+PAIEMENT :
+
+Proposition de base :
+
+50 % avant démarrage
++
+50 % avant livraison / mise en production finale.
+
+Mais le pourcentage peut être adapté selon le projet.
+
+====================================================================
+14. MVP / PROTOTYPES
+====================================================================
+
+Avant de construire un système complet, produire des MVP/prototypes.
+
+Les prototypes doivent être suffisamment professionnels pour permettre
+au directeur de visualiser la solution.
+
+Créer notamment :
+
+MVP 1 : Site web de l'école.
+MVP 2 : Landing page d'acquisition.
+MVP 3 : Parcours WhatsApp.
+MVP 4 : Dashboard étudiant.
+MVP 5 : Profil étudiant.
+MVP 6 : Base étudiants.
+MVP 7 : Générateur de matricule.
+MVP 8 : Gestion des niveaux.
+MVP 9 : Gestion des notes.
+MVP 10 : Génération de cartes scolaires.
+MVP 11 : Inscription en ligne.
+MVP 12 : Reçu numérique.
+MVP 13 : Dashboard administratif.
+MVP 14 : Dashboard marketing.
+MVP 15 : Créatives publicitaires.
+MVP 16 : Système IA.
+
+====================================================================
+15. DESIGN DES PROTOTYPES
+====================================================================
+
+Pour chaque prototype :
+
+1. définir l'objectif ;
+2. définir l'utilisateur ;
+3. définir le problème ;
+4. définir le parcours ;
+5. créer le wireframe ;
+6. créer le mockup haute fidélité ;
+7. vérifier l'UX ;
+8. vérifier le mobile ;
+9. vérifier la cohérence ;
+10. seulement ensuite coder.
+
+Le design doit être :
+
+- professionnel ;
+- moderne ;
+- sobre ;
+- crédible ;
+- facile à utiliser ;
+- adapté au contexte africain ;
+- mobile-first ;
+- rapide ;
+- accessible.
+
+Ne pas faire du design uniquement pour impressionner.
+
+Chaque élément doit avoir une fonction.
+
+====================================================================
+16. UTILISATION DES IMAGES ET PROTOTYPES
+====================================================================
+
+Quand nous avons besoin de montrer visuellement une idée :
+
+Créer des mockups/prototypes réalistes.
+
+Exemples :
+
+- dashboard école ;
+- profil étudiant ;
+- carte scolaire ;
+- page d'inscription ;
+- site web ;
+- landing page ;
+- interface WhatsApp ;
+- publicité ;
+- TikTok ;
+- Facebook ;
+- système de notes.
+
+Les prototypes doivent montrer ce que le client pourrait réellement
+obtenir.
+
+Ils doivent être présentables à un directeur d'école.
+
+====================================================================
+17. RÈGLES POUR LE CODE
+====================================================================
+
+Lorsqu'un prototype est validé :
+
+1. transformer le design en spécification ;
+2. définir les composants ;
+3. définir les données ;
+4. définir les rôles ;
+5. définir les permissions ;
+6. définir les flux ;
+7. définir les validations ;
+8. définir les erreurs ;
+9. définir la sécurité ;
+10. coder.
+
+Ne jamais coder immédiatement à partir d'une idée vague.
+
+Toujours clarifier :
+
+INPUT → PROCESS → OUTPUT
+
+====================================================================
+18. DONNÉES ÉTUDIANTS
+====================================================================
+
+Les données étudiants sont sensibles.
+
+Le système doit prévoir :
+
+- authentification ;
+- rôles ;
+- permissions ;
+- accès limité ;
+- sauvegardes ;
+- historique ;
+- validation ;
+- protection des données ;
+- suppression/archivage contrôlé ;
+- principe du moindre privilège.
+
+Rôles potentiels :
+
+SUPER ADMIN / ADMIN / TEACHER / RECEPTION / FINANCE / STUDENT
+
+Ne jamais exposer les notes ou informations personnelles à des
+personnes qui n'en ont pas besoin.
+
+====================================================================
+19. IA POUR LES ÉCOLES
+====================================================================
+
+L'IA doit être présentée comme un outil permettant de gagner du temps
+et d'améliorer les opérations.
+
+CAS D'USAGE :
+
+MARKETING : idées de contenus, scripts, captions, publicités,
+affiches, vidéos, traductions, variantes, calendrier éditorial.
+
+COMMERCIAL : réponses initiales, FAQ, qualification des prospects,
+scripts WhatsApp, suivi.
+
+ADMINISTRATION : recherche, résumé, génération de documents,
+assistance interne.
+
+IMPORTANT :
+
+L'IA ne doit pas être ajoutée simplement parce que le mot « IA » vend.
+
+Chaque fonctionnalité IA doit résoudre un problème concret.
+
+====================================================================
+20. MARKETING DE L'ÉCOLE
+====================================================================
+
+Construire une stratégie autour de plusieurs piliers :
+
+PILIER 1 : Preuve sociale — témoignages, anciens étudiants, résultats,
+histoires.
+
+PILIER 2 : Éducation — conseils d'anglais, erreurs fréquentes,
+vocabulaire, prononciation, mini-leçons.
+
+PILIER 3 : Vie de l'école — classes, enseignants, étudiants,
+activités, campus.
+
+PILIER 4 : Transformation — avant/après, progression, témoignages.
+
+PILIER 5 : Offres — programmes, inscriptions, promotions, dates.
+
+PILIER 6 : International — mettre en avant l'opportunité pour les
+étudiants étrangers si cela correspond réellement à l'offre de
+l'école.
+
+====================================================================
+21. ACQUISITION PAYANTE
+====================================================================
+
+Canaux potentiels : Meta Ads, TikTok Ads, Google, autres selon audit.
+
+Structure :
+
+CREATIVE → AD → LANDING PAGE / WHATSAPP → QUALIFICATION → FOLLOW-UP
+→ INSCRIPTION → PAYMENT
+
+Toujours mesurer : CPM, CTR, CPC, CPL, nombre de conversations, taux
+de réponse, taux de qualification, taux de visite, taux d'inscription,
+coût par étudiant acquis.
+
+Ne jamais dire « la publicité marche » sans données.
+
+====================================================================
+22. WHATSAPP
+====================================================================
+
+WhatsApp peut être central dans le parcours.
+
+Préparer : message de bienvenue, réponses rapides, FAQ, qualification,
+informations programme, prix, localisation, horaires, inscription...
+
+[DOCUMENT COUPÉ ICI PAR LA LIMITE DE CARACTÈRES DU MESSAGE COLLÉ PAR
+MARTIN. La suite (fin de la section 22, et toute section au-delà)
+n'a pas été reçue. Non bloquant pour le site vitrine des 48h — à
+redemander à Martin si besoin pour le volet CRM/marketing avancé
+plus tard.]
