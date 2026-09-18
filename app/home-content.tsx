@@ -26,39 +26,43 @@ export default function HomeContent() {
 
   return (
     <>
-      {/* HERO */}
-      <section className="hero-halo section" style={{ paddingTop: "var(--space-8)" }}>
-        <div className="container split" style={{ "--split-ratio": "1.1fr 1fr", alignItems: "center", gap: "var(--space-6)" } as CSSProperties}>
-          <div className="stack" style={{ gap: "var(--space-3)" }}>
-            <span className="eyebrow">{t.home.heroEyebrow}</span>
-            <h1>
-              <AccentTitle title={t.home.heroTitle} word={t.home.heroAccentWord} />
-            </h1>
-            <p className="lede">{t.home.heroSubtitle}</p>
-            <div className="tag-list" style={{ marginTop: "var(--space-2)" }}>
-              <Link href="/programs" className="btn btn-primary">
-                {t.home.heroCtaPrimary}
-              </Link>
-              <Link href="/apply" className="btn btn-secondary">
-                {t.home.heroCtaSecondary}
-              </Link>
-            </div>
-            <div className="ligne" style={{ display: "flex", alignItems: "center", gap: 12, marginTop: "var(--space-2)" }}>
-              <span style={{ display: "flex" }}>
-                {COMMUNITY_AVATARS.map((n, i) => (
-                  <Avatar key={n} name={n} size={30} overlap={i > 0} />
-                ))}
-              </span>
-              <span className="small muted">{t.home.communityNote}</span>
-            </div>
+      {/* HERO — full-bleed photo with a dark scrim behind the text, not a
+          split two-column layout. Matches the reference mockup exactly:
+          the photo fills the whole hero, text sits directly on top of it
+          in white, readable via the gradient overlay rather than by
+          living on its own plain background next to a separate framed
+          image. */}
+      <section className="hero-photo">
+        <PhotoFrame src="/images/hero-home.jpg" alt={t.home.heroImageAlt} priority sizes="100vw" className="bg-fill" />
+        <div className="hero-photo-overlay" aria-hidden="true" />
+        <div className="container hero-photo-content">
+          <span className="eyebrow" style={{ color: "var(--tas-white)" }}>
+            {t.home.heroEyebrow}
+          </span>
+          <h1 style={{ color: "var(--tas-white)" }}>
+            <AccentTitle title={t.home.heroTitle} word={t.home.heroAccentWord} />
+          </h1>
+          <p className="lede" style={{ color: "rgba(255,255,255,0.85)" }}>
+            {t.home.heroSubtitle}
+          </p>
+          <div className="tag-list" style={{ marginTop: "var(--space-2)" }}>
+            <Link href="/programs" className="btn btn-primary">
+              {t.home.heroCtaPrimary}
+            </Link>
+            <Link href="/apply" className="btn btn-outline-white">
+              {t.home.heroCtaSecondary}
+            </Link>
           </div>
-          <PhotoFrame
-            src="/images/hero-home.jpg"
-            alt={t.home.heroImageAlt}
-            ratio="4-3"
-            priority
-            sizes="(max-width: 780px) 100vw, 50vw"
-          />
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: "var(--space-3)" }}>
+            <span style={{ display: "flex" }}>
+              {COMMUNITY_AVATARS.map((n, i) => (
+                <Avatar key={n} name={n} size={30} overlap={i > 0} />
+              ))}
+            </span>
+            <span className="small" style={{ color: "rgba(255,255,255,0.85)" }}>
+              {t.home.communityNote}
+            </span>
+          </div>
         </div>
       </section>
 

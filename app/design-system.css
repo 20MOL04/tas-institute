@@ -482,6 +482,83 @@ h3,
   aspect-ratio: 21 / 9;
 }
 
+/* ------------------------------- Photo hero -------------------------------
+   Home only — the reference mockup's hero is one full-bleed photo with the
+   headline sitting directly on it behind a dark scrim, not a split layout
+   with the photo boxed off to one side. The other pages' heroes (About,
+   Programs, Teachers...) don't have a hero photo to showcase this way, so
+   they keep the quieter .hero-halo grid+glow treatment below — this is a
+   deliberate exception for the one page meant to carry the strongest first
+   impression, not an inconsistency. */
+.hero-photo {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: flex;
+  align-items: flex-end;
+  min-height: 620px;
+}
+
+/* Overrides .photo-frame's own aspect-ratio/position rules to act as a
+   full-bleed background layer instead of a boxed image — scoped under
+   .hero-photo so it always wins over the plain .photo-frame.r-* rules
+   regardless of source order (three-class specificity vs. two). */
+.hero-photo .photo-frame.bg-fill {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  aspect-ratio: auto;
+  border-radius: 0;
+}
+
+.hero-photo-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    115deg,
+    rgba(11, 28, 51, 0.92) 0%,
+    rgba(11, 28, 51, 0.78) 35%,
+    rgba(11, 28, 51, 0.32) 65%,
+    rgba(11, 28, 51, 0.05) 100%
+  );
+}
+
+.hero-photo-content {
+  position: relative;
+  z-index: 2;
+  padding-block: var(--space-8);
+  max-width: 640px;
+  /* .container sets margin-inline:auto to center itself — left un-overridden
+     here, a 640px-capped box would center inside the 1200px container
+     instead of sitting against the left edge where the reference has it. */
+  margin-inline: 0;
+}
+
+@media (max-width: 780px) {
+  .hero-photo {
+    min-height: 520px;
+  }
+  /* A left-to-right scrim reads fine on a wide photo but leaves the top
+     of a narrow phone screen barely darkened — switch to top-to-bottom
+     so the text zone (bottom, where flex align-items:flex-end puts it)
+     stays legible regardless of what's directly behind it. */
+  .hero-photo-overlay {
+    background: linear-gradient(180deg, rgba(11, 28, 51, 0.35) 0%, rgba(11, 28, 51, 0.88) 60%, rgba(11, 28, 51, 0.94) 100%);
+  }
+}
+
+.btn-outline-white {
+  background: transparent;
+  color: var(--tas-white);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.btn-outline-white:hover {
+  border-color: var(--tas-white);
+  background: rgba(255, 255, 255, 0.08);
+}
+
 /* Subtle "halo + grid" hero background treatment — the one deliberate,
    restrained gradient the spec allows for a hero section. */
 .hero-halo {
