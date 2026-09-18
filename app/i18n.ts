@@ -63,11 +63,13 @@ const fr = {
   home: {
     heroEyebrow: "École d'anglais & formation professionnelle — Accra, Ghana",
     heroTitle: "Apprenez l'anglais. Construisez votre avenir.",
+    heroAccentWord: "avenir.",
     heroSubtitle:
       "TAS English Institute accompagne des étudiants africains et internationaux avec un enseignement structuré, des enseignants expérimentés et un cadre d'apprentissage sérieux, à Accra.",
     heroCtaPrimary: "Explorer les programmes",
     heroCtaSecondary: "Candidater maintenant",
     heroImageAlt: "Étudiants souriants devant le bâtiment de TAS English Institute",
+    communityNote: "Une communauté internationale accueillante à Accra",
     trustEyebrow: "Pourquoi étudier avec nous",
     trustTitle: "Un apprentissage pensé pour progresser réellement",
     trustItems: [
@@ -495,11 +497,13 @@ const en: typeof fr = {
   home: {
     heroEyebrow: "English School & Professional Training — Accra, Ghana",
     heroTitle: "Learn English. Build Your Future.",
+    heroAccentWord: "Future.",
     heroSubtitle:
       "TAS English Institute supports African and international students with structured teaching, experienced instructors and a serious learning environment, in Accra.",
     heroCtaPrimary: "Explore Programs",
     heroCtaSecondary: "Apply Now",
     heroImageAlt: "Smiling students in front of the TAS English Institute building",
+    communityNote: "A welcoming international community in Accra",
     trustEyebrow: "Why study with us",
     trustTitle: "Learning designed for real progress",
     trustItems: [

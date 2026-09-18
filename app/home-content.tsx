@@ -4,7 +4,22 @@ import Link from "next/link";
 import { useLang } from "./LangProvider";
 import PhotoFrame from "./components/PhotoFrame";
 import Avatar from "./components/Avatar";
+import AccentTitle from "./components/AccentTitle";
+import { IconBook, IconPeople, IconPin, IconGlobe } from "./components/icons";
 import type { CSSProperties } from "react";
+
+// Matches the order of t.home.trustItems — positional, not content-driven,
+// since the icon a card needs depends on which of the four fixed trust
+// topics it is, not on translated text.
+const TRUST_ICONS = [IconBook, IconPeople, IconPin, IconGlobe];
+
+// Purely decorative — represents "a community" in the abstract, the same
+// way the reference mockup's hero avatar row does. No name is ever shown
+// anywhere in the UI, only the two-letter initial each renders, so this
+// never claims to depict specific real people (unlike the Teachers/
+// Student Stories placeholder-note cases, which do carry visible names
+// and so need explicit "example" disclosure instead).
+const COMMUNITY_AVATARS = ["A B", "C D", "E F", "G H"];
 
 export default function HomeContent() {
   const { t } = useLang();
@@ -16,7 +31,9 @@ export default function HomeContent() {
         <div className="container split" style={{ "--split-ratio": "1.1fr 1fr", alignItems: "center", gap: "var(--space-6)" } as CSSProperties}>
           <div className="stack" style={{ gap: "var(--space-3)" }}>
             <span className="eyebrow">{t.home.heroEyebrow}</span>
-            <h1>{t.home.heroTitle}</h1>
+            <h1>
+              <AccentTitle title={t.home.heroTitle} word={t.home.heroAccentWord} />
+            </h1>
             <p className="lede">{t.home.heroSubtitle}</p>
             <div className="tag-list" style={{ marginTop: "var(--space-2)" }}>
               <Link href="/programs" className="btn btn-primary">
@@ -25,6 +42,14 @@ export default function HomeContent() {
               <Link href="/apply" className="btn btn-secondary">
                 {t.home.heroCtaSecondary}
               </Link>
+            </div>
+            <div className="ligne" style={{ display: "flex", alignItems: "center", gap: 12, marginTop: "var(--space-2)" }}>
+              <span style={{ display: "flex" }}>
+                {COMMUNITY_AVATARS.map((n, i) => (
+                  <Avatar key={n} name={n} size={30} overlap={i > 0} />
+                ))}
+              </span>
+              <span className="small muted">{t.home.communityNote}</span>
             </div>
           </div>
           <PhotoFrame
@@ -45,14 +70,20 @@ export default function HomeContent() {
             <h2>{t.home.trustTitle}</h2>
           </div>
           <div className="grid grid-4">
-            {t.home.trustItems.map((item) => (
-              <div key={item.title} className="card">
-                <h3>{item.title}</h3>
-                <p className="small muted" style={{ marginTop: 8 }}>
-                  {item.text}
-                </p>
-              </div>
-            ))}
+            {t.home.trustItems.map((item, i) => {
+              const Icon = TRUST_ICONS[i % TRUST_ICONS.length];
+              return (
+                <div key={item.title} className="card">
+                  <span className="icon-badge">
+                    <Icon />
+                  </span>
+                  <h3 style={{ marginTop: 12 }}>{item.title}</h3>
+                  <p className="small muted" style={{ marginTop: 8 }}>
+                    {item.text}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

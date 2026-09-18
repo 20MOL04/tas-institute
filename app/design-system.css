@@ -160,6 +160,14 @@ h3,
   color: var(--tas-navy);
 }
 
+/* One keyword per headline picked out in TAS Blue — the reference mockup
+   does this on every hero ("Build Your Future.") and our h1s were flat
+   single-color navy throughout, which read as visibly less "designed"
+   side by side. Wrap the one word that matters in <span className="accent">. */
+.accent {
+  color: var(--tas-blue);
+}
+
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -1052,6 +1060,21 @@ h3,
   justify-content: center;
   font-size: 0.7rem;
   font-weight: 700;
+}
+
+/* Larger sibling of .icon-check, sized for a distinct SVG pictogram per
+   card (Trust/Why-TAS) rather than the same checkmark repeated on every
+   item — see app/components/icons.tsx. */
+.icon-badge {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius);
+  background: var(--tas-blue-soft);
+  color: var(--tas-blue);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .placeholder-note {

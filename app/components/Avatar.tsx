@@ -4,7 +4,9 @@
 // page itself). Keeps the section fully styled and intentional-looking
 // without pretending an image exists at a path nobody listed.
 
-export default function Avatar({ name }: { name: string }) {
+type Props = { name: string; size?: number; overlap?: boolean };
+
+export default function Avatar({ name, size = 48, overlap = false }: Props) {
   const initials = name
     .split(" ")
     .map((part) => part[0])
@@ -19,14 +21,15 @@ export default function Avatar({ name }: { name: string }) {
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        width: 48,
-        height: 48,
+        width: size,
+        height: size,
         borderRadius: "50%",
         background: "var(--tas-navy)",
         color: "var(--tas-white)",
         fontWeight: 700,
-        fontSize: "0.9rem",
+        fontSize: size < 40 ? "0.7rem" : "0.9rem",
         flex: "none",
+        ...(overlap ? { border: "2px solid var(--tas-white)", marginLeft: -10 } : {}),
       }}
     >
       {initials}
