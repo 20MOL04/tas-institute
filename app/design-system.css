@@ -620,6 +620,19 @@ h3,
   flex: none;
 }
 
+.brand-name {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.brand-suffix {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--tas-blue);
+}
+
 .brand-mark {
   position: relative;
   width: 38px;

@@ -36,7 +36,12 @@ export default function Header() {
       <div className="container">
         <Link href="/" className="brand" onClick={() => setOpen(false)}>
           <Logo />
-          <span>TAS English Institute</span>
+          {/* Two-line wordmark (bold name / small tracked "INSTITUTE"),
+              matching the reference — was a single flat line before. */}
+          <span className="brand-name">
+            TAS English
+            <span className="brand-suffix">INSTITUTE</span>
+          </span>
         </Link>
 
         <nav className="main-nav" aria-label="Primary">
