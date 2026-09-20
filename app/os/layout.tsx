@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import "./os.css";
+import "../components/ui/select-menu.css";
 import { OsProvider } from "./_components/OsProvider";
 import Shell from "./_components/Shell";
 

@@ -9,6 +9,7 @@ import {
 } from "../_data";
 import { PersonCell } from "../_components/ui";
 import Link from "next/link";
+import SelectMenu from "../../components/ui/SelectMenu";
 
 type PurposeFilter = "all" | Payment["purpose"];
 type MethodFilter = "all" | PaymentMethod;
@@ -36,36 +37,24 @@ export default function PaymentsTable({ payments = PAYMENTS }: { payments?: Paym
   return (
     <>
       <div className="os-filters">
-        <select
-          className="os-select"
+        <SelectMenu
+          compact
           aria-label="Filtrer par objet"
           value={purpose}
-          onChange={(e) => {
-            const next = e.target.value;
+          onChange={(next) => {
             if ((PURPOSES as readonly string[]).includes(next)) setPurpose(next as PurposeFilter);
           }}
-        >
-          {PURPOSES.map((p) => (
-            <option key={p} value={p}>
-              {p === "all" ? "Tous les objets" : p}
-            </option>
-          ))}
-        </select>
-        <select
-          className="os-select"
+          options={PURPOSES.map((p) => ({ value: p, label: p === "all" ? "Tous les objets" : p }))}
+        />
+        <SelectMenu
+          compact
           aria-label="Filtrer par méthode"
           value={method}
-          onChange={(e) => {
-            const next = e.target.value;
+          onChange={(next) => {
             if ((METHODS as readonly string[]).includes(next)) setMethod(next as MethodFilter);
           }}
-        >
-          {METHODS.map((m) => (
-            <option key={m} value={m}>
-              {m === "all" ? "Toutes les méthodes" : m}
-            </option>
-          ))}
-        </select>
+          options={METHODS.map((m) => ({ value: m, label: m === "all" ? "Toutes les méthodes" : m }))}
+        />
         <span className="os-muted os-small">{rows.length} paiement(s) affichés</span>
       </div>
       {rows.length === 0 ? (

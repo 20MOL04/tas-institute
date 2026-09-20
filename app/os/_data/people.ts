@@ -2,6 +2,7 @@
 
 import { GROUPS, PROGRAMS, between, pick, rng, type Role } from "./core";
 import { overlayById, readJson, writeJson } from "./persist";
+import { COURSE_DURATION_MONTHS, type CourseDurationMonths } from "../../lib/course-duration";
 
 /* ----- name pools ---------------------------------------------------------- */
 
@@ -116,6 +117,7 @@ export type Student = {
   averageGrade: number;
   balance: number;
   source: string;
+  durationMonths: CourseDurationMonths;
 };
 
 export const LEAD_SOURCES = [
@@ -177,6 +179,7 @@ export const STUDENTS: Student[] = Array.from({ length: 132 }, (_, i) => {
     averageGrade: between(r, 92, 178) / 10,
     balance,
     source: pick(LEAD_SOURCES, r),
+    durationMonths: pick([...COURSE_DURATION_MONTHS], r),
   };
 });
 
@@ -208,6 +211,7 @@ export function addStudent(input: {
   countryCode: string;
   groupId: string;
   source?: string;
+  durationMonths?: CourseDurationMonths;
 }): Student {
   const group = GROUPS.find((g) => g.id === input.groupId) ?? GROUPS[0];
   const extra = readExtraStudents();
@@ -236,6 +240,7 @@ export function addStudent(input: {
     averageGrade: 0,
     balance: PROGRAMS.find((p) => p.id === group.programId)?.mockFee ?? 0,
     source: input.source ?? "Walk-in",
+    durationMonths: input.durationMonths ?? 3,
   };
   extra.unshift(student);
   writeJson(EXTRA_STUDENTS_KEY, extra, STUDENTS_EVENT);

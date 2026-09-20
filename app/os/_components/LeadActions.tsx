@@ -22,6 +22,7 @@ export default function LeadActions({ lead }: { lead: Lead }) {
       country: lead.country,
       leadId: lead.id,
       source: lead.source,
+      durationMonths: lead.durationMonths,
     });
   }
 

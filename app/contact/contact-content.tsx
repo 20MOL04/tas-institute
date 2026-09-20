@@ -100,9 +100,7 @@ export default function ContactContent() {
             <h2>{t.location.sectionTitle}</h2>
             <p className="lede">{t.location.sectionText}</p>
           </div>
-          <div className="reveal">
-            <LocationCard />
-          </div>
+          <LocationCard />
         </div>
       </section>
 

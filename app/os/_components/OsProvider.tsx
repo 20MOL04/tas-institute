@@ -10,6 +10,7 @@ import {
   type Account,
   type Space,
 } from "../_data/auth";
+import type { CourseDurationMonths } from "../../lib/course-duration";
 
 const PASS_KEY = "tas-os-passwords";
 const SESSION_KEY = "tas-os-session";
@@ -39,7 +40,14 @@ function writePasses(map: PassMap) {
   window.localStorage.setItem(PASS_KEY, JSON.stringify(map));
 }
 
-export type EnrollDraft = { name: string; phone: string; country: string; leadId?: string; source?: string } | null;
+export type EnrollDraft = {
+  name: string;
+  phone: string;
+  country: string;
+  leadId?: string;
+  source?: string;
+  durationMonths?: CourseDurationMonths;
+} | null;
 
 export type OsPanel = "student" | "admin" | "attendance" | "lead" | null;
 

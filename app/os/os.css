@@ -2310,6 +2310,10 @@ html.os-sheet-open body {
   min-height: 0;
 }
 
+.os-drawer-body:has(.tas-menu.is-open) {
+  overflow: visible;
+}
+
 .os-drawer.is-fit .os-form-stack,
 .os-drawer .os-form-stack {
   gap: 10px;
@@ -2396,6 +2400,10 @@ html.os-sheet-open body {
     overflow: hidden;
     padding: 14px 16px 16px;
     scrollbar-width: none;
+  }
+
+  .os-drawer.is-fit .os-drawer-body:has(.tas-menu.is-open) {
+    overflow: visible;
   }
 
   .os-drawer.is-fit .os-drawer-body::-webkit-scrollbar {

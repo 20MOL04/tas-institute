@@ -21,6 +21,7 @@ import {
 } from "../_components/ui";
 import { useStoreTick } from "../_components/useStoreTick";
 import { downloadCsv, printTable } from "../_lib/exportFile";
+import { durationLabelFr, isCourseDuration } from "../../lib/course-duration";
 
 const STATUS_ORDER: ApplicationStatus[] = ["new", "reviewing", "documents", "approved"];
 
@@ -44,15 +45,21 @@ export default function ApplicationsPage() {
     if (byStatus !== 0) return byStatus;
     return b.submittedAt.localeCompare(a.submittedAt);
   });
-  const exportRows = rows.map((row) => [row.ref, row.name, APPLICATION_STATUS_FR[row.status], row.submittedAt]);
+  const exportRows = rows.map((row) => [
+    row.ref,
+    row.name,
+    row.durationMonths && isCourseDuration(row.durationMonths) ? durationLabelFr(row.durationMonths) : "Non indiquée",
+    APPLICATION_STATUS_FR[row.status],
+    row.submittedAt,
+  ]);
 
   return (
     <>
       <PageHead title="Candidatures">
-        <button type="button" className="os-btn os-btn-sm" onClick={() => downloadCsv("candidatures", ["Référence", "Nom", "Statut", "Date"], exportRows)}>
+        <button type="button" className="os-btn os-btn-sm" onClick={() => downloadCsv("candidatures", ["Référence", "Nom", "Durée", "Statut", "Date"], exportRows)}>
           Excel
         </button>
-        <button type="button" className="os-btn os-btn-sm" onClick={() => printTable("Candidatures", ["Référence", "Nom", "Statut", "Date"], exportRows)}>
+        <button type="button" className="os-btn os-btn-sm" onClick={() => printTable("Candidatures", ["Référence", "Nom", "Durée", "Statut", "Date"], exportRows)}>
           Imprimer
         </button>
       </PageHead>
@@ -69,6 +76,7 @@ export default function ApplicationsPage() {
             <thead>
               <tr>
                 <th>Candidat</th>
+                <th>Durée</th>
                 <th>Statut</th>
                 <th>Date</th>
                 <th className="os-th-action">Action</th>
@@ -80,6 +88,7 @@ export default function ApplicationsPage() {
                   <td>
                     <PersonCell initials={row.initials} name={row.name} meta={row.ref} />
                   </td>
+                  <td>{row.durationMonths && isCourseDuration(row.durationMonths) ? durationLabelFr(row.durationMonths) : "Non indiquée"}</td>
                   <td>
                     <Badge tone={statusTone(row.status)}>{APPLICATION_STATUS_FR[row.status]}</Badge>
                   </td>

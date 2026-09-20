@@ -71,9 +71,7 @@ export default function AccommodationContent() {
             <h2>{a.locationTitle}</h2>
             <p className="lede">{a.locationText}</p>
           </div>
-          <div className="reveal">
-            <LocationCard compact />
-          </div>
+          <LocationCard compact />
         </div>
       </section>
 

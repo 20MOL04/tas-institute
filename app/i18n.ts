@@ -57,7 +57,7 @@ const fr = {
   location: {
     kicker: "Nous trouver",
     sectionTitle: "Venir jusqu'à l'institut",
-    sectionText: "L'école est située au Polo Junction d'Alajo, à Accra, dans le quartier de Kotobabi New Town.",
+    sectionText: "Polo Junction, Alajo. Accra.",
     mapTitle: "Carte — TAS English Institute, Alajo Polo Junction, Accra",
     text: "Le campus est au carrefour du Polo Junction, desservi par plusieurs lignes de trotro.",
     addressLabel: "Adresse",
@@ -87,8 +87,7 @@ const fr = {
     heroEyebrow: "Accra, Ghana",
     heroTitle: "Apprenez l'anglais. Construisez votre avenir.",
     heroAccentWord: "avenir.",
-    heroSubtitle:
-      "À Accra, TAS English Institute accompagne des étudiants africains et internationaux avec un enseignement structuré, des enseignants expérimentés et un cadre d'apprentissage sérieux.",
+    heroSubtitle: "Cours à Accra. 18 enseignants. Réponse sur WhatsApp.",
     heroCtaPrimary: "Explorer les programmes",
     heroCtaSecondary: "Candidater maintenant",
     heroImageAlt: "Étudiants souriants devant le bâtiment de TAS English Institute",
@@ -115,8 +114,7 @@ const fr = {
     ],
     programsEyebrow: "Nos programmes",
     programsTitle: "Deux parcours, un même niveau d'exigence",
-    programsSubtitle:
-      "Des programmes d'anglais et des formations professionnelles pensés pour des objectifs concrets.",
+    programsSubtitle: "Anglais ou informatique. Un campus à Accra.",
     programCategory1Title: "English Programs",
     programCategory1Text: "General English, Business English, préparation IELTS et plus encore.",
     programCategory2Title: "Computer & Professional Courses",
@@ -136,7 +134,7 @@ const fr = {
       "Discussions de groupe, mises en pratique orales, travail sur des cas concrets : nos cours sont conçus pour que chaque étudiant parle, écrive et progresse activement.",
     storyEyebrow: "Parcours d'étudiants",
     storyTitle: "Des histoires qui inspirent",
-    storyText: "Découvrez comment nos étudiants progressent à Accra, une histoire à la fois.",
+    storyText: "Des étudiants passés par TAS, à Accra.",
     storyCard1Title: "De débutant à confiant",
     storyCard1Text: "Un parcours d'exemple — remplacé par une vraie histoire validée.",
     storyCard2Title: "Vers des études à l'étranger",
@@ -147,14 +145,13 @@ const fr = {
     teachersCta: "Voir toute l'équipe",
     campusEyebrow: "Le campus",
     campusTitle: "Un cadre pensé pour étudier sereinement",
-    campusText:
-      "Des salles de classe, des espaces de travail et un environnement pensé pour l'apprentissage, à Accra.",
+    campusText: "Salles, cours, campus. Accra.",
     finalCtaTitle: "Prêt à commencer votre parcours en anglais ?",
-    finalCtaText: "Candidatez en quelques minutes, ou contactez-nous directement sur WhatsApp.",
+    finalCtaText: "Le formulaire arrive à l'école. WhatsApp accélère la réponse.",
     finalCtaButton: "Candidater maintenant",
     stepsKicker: "Admission",
     stepsTitle: "Comment rejoindre TAS en quatre étapes",
-    stepsText: "Le parcours d'inscription, de la première prise de contact au premier jour de cours.",
+    stepsText: "De la première conversation au premier cours.",
     steps: [
       {
         title: "Prenez contact",
@@ -166,7 +163,7 @@ const fr = {
       },
       {
         title: "Confirmez votre place",
-        text: "Modalités d'inscription et de paiement communiquées par l'école — à confirmer.",
+        text: "L'école vous indique comment confirmer votre place et régler les frais.",
       },
       {
         title: "Préparez votre arrivée",
@@ -176,7 +173,7 @@ const fr = {
     stepsCta: "Commencer ma candidature",
     faqKicker: "FAQ",
     faqTitle: "Les réponses aux questions qu'on nous pose le plus",
-    faqText: "Vous ne trouvez pas votre réponse ? Écrivez-nous sur WhatsApp, nous répondons directement.",
+    faqText: "Niveau, durée, logement. Sinon, WhatsApp.",
     faq: [
       {
         q: "Faut-il déjà parler anglais pour s'inscrire ?",
@@ -184,7 +181,7 @@ const fr = {
       },
       {
         q: "Quelle est la durée des formations ?",
-        a: "TAS propose un cours d'anglais intensif (8 heures par jour), un cours d'anglais en durée longue (5 heures par jour) et un cours d'informatique (3 heures par jour). Les durées exactes des sessions sont à confirmer avec l'école.",
+        a: "TAS propose un cours d'anglais intensif (8 heures par jour), un cours d'anglais en durée longue (5 heures par jour) et un cours d'informatique (3 heures par jour). Les dates de session se demandent à l'école.",
       },
       {
         q: "Les cours sont-ils adaptés aux étudiants francophones ?",
@@ -192,11 +189,11 @@ const fr = {
       },
       {
         q: "Proposez-vous un logement ?",
-        a: "TAS aide les étudiants à se loger près du campus, avec plusieurs formules. Les tarifs indiqués proviennent du site officiel et restent à confirmer.",
+        a: "TAS aide les étudiants à se loger près du campus, avec plusieurs formules. Les tarifs du mois sont sur la page hébergement.",
       },
       {
         q: "Quand puis-je commencer ?",
-        a: "Les dates de rentrée sont communiquées directement par l'école — à confirmer.",
+        a: "Les dates de rentrée se demandent à l'école, sur WhatsApp ou avec le formulaire.",
       },
       {
         q: "Où se trouve l'institut ?",
@@ -209,7 +206,7 @@ const fr = {
     heroEyebrow: "À propos de TAS",
     heroTitle: "Une école d'anglais et de formation professionnelle à Accra",
     heroSubtitle:
-      "TAS English Institute existe pour donner à ses étudiants les compétences linguistiques et professionnelles nécessaires pour avancer, avec sérieux et sans raccourci.",
+      "Francophones d'Afrique de l'Ouest, reçus à Accra. Anglais tous les jours, 18 enseignants, un campus à Alajo.",
     whoEyebrow: "Qui est TAS ?",
     whoTitle: "Une institution centrée sur l'étudiant",
     whoText:
@@ -282,7 +279,7 @@ const fr = {
     heroEyebrow: "Programmes",
     heroTitle: "Trois programmes, un rythme pour chaque objectif",
     heroSubtitle:
-      "Deux cours d'anglais au contenu identique, un cours d'informatique. Vous choisissez le rythme, nous vous plaçons au bon niveau.",
+      "Huit heures d'anglais, cinq heures, ou trois heures d'informatique. Même campus. Vous choisissez le rythme.",
     statsKicker: "En bref",
     statsTitle: "Ce que vous obtenez en rejoignant TAS",
     statsText: "Trois cours, un contenu identique en anglais, un rythme à choisir selon votre disponibilité.",
@@ -466,7 +463,7 @@ const fr = {
     heroEyebrow: "L'équipe pédagogique",
     heroTitle: "Meet Our Teachers",
     heroSubtitle:
-      "Une équipe engagée auprès de chaque étudiant, avec des spécialités complémentaires.",
+      "18 enseignants. Ils font parler, écrire et débattre. Tous les jours, à Accra.",
     list: [
       {
         name: "Ama Owusu",
@@ -494,7 +491,7 @@ const fr = {
     heroEyebrow: "Parcours d'étudiants",
     heroTitle: "Student Stories",
     heroSubtitle:
-      "Nous préférons montrer moins d'histoires, mais des histoires réelles et vérifiées. Les cartes ci-dessous sont des exemples de mise en page, clairement marqués, en attendant de vrais témoignages validés par les étudiants concernés.",
+      "Ils ont étudié ici. Ils parlent de ce que les cours ont changé.",
     placeholderLabel: "Exemple — à remplacer par une vraie histoire d'étudiant",
     featuredTitle: "Featured Story",
     featured: {
@@ -533,7 +530,7 @@ const fr = {
   apply: {
     heroEyebrow: "Candidature",
     heroTitle: "Apply / Registration",
-    heroSubtitle: "Complétez votre candidature en quelques étapes simples.",
+    heroSubtitle: "Le formulaire arrive à l'école. WhatsApp accélère la réponse.",
     steps: [
       { n: "01", label: "Personal Information" },
       { n: "02", label: "Program" },
@@ -549,9 +546,11 @@ const fr = {
     step2Title: "Program",
     programField: "Programme souhaité",
     levelField: "Niveau estimé",
+    durationField: "Durée souhaitée",
+    durationOptions: ["3 mois", "6 mois", "9 mois"],
     scheduleField: "Créneau souhaité",
     startDateField: "Date de début souhaitée",
-    levelOptions: ["Débutant", "Intermédiaire", "Avancé", "Je ne sais pas"],
+    levelOptions: ["B1", "B2", "B3", "I1", "I2", "I3", "P1", "P2", "P3", "Je ne sais pas"],
     scheduleOptions: ["Matin", "Après-midi", "Soir", "Flexible"],
     step3Title: "Additional Information",
     messageField: "Message ou question (optionnel)",
@@ -574,7 +573,7 @@ const fr = {
     heroEyebrow: "Contact",
     heroTitle: "Contactez TAS English Institute",
     heroSubtitle:
-      "Une question sur un programme ou une candidature ? Contactez-nous directement, ou passez par WhatsApp pour une réponse rapide.",
+      "WhatsApp d'abord. Téléphone et email aussi. Alajo Polo Junction, Accra.",
     channelsKicker: "Nous joindre",
     channelsTitle: "Trois façons de nous parler",
     channelsText: "WhatsApp est le canal le plus rapide. Nous répondons aussi par téléphone et par email.",
@@ -599,7 +598,7 @@ const fr = {
     heroEyebrow: "Hébergement",
     heroTitle: "Un logement pensé pour étudier sereinement",
     heroSubtitle:
-      "TAS vous aide à trouver un hébergement adapté près du campus, pour que vous puissiez vous concentrer sur votre progression.",
+      "Trois chambres meublées, près des cours. Dès 60 000 CFA par mois. Vous réservez sur WhatsApp.",
     optionsKicker: "Les formules",
     optionsTitle: "Trois chambres, trois budgets",
     optionsText:
@@ -646,7 +645,7 @@ const fr = {
     heroEyebrow: "Orientation universitaire",
     heroTitle: "De TAS vers l'université",
     heroSubtitle:
-      "Nous accompagnons les étudiants qui préparent une candidature universitaire à l'international — anglais, dossiers et conseils pratiques.",
+      "Anglais, dossier, conseils. Pour celles et ceux qui visent une université à l'étranger.",
     stepsTitle: "Comment nous vous accompagnons",
     steps: [
       {
@@ -673,13 +672,13 @@ const fr = {
   gallery: {
     heroEyebrow: "Galerie",
     heroTitle: "La vie à TAS en images",
-    heroSubtitle: "Classes, campus, moments de communauté — un aperçu de l'ambiance à Accra.",
+    heroSubtitle: "Salles, campus, communauté. Accra, tel que les étudiants le voient.",
     categories: ["Campus", "Classes", "Communauté", "Événements"],
   },
   resources: {
     heroEyebrow: "Ressources",
     heroTitle: "Guides et conseils pour progresser",
-    heroSubtitle: "Articles et ressources pour préparer votre séjour d'études à Accra.",
+    heroSubtitle: "Oral, vie à Accra, choix de programme. À lire avant de candidater.",
     posts: [
       {
         title: "Comment préparer votre premier mois à Accra",
@@ -748,7 +747,7 @@ const en: typeof fr = {
   location: {
     kicker: "Find us",
     sectionTitle: "Getting to the institute",
-    sectionText: "The school sits at Alajo Polo Junction in Accra, in the Kotobabi New Town area.",
+    sectionText: "Polo Junction, Alajo. Accra.",
     mapTitle: "Map — TAS English Institute, Alajo Polo Junction, Accra",
     text: "The campus is at the Polo Junction crossroads, served by several trotro lines.",
     addressLabel: "Address",
@@ -778,8 +777,7 @@ const en: typeof fr = {
     heroEyebrow: "Accra, Ghana",
     heroTitle: "Learn English. Build Your Future.",
     heroAccentWord: "Future.",
-    heroSubtitle:
-      "In Accra, TAS English Institute supports African and international students with structured teaching, experienced instructors and a serious learning environment.",
+    heroSubtitle: "Classes in Accra. 18 teachers. We reply on WhatsApp.",
     heroCtaPrimary: "Explore Programs",
     heroCtaSecondary: "Apply Now",
     heroImageAlt: "Smiling students in front of the TAS English Institute building",
@@ -806,7 +804,7 @@ const en: typeof fr = {
     ],
     programsEyebrow: "Our Programs",
     programsTitle: "Two paths, one standard of quality",
-    programsSubtitle: "English programs and professional courses designed around concrete goals.",
+    programsSubtitle: "English or computer courses. One campus in Accra.",
     programCategory1Title: "English Programs",
     programCategory1Text: "General English, Business English, IELTS preparation and more.",
     programCategory2Title: "Computer & Professional Courses",
@@ -826,7 +824,7 @@ const en: typeof fr = {
       "Group discussions, spoken practice, work on real cases: our classes are designed so every student actively speaks, writes and progresses.",
     storyEyebrow: "Student Stories",
     storyTitle: "Stories that inspire",
-    storyText: "See how our students grow in Accra — one story at a time.",
+    storyText: "Students who came through TAS, in Accra.",
     storyCard1Title: "From beginner to confident",
     storyCard1Text: "Example journey — replaced with a real validated story.",
     storyCard2Title: "Toward studies abroad",
@@ -837,13 +835,13 @@ const en: typeof fr = {
     teachersCta: "Meet the Whole Team",
     campusEyebrow: "The Campus",
     campusTitle: "A setting designed for focused study",
-    campusText: "Classrooms, study spaces and an environment built for learning, in Accra.",
+    campusText: "Rooms, classes, campus. Accra.",
     finalCtaTitle: "Ready to start your English journey?",
-    finalCtaText: "Apply in a few minutes, or reach us directly on WhatsApp.",
+    finalCtaText: "The form reaches the school. WhatsApp gets a faster reply.",
     finalCtaButton: "Apply Now",
     stepsKicker: "Admission",
     stepsTitle: "How to join TAS in four steps",
-    stepsText: "The admission path, from first contact to your first day in class.",
+    stepsText: "From the first message to the first class.",
     steps: [
       {
         title: "Get in touch",
@@ -855,7 +853,7 @@ const en: typeof fr = {
       },
       {
         title: "Confirm your place",
-        text: "Registration and payment terms are shared by the school — to confirm.",
+        text: "The school tells you how to confirm your place and settle fees.",
       },
       {
         title: "Prepare your arrival",
@@ -865,7 +863,7 @@ const en: typeof fr = {
     stepsCta: "Start my application",
     faqKicker: "FAQ",
     faqTitle: "Answers to what students ask us most",
-    faqText: "Can't find your answer? Message us on WhatsApp and we'll reply directly.",
+    faqText: "Level, length, housing. If not, WhatsApp.",
     faq: [
       {
         q: "Do I need to speak English already to enrol?",
@@ -873,7 +871,7 @@ const en: typeof fr = {
       },
       {
         q: "How long are the courses?",
-        a: "TAS offers an intensive English course (8 hours per day), a long-duration English course (5 hours per day) and a computer course (3 hours per day). Exact session lengths are to confirm with the school.",
+        a: "TAS offers an intensive English course (8 hours per day), a longer English course (5 hours per day) and a computer course (3 hours per day). Session dates are asked at the school.",
       },
       {
         q: "Are the courses suited to Francophone students?",
@@ -881,11 +879,11 @@ const en: typeof fr = {
       },
       {
         q: "Do you offer accommodation?",
-        a: "TAS helps students find housing close to campus, with several options. Listed prices come from the official site and remain to confirm.",
+        a: "TAS helps students find housing close to campus, with several options. Monthly prices are on the housing page.",
       },
       {
         q: "When can I start?",
-        a: "Intake dates are shared directly by the school — to confirm.",
+        a: "Intake dates are asked at the school, on WhatsApp or with the form.",
       },
       {
         q: "Where is the institute located?",
@@ -898,7 +896,7 @@ const en: typeof fr = {
     heroEyebrow: "About TAS",
     heroTitle: "An English school and professional training institute in Accra",
     heroSubtitle:
-      "TAS English Institute exists to give its students the language and professional skills they need to move forward, seriously and without shortcuts.",
+      "Francophones from West Africa, received in Accra. English every day, 18 teachers, a campus in Alajo.",
     whoEyebrow: "Who is TAS?",
     whoTitle: "An institution centered on the student",
     whoText:
@@ -971,7 +969,7 @@ const en: typeof fr = {
     heroEyebrow: "Programs",
     heroTitle: "Three programs, one pace for every goal",
     heroSubtitle:
-      "Two English courses with identical content, plus a computer course. You choose the pace, we place you at the right level.",
+      "Eight hours of English, five hours, or three hours of computer class. Same campus. You choose the pace.",
     statsKicker: "At a glance",
     statsTitle: "What you get by joining TAS",
     statsText: "Three courses, one identical English syllabus, and a pace to match your availability.",
@@ -1148,7 +1146,7 @@ const en: typeof fr = {
   teachers: {
     heroEyebrow: "The Teaching Team",
     heroTitle: "Meet Our Teachers",
-    heroSubtitle: "A committed team supporting every student, with complementary specialties.",
+    heroSubtitle: "18 teachers. They get students speaking, writing and debating. Every day, in Accra.",
     list: [
       {
         name: "Ama Owusu",
@@ -1176,7 +1174,7 @@ const en: typeof fr = {
     heroEyebrow: "Student Stories",
     heroTitle: "Student Stories",
     heroSubtitle:
-      "We prefer showing fewer stories, but real, verified ones. The cards below are clearly marked layout examples, while we wait for real stories validated by the students involved.",
+      "They studied here. They talk about what the classes changed.",
     placeholderLabel: "Example — replace with a real student story",
     featuredTitle: "Featured Story",
     featured: {
@@ -1215,7 +1213,7 @@ const en: typeof fr = {
   apply: {
     heroEyebrow: "Application",
     heroTitle: "Apply / Registration",
-    heroSubtitle: "Complete your application in a few simple steps.",
+    heroSubtitle: "The form reaches the school. WhatsApp gets a faster reply.",
     steps: [
       { n: "01", label: "Personal Information" },
       { n: "02", label: "Program" },
@@ -1231,9 +1229,11 @@ const en: typeof fr = {
     step2Title: "Program",
     programField: "Desired Program",
     levelField: "Estimated Level",
+    durationField: "Desired duration",
+    durationOptions: ["3 months", "6 months", "9 months"],
     scheduleField: "Preferred Schedule",
     startDateField: "Desired Start Date",
-    levelOptions: ["Beginner", "Intermediate", "Advanced", "Not sure"],
+    levelOptions: ["B1", "B2", "B3", "I1", "I2", "I3", "P1", "P2", "P3", "Not sure"],
     scheduleOptions: ["Morning", "Afternoon", "Evening", "Flexible"],
     step3Title: "Additional Information",
     messageField: "Message or question (optional)",
@@ -1255,7 +1255,7 @@ const en: typeof fr = {
     heroEyebrow: "Contact",
     heroTitle: "Contact TAS English Institute",
     heroSubtitle:
-      "A question about a program or an application? Contact us directly, or reach us on WhatsApp for a fast reply.",
+      "WhatsApp first. Phone and email too. Alajo Polo Junction, Accra.",
     channelsKicker: "Reach us",
     channelsTitle: "Three ways to talk to us",
     channelsText: "WhatsApp is the fastest channel. We also answer by phone and email.",
@@ -1280,7 +1280,7 @@ const en: typeof fr = {
     heroEyebrow: "Accommodation",
     heroTitle: "Housing designed for focused study",
     heroSubtitle:
-      "TAS helps you find suitable accommodation near campus so you can focus on your progress.",
+      "Three furnished rooms, near class. From 60,000 CFA a month. You book on WhatsApp.",
     optionsKicker: "The options",
     optionsTitle: "Three rooms, three budgets",
     optionsText:
@@ -1327,7 +1327,7 @@ const en: typeof fr = {
     heroEyebrow: "University Guidance",
     heroTitle: "From TAS to university",
     heroSubtitle:
-      "We support students preparing international university applications — English, documents and practical guidance.",
+      "English, documents, guidance. For students aiming at a university abroad.",
     stepsTitle: "How we support you",
     steps: [
       {
@@ -1354,13 +1354,13 @@ const en: typeof fr = {
   gallery: {
     heroEyebrow: "Gallery",
     heroTitle: "Life at TAS in pictures",
-    heroSubtitle: "Classes, campus and community moments — a glimpse of Accra life.",
+    heroSubtitle: "Rooms, campus, community. Accra as students see it.",
     categories: ["Campus", "Classes", "Community", "Events"],
   },
   resources: {
     heroEyebrow: "Resources",
     heroTitle: "Guides and tips to keep progressing",
-    heroSubtitle: "Articles and resources to prepare your study stay in Accra.",
+    heroSubtitle: "Speaking, life in Accra, choosing a program. Read this before you apply.",
     posts: [
       {
         title: "How to prepare for your first month in Accra",

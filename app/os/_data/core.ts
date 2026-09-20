@@ -97,7 +97,7 @@ export const PROGRAMS: Program[] = [
     category: "english",
     hoursPerDay: 8,
     mockFee: 450000,
-    levels: ["A1", "A2", "B1", "B2", "C1"],
+    levels: ["B1", "B2", "B3", "I1", "I2", "I3", "P1", "P2", "P3"],
   },
   {
     id: "eng-long",
@@ -106,7 +106,7 @@ export const PROGRAMS: Program[] = [
     category: "english",
     hoursPerDay: 5,
     mockFee: 300000,
-    levels: ["A1", "A2", "B1", "B2", "C1"],
+    levels: ["B1", "B2", "B3", "I1", "I2", "I3", "P1", "P2", "P3"],
   },
   {
     id: "computer",
@@ -263,16 +263,69 @@ export type Group = {
   schedule: string;
 };
 
+export const CLASS_CODES = ["B1", "B2", "B3", "I1", "I2", "I3", "P1", "P2", "P3"] as const;
+
+export type ClassCode = (typeof CLASS_CODES)[number];
+
+function englishClass(
+  id: string,
+  programId: "eng-intensive" | "eng-long",
+  code: ClassCode,
+  teacherId: string,
+  room: string,
+): Group {
+  const intensive = programId === "eng-intensive";
+  return {
+    id,
+    schoolId: "tas",
+    campusId: "tas-alajo",
+    programId,
+    level: code,
+    name: code,
+    teacherId,
+    room,
+    capacity: intensive ? 18 : 16,
+    students: intensive ? 15 : 13,
+    schedule: intensive ? "Lun–Ven 08:00–16:00" : "Lun–Ven 09:00–14:00",
+  };
+}
+
 export const GROUPS: Group[] = [
-  { id: "g-01", schoolId: "tas", campusId: "tas-alajo", programId: "eng-intensive", level: "A1", name: "INT-A1-1", teacherId: "t-01", room: "Salle 1", capacity: 18, students: 17, schedule: "Lun–Ven 08:00–16:00" },
-  { id: "g-02", schoolId: "tas", campusId: "tas-alajo", programId: "eng-intensive", level: "A2", name: "INT-A2-1", teacherId: "t-02", room: "Salle 2", capacity: 18, students: 16, schedule: "Lun–Ven 08:00–16:00" },
-  { id: "g-03", schoolId: "tas", campusId: "tas-alajo", programId: "eng-intensive", level: "B1", name: "INT-B1-1", teacherId: "t-03", room: "Salle 3", capacity: 18, students: 15, schedule: "Lun–Ven 08:00–16:00" },
-  { id: "g-04", schoolId: "tas", campusId: "tas-alajo", programId: "eng-long", level: "A1", name: "LNG-A1-1", teacherId: "t-04", room: "Salle 4", capacity: 16, students: 14, schedule: "Lun–Ven 09:00–14:00" },
-  { id: "g-05", schoolId: "tas", campusId: "tas-alajo", programId: "eng-long", level: "B1", name: "LNG-B1-1", teacherId: "t-05", room: "Salle 5", capacity: 16, students: 13, schedule: "Lun–Ven 09:00–14:00" },
+  englishClass("g-01", "eng-intensive", "B1", "t-01", "Salle 1"),
+  englishClass("g-02", "eng-intensive", "B2", "t-02", "Salle 2"),
+  englishClass("g-03", "eng-intensive", "B3", "t-03", "Salle 3"),
+  englishClass("g-int-i1", "eng-intensive", "I1", "t-01", "Salle 6"),
+  englishClass("g-int-i2", "eng-intensive", "I2", "t-02", "Salle 7"),
+  englishClass("g-int-i3", "eng-intensive", "I3", "t-03", "Salle 8"),
+  englishClass("g-int-p1", "eng-intensive", "P1", "t-04", "Salle 9"),
+  englishClass("g-int-p2", "eng-intensive", "P2", "t-05", "Salle 10"),
+  englishClass("g-int-p3", "eng-intensive", "P3", "t-01", "Salle 11"),
+  englishClass("g-04", "eng-long", "B1", "t-04", "Salle 4"),
+  englishClass("g-05", "eng-long", "B2", "t-05", "Salle 5"),
+  englishClass("g-lng-b3", "eng-long", "B3", "t-04", "Salle 12"),
+  englishClass("g-lng-i1", "eng-long", "I1", "t-05", "Salle 13"),
+  englishClass("g-lng-i2", "eng-long", "I2", "t-04", "Salle 14"),
+  englishClass("g-lng-i3", "eng-long", "I3", "t-05", "Salle 15"),
+  englishClass("g-lng-p1", "eng-long", "P1", "t-02", "Salle 16"),
+  englishClass("g-lng-p2", "eng-long", "P2", "t-03", "Salle 17"),
+  englishClass("g-lng-p3", "eng-long", "P3", "t-04", "Salle 18"),
   { id: "g-06", schoolId: "tas", campusId: "tas-kotobabi", programId: "computer", level: "Débutant", name: "INF-D-1", teacherId: "t-06", room: "Lab 1", capacity: 15, students: 15, schedule: "Lun–Ven 14:00–17:00" },
   { id: "g-07", schoolId: "tas", campusId: "tas-kotobabi", programId: "computer", level: "Intermédiaire", name: "INF-I-1", teacherId: "t-07", room: "Lab 1", capacity: 15, students: 12, schedule: "Lun–Ven 09:00–12:00" },
+  { id: "g-comp-a", schoolId: "tas", campusId: "tas-kotobabi", programId: "computer", level: "Avancé", name: "INF-A-1", teacherId: "t-06", room: "Lab 1", capacity: 15, students: 9, schedule: "Lun–Ven 14:00–17:00" },
   { id: "g-08", schoolId: "abla", campusId: "abla-osu", programId: "abla-business", level: "B2", name: "BUS-B2-1", teacherId: "t-14", room: "Room 2", capacity: 14, students: 11, schedule: "Lun–Jeu 17:00–21:00" },
 ];
+
+export function groupMenuLabel(group: Group) {
+  const program = PROGRAMS.find((p) => p.id === group.programId)?.name ?? group.programId;
+  const campus = CAMPUSES.find((c) => c.id === group.campusId)?.name ?? group.campusId;
+  return `${group.name}, ${program}, ${campus}`;
+}
+
+export function groupMenuOption(group: Group) {
+  const program = PROGRAMS.find((p) => p.id === group.programId)?.name ?? group.programId;
+  const campus = CAMPUSES.find((c) => c.id === group.campusId)?.name ?? group.campusId;
+  return { value: group.id, label: group.name, hint: `${program}, ${campus}` };
+}
 
 /* ----- users and roles ---------------------------------------------------- */
 

@@ -1,0 +1,30 @@
+---
+description: Interdit les menus natifs. Un seul SelectMenu / CountryField.
+globs: **/*.{tsx,jsx}
+alwaysApply: true
+---
+
+# Menus TAS (figé)
+
+Aucun `<select>` natif dans le site ou l'app. Le rendu navigateur est trop pauvre.
+
+## Source unique
+
+- Menu : `app/components/ui/SelectMenu.tsx`
+- Pays : `app/components/ui/CountryField.tsx`
+- Style : `app/components/ui/select-menu.css`
+- Pays monde : `app/lib/world-countries.ts`
+
+## Interdit
+
+- `<select>`, `<option>`
+- Un menu local recopié (liste maison, combobox jetable, style inline)
+- Une seconde liste de pays
+
+## Pays
+
+Partout où on demande un pays : `CountryField`. Tous les pays. La saisie filtre (nom, première lettre, faute simple).
+
+## Futur
+
+Nouveau menu = `SelectMenu`. Liste longue = `searchable`. Pays = `CountryField`.

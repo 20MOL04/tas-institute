@@ -9,6 +9,7 @@
 import { PROGRAMS, TIMELINE, between, pick, rng, type Intake } from "./core";
 import { COUNTRIES, LEAD_SOURCES } from "./people";
 import { overlayById, readJson, writeJson } from "./persist";
+import { COURSE_DURATION_MONTHS, type CourseDurationMonths } from "../../lib/course-duration";
 
 /* ----- traffic by source -------------------------------------------------- */
 
@@ -147,6 +148,7 @@ export type Lead = {
   nextFollowUp: string | null;
   overdue: boolean;
   note: string;
+  durationMonths: CourseDurationMonths;
 };
 
 const OWNERS = ["Administration", "Directrice TAS", "Admissions"];
@@ -215,6 +217,7 @@ export const LEADS: Lead[] = Array.from({ length: 96 }, (_, i) => {
     nextFollowUp: stage === "paid" || stage === "lost" ? null : `2026-09-${String(between(r, 16, 28)).padStart(2, "0")}`,
     overdue,
     note: pick(NOTES, r),
+    durationMonths: pick([...COURSE_DURATION_MONTHS], r),
   };
 });
 
@@ -255,6 +258,7 @@ export function addLead(input: {
   programId: string;
   note: string;
   source?: string;
+  durationMonths?: CourseDurationMonths;
 }): Lead {
   const extra = readExtraLeads();
   const n = LEADS.length + extra.length + 1;
@@ -279,6 +283,7 @@ export function addLead(input: {
     nextFollowUp: today,
     overdue: false,
     note: input.note,
+    durationMonths: input.durationMonths ?? 3,
   };
   extra.unshift(lead);
   writeJson(EXTRA_LEADS_KEY, extra, LEADS_CHANGED);
@@ -323,6 +328,7 @@ export type Application = {
   submittedAt: string;
   assignee: string;
   missingDocs: string[];
+  durationMonths: CourseDurationMonths;
 };
 
 const DOCS = ["Pièce d'identité", "Photo d'identité", "Diplôme", "Justificatif de paiement", "Formulaire signé"];
@@ -351,6 +357,7 @@ export const APPLICATIONS: Application[] = Array.from({ length: 64 }, (_, i) => 
     submittedAt: `2026-09-${String(between(r, 1, 19)).padStart(2, "0")}`,
     assignee: pick(OWNERS, r),
     missingDocs: missing.length ? missing : status === "documents" ? [DOCS[0]] : [],
+    durationMonths: pick([...COURSE_DURATION_MONTHS], r),
   };
 });
 
@@ -367,6 +374,41 @@ export function readExtraApplications(): Application[] {
 
 export function liveApplications(): Application[] {
   return overlayById(APPLICATIONS, readExtraApplications());
+}
+
+export function addApplication(input: {
+  name: string;
+  country: string;
+  programId: string;
+  durationMonths: CourseDurationMonths;
+  source?: string;
+}): Application {
+  const extra = readExtraApplications();
+  const n = APPLICATIONS.length + extra.length + 101;
+  const parts = input.name.trim().split(/\s+/);
+  const first = parts[0] ?? "C";
+  const last = parts[1] ?? parts[0] ?? "C";
+  const program = PROGRAMS.find((p) => p.id === input.programId);
+  const today = new Date().toISOString().slice(0, 10);
+  const application: Application = {
+    id: `a-live-${Date.now()}`,
+    ref: `CAND-26-${String(n).padStart(4, "0")}`,
+    name: input.name.trim(),
+    initials: `${first[0] ?? "C"}${last[0] ?? "C"}`.toUpperCase(),
+    country: input.country,
+    programId: input.programId,
+    campusId: program?.id === "computer" ? "tas-kotobabi" : "tas-alajo",
+    intakeId: "in-2026-10-eng-int",
+    source: input.source ?? "Formulaire",
+    status: "new",
+    submittedAt: today,
+    assignee: "Administration",
+    missingDocs: [],
+    durationMonths: input.durationMonths,
+  };
+  extra.unshift(application);
+  writeJson(EXTRA_APPS_KEY, extra, APPLICATIONS_CHANGED);
+  return application;
 }
 
 export function patchApplication(id: string, patch: Partial<Application>): Application | undefined {

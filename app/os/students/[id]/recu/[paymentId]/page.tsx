@@ -19,6 +19,7 @@ import {
   type Student,
 } from "../../../../_data";
 import { useOs } from "../../../../_components/OsProvider";
+import { shareReceiptImage } from "../../../../_lib/shareReceiptImage";
 
 export default function ReceiptPage({ params }: { params: { id: string; paymentId: string } }) {
   const pathname = usePathname() || "";
@@ -58,6 +59,30 @@ export default function ReceiptPage({ params }: { params: { id: string; paymentI
   return (
     <>
       <div className="os-page-actions" style={{ justifyContent: "flex-end" }}>
+        <button
+          type="button"
+          className="os-btn"
+          onClick={() =>
+            void shareReceiptImage({
+              school: school?.name ?? "TAS English Institute",
+              campus,
+              receipt: payment.receipt,
+              student: student.name,
+              matricule: student.matricule,
+              program,
+              month: fmtMonthLong(payment.date),
+              date: fmtDate(payment.date),
+              time: payment.time || fmtTime(student.enrolledAt) || "Non indiquée",
+              purpose: payment.purpose,
+              method: payment.method,
+              amount: fmtMoney(payment.amount),
+              due: due === 0 ? "Aucun" : fmtMoney(due),
+              clerk,
+            })
+          }
+        >
+          Partager
+        </button>
         <button type="button" className="os-btn os-btn-primary" onClick={() => window.print()}>
           Imprimer
         </button>

@@ -21,6 +21,8 @@ import {
 } from "../_components/ui";
 import { useStoreTick } from "../_components/useStoreTick";
 import { downloadCsv, printTable } from "../_lib/exportFile";
+import { durationLabelFr, isCourseDuration } from "../../lib/course-duration";
+import SelectMenu from "../../components/ui/SelectMenu";
 
 const PAGE_SIZE = 20;
 const STATUS_FILTERS: { id: "all" | StudentStatus; label: string }[] = [
@@ -72,7 +74,13 @@ export default function StudentsTable() {
     setPage(0);
   }
 
-  const exportRows = filtered.map((s) => [s.matricule, s.name, STUDENT_STATUS_FR[s.status], PAYMENT_STATUS_FR[s.paymentStatus]]);
+  const exportRows = filtered.map((s) => [
+    s.matricule,
+    s.name,
+    s.durationMonths && isCourseDuration(s.durationMonths) ? durationLabelFr(s.durationMonths) : "Non indiquée",
+    STUDENT_STATUS_FR[s.status],
+    PAYMENT_STATUS_FR[s.paymentStatus],
+  ]);
 
   return (
     <OsCard
@@ -84,25 +92,22 @@ export default function StudentsTable() {
       }
       action={
         <span className="os-page-actions">
-          <button type="button" className="os-btn os-btn-sm" onClick={() => downloadCsv("dossiers-etudiants", ["Matricule", "Nom", "Statut", "Paiement"], exportRows)}>
+          <button type="button" className="os-btn os-btn-sm" onClick={() => downloadCsv("dossiers-etudiants", ["Matricule", "Nom", "Durée", "Statut", "Paiement"], exportRows)}>
             Excel
           </button>
-          <button type="button" className="os-btn os-btn-sm" onClick={() => printTable("Dossiers étudiants", ["Matricule", "Nom", "Statut", "Paiement"], exportRows)}>
+          <button type="button" className="os-btn os-btn-sm" onClick={() => printTable("Dossiers étudiants", ["Matricule", "Nom", "Durée", "Statut", "Paiement"], exportRows)}>
             Imprimer
           </button>
-          <select
-            className="os-select"
+          <SelectMenu
+            compact
             aria-label="Programme"
             value={programId}
-            onChange={(e) => setProgramFilter(e.target.value)}
-          >
-            <option value="all">Tous les programmes</option>
-            {PROGRAMS.map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.name}
-              </option>
-            ))}
-          </select>
+            onChange={setProgramFilter}
+            options={[
+              { value: "all", label: "Tous les programmes" },
+              ...PROGRAMS.map((p) => ({ value: p.id, label: p.name })),
+            ]}
+          />
         </span>
       }
       foot={
@@ -153,6 +158,7 @@ export default function StudentsTable() {
             <thead>
               <tr>
                 <th>Étudiant</th>
+                <th>Durée</th>
                 <th>Statut</th>
                 <th>Paiement</th>
                 <th className="os-th-action">Action</th>
@@ -164,6 +170,7 @@ export default function StudentsTable() {
                     <td>
                       <PersonCell initials={s.initials} name={s.name} meta={s.matricule} />
                     </td>
+                    <td>{s.durationMonths && isCourseDuration(s.durationMonths) ? durationLabelFr(s.durationMonths) : "Non indiquée"}</td>
                     <td>
                       <Badge tone={statusTone(s.status)}>{STUDENT_STATUS_FR[s.status]}</Badge>
                     </td>

@@ -1,10 +1,11 @@
 "use client";
 
 import { useMemo, useState, type FormEvent } from "react";
-import { GROUPS, addAttendance } from "../_data";
+import { GROUPS, addAttendance, groupMenuOption } from "../_data";
 import { useOs } from "../_components/OsProvider";
 import { useOsT } from "../_components/useOsT";
 import OsConfirm from "../_components/OsConfirm";
+import SelectMenu from "../../components/ui/SelectMenu";
 
 export default function MarkAttendanceForm() {
   const { t } = useOsT();
@@ -58,13 +59,12 @@ export default function MarkAttendanceForm() {
       <form className="os-form-stack" onSubmit={submit}>
         <label className="os-field">
           <span>Groupe</span>
-          <select className="os-input" value={groupId} onChange={(ev) => onGroup(ev.target.value)}>
-            {groups.map((g) => (
-              <option key={g.id} value={g.id}>
-                {g.name}
-              </option>
-            ))}
-          </select>
+          <SelectMenu
+            value={groupId}
+            onChange={onGroup}
+            searchable
+            options={groups.map(groupMenuOption)}
+          />
         </label>
         <label className="os-field">
           <span>Présents</span>

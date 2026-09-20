@@ -3,19 +3,20 @@
 import { useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 import {
-  CAMPUSES,
-  COUNTRIES,
   GROUPS,
-  PROGRAMS,
   addPayment,
   addStudent,
   updateLead,
+  groupMenuOption,
   type Student,
 } from "../_data";
 import { addExtraStudentAccount } from "../_data/auth";
+import { COURSE_DURATION_MONTHS, durationLabelFr, type CourseDurationMonths } from "../../lib/course-duration";
 import { useOs } from "../_components/OsProvider";
 import { useOsT } from "../_components/useOsT";
 import OsConfirm from "../_components/OsConfirm";
+import SelectMenu from "../../components/ui/SelectMenu";
+import CountryField from "../../components/ui/CountryField";
 
 export default function EnrollStudentForm() {
   const { t } = useOsT();
@@ -23,8 +24,9 @@ export default function EnrollStudentForm() {
   const groups = GROUPS.filter((g) => g.schoolId === "tas");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [country, setCountry] = useState<string>(COUNTRIES[0].name);
+  const [country, setCountry] = useState("");
   const [groupId, setGroupId] = useState(groups[0]?.id ?? "");
+  const [durationMonths, setDurationMonths] = useState<CourseDurationMonths>(3);
   const [created, setCreated] = useState<Student | null>(null);
   const [amount, setAmount] = useState("");
   const [paymentId, setPaymentId] = useState("");
@@ -36,26 +38,27 @@ export default function EnrollStudentForm() {
     setName(enrollDraft.name);
     setPhone(enrollDraft.phone);
     if (enrollDraft.country) setCountry(enrollDraft.country);
+    if (enrollDraft.durationMonths) setDurationMonths(enrollDraft.durationMonths);
   }, [enrollDraft]);
 
   if (user.role === "teacher" || user.role === "student") return null;
 
   function submit(e: FormEvent) {
     e.preventDefault();
-    if (!name.trim() || !phone.trim()) return;
+    if (!name.trim() || !phone.trim() || !country.trim()) return;
     setAskEnroll(true);
   }
 
   function confirmEnroll() {
     setAskEnroll(false);
-    const countryRow = COUNTRIES.find((c) => c.name === country) ?? COUNTRIES[0];
     const student = addStudent({
       name: name.trim(),
       phone: phone.trim(),
-      country: countryRow.name,
-      countryCode: countryRow.code,
+      country: country.trim(),
+      countryCode: "",
       groupId,
       source: enrollDraft?.source ?? "Walk-in",
+      durationMonths,
     });
     addExtraStudentAccount({
       matricule: student.matricule,
@@ -137,27 +140,27 @@ export default function EnrollStudentForm() {
       </label>
       <label className="os-field">
         <span>Pays</span>
-        <select className="os-input" value={country} onChange={(ev) => setCountry(ev.target.value)}>
-          {COUNTRIES.map((c) => (
-            <option key={c.code} value={c.name}>
-              {c.name}
-            </option>
-          ))}
-        </select>
+        <CountryField value={country} onChange={setCountry} required />
       </label>
       <label className="os-field">
-        <span>Groupe</span>
-        <select className="os-input" value={groupId} onChange={(ev) => setGroupId(ev.target.value)}>
-          {groups.map((g) => {
-            const program = PROGRAMS.find((p) => p.id === g.programId)?.name ?? g.programId;
-            const campus = CAMPUSES.find((c) => c.id === g.campusId)?.name ?? g.campusId;
-            return (
-              <option key={g.id} value={g.id}>
-                {g.name}, {program}, {campus}
-              </option>
-            );
-          })}
-        </select>
+        <span>Classe</span>
+        <SelectMenu
+          value={groupId}
+          onChange={setGroupId}
+          searchable
+          options={groups.map(groupMenuOption)}
+        />
+      </label>
+      <label className="os-field">
+        <span>Durée</span>
+        <SelectMenu
+          value={String(durationMonths)}
+          onChange={(next) => setDurationMonths(Number(next) as CourseDurationMonths)}
+          options={COURSE_DURATION_MONTHS.map((months) => ({
+            value: String(months),
+            label: durationLabelFr(months),
+          }))}
+        />
       </label>
       <button type="submit" className="os-btn os-btn-primary">
         {t.desk.enrollStudent}

@@ -6,6 +6,7 @@ import { ADMINS_CHANGED, nextAdminMatricule } from "../_data/auth";
 import { useOs } from "./OsProvider";
 import { useOsT } from "./useOsT";
 import OsConfirm from "./OsConfirm";
+import SelectMenu from "../../components/ui/SelectMenu";
 
 export default function EnrollAdminForm() {
   const { t } = useOsT();
@@ -53,13 +54,11 @@ export default function EnrollAdminForm() {
         </label>
         <label className="os-field">
           <span>Campus</span>
-          <select className="os-input" value={campusId} onChange={(ev) => setCampusId(ev.target.value)}>
-            {CAMPUSES.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.name}
-              </option>
-            ))}
-          </select>
+          <SelectMenu
+            value={campusId}
+            onChange={setCampusId}
+            options={CAMPUSES.map((c) => ({ value: c.id, label: c.name }))}
+          />
         </label>
         <button type="submit" className="os-btn os-btn-primary">
           {instantCreate ? t.ceo.createAdmin : t.actions.requestAdmin}

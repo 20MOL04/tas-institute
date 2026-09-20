@@ -34,3 +34,7 @@ export const TAS_MAP_EMBED_URL = `https://www.google.com/maps?q=${MAPS_QUERY}&z=
 export const TAS_MAP_LINK = `https://www.google.com/maps/search/?api=1&query=${MAPS_QUERY}`;
 
 export const TAS_DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${MAPS_QUERY}`;
+
+/** Instant street poster while the live map finishes. One Carto tile, no key. */
+export const TAS_MAP_STATIC_URL =
+  "https://basemaps.cartocdn.com/rastertiles/voyager/16/32729/31747@2x.png";

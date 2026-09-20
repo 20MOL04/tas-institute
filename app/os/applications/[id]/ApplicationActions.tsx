@@ -51,7 +51,7 @@ export default function ApplicationActions({ application }: { application: Appli
     seeded?.status === "accepted" ? "accepted" : seeded?.status === "refused" ? "refused" : seeded?.status === "pending" ? "sent" : "none",
   );
   const [docsAsked, setDocsAsked] = useState(false);
-  const [ask, setAsk] = useState<"docs" | "send" | "accept" | "refuse" | null>(null);
+  const [ask, setAsk] = useState<"accept" | "refuse" | null>(null);
 
   const decided = closed || outcome === "accepted" || outcome === "refused";
 
@@ -136,37 +136,20 @@ export default function ApplicationActions({ application }: { application: Appli
   return (
     <>
       <div className="os-action-stack">
-        <button type="button" className="os-btn" onClick={() => setAsk("docs")} disabled={docsAsked}>
+        <button type="button" className="os-btn" onClick={() => setDocsAsked(true)} disabled={docsAsked}>
           <IcFile />
           {docsAsked ? t.actions.docsRequested : t.actions.requestDocs}
         </button>
-        <button type="button" className="os-btn os-btn-primary" onClick={() => setAsk("send")} disabled={missing || outcome === "sent"}>
+        <button
+          type="button"
+          className="os-btn os-btn-primary"
+          onClick={sendToFounder}
+          disabled={missing || outcome === "sent"}
+        >
           {outcome === "sent" ? t.actions.sentToFounder : t.actions.sendToFounder}
         </button>
         {missing ? <p className="os-muted">{t.actions.completeDocs}</p> : null}
       </div>
-      <OsConfirm
-        open={ask === "docs"}
-        title="Demander les pièces"
-        body="Confirmez la demande de pièces pour ce dossier."
-        confirmLabel="Demander"
-        onConfirm={() => {
-          setAsk(null);
-          setDocsAsked(true);
-        }}
-        onCancel={() => setAsk(null)}
-      />
-      <OsConfirm
-        open={ask === "send"}
-        title="Envoyer au fondateur"
-        body="Confirmez l'envoi de ce dossier au fondateur."
-        confirmLabel="Envoyer"
-        onConfirm={() => {
-          setAsk(null);
-          sendToFounder();
-        }}
-        onCancel={() => setAsk(null)}
-      />
     </>
   );
 }

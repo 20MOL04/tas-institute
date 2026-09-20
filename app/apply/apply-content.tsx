@@ -14,8 +14,11 @@ import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { useLang } from "../LangProvider";
 import PageHero from "../components/PageHero";
-import { addLead, programIdFromApplySlug } from "../os/_data/growth";
+import { addLead, addApplication, programIdFromApplySlug } from "../os/_data/growth";
+import { COURSE_DURATION_MONTHS, parseDuration } from "../lib/course-duration";
 import { IconCheck } from "../components/icons";
+import SelectMenu from "../components/ui/SelectMenu";
+import CountryField from "../components/ui/CountryField";
 
 interface FormState {
   fullName: string;
@@ -24,6 +27,7 @@ interface FormState {
   email: string;
   country: string;
   program: string;
+  duration: string;
   level: string;
   schedule: string;
   startDate: string;
@@ -38,6 +42,7 @@ const EMPTY_FORM: FormState = {
   email: "",
   country: "",
   program: "",
+  duration: "",
   level: "",
   schedule: "",
   startDate: "",
@@ -46,7 +51,7 @@ const EMPTY_FORM: FormState = {
 };
 
 export default function ApplyContent() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const [step, setStep] = useState(0);
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [consent, setConsent] = useState(false);
@@ -68,7 +73,7 @@ export default function ApplyContent() {
         return t.common.requiredNote;
       }
     }
-    if (current === 1 && !form.program) {
+    if (current === 1 && (!form.program || !form.duration)) {
       return t.common.requiredNote;
     }
     return "";
@@ -96,14 +101,29 @@ export default function ApplyContent() {
       return;
     }
     setSubmitted(true);
+    const durationMonths = parseDuration(form.duration) ?? 3;
+    const programId = programIdFromApplySlug(form.program);
     addLead({
       name: form.fullName,
       phone: form.whatsapp.trim() || form.phone,
       country: form.country,
-      programId: programIdFromApplySlug(form.program),
-      note: [form.message.trim(), form.hearAbout ? `Source indiquée : ${form.hearAbout}` : "", form.email ? form.email : ""]
+      programId,
+      durationMonths,
+      note: [
+        form.duration ? `Durée : ${form.duration}` : "",
+        form.message.trim(),
+        form.hearAbout ? `Source indiquée : ${form.hearAbout}` : "",
+        form.email ? form.email : "",
+      ]
         .filter(Boolean)
         .join(". ") || "Demande reçue depuis le site.",
+      source: "Formulaire",
+    });
+    addApplication({
+      name: form.fullName,
+      country: form.country,
+      programId,
+      durationMonths,
       source: "Formulaire",
     });
     setError("");
@@ -181,7 +201,13 @@ export default function ApplyContent() {
                 </div>
                 <div className="field">
                   <label htmlFor="country">{t.apply.country} *</label>
-                  <input id="country" value={form.country} onChange={update("country")} required />
+                  <CountryField
+                    id="country"
+                    value={form.country}
+                    onChange={(country) => setForm((prev) => ({ ...prev, country }))}
+                    lang={lang}
+                    required
+                  />
                 </div>
               </fieldset>
             )}
@@ -191,43 +217,50 @@ export default function ApplyContent() {
                 <h2 style={{ fontSize: "1.2rem" }}>{t.apply.step2Title}</h2>
                 <div className="field">
                   <label htmlFor="program">{t.apply.programField} *</label>
-                  <select id="program" value={form.program} onChange={update("program")} required>
-                    <option value="" disabled>
-                      —
-                    </option>
-                    {programOptions.map((p) => (
-                      <option key={p.slug} value={p.title}>
-                        {p.title}
-                      </option>
-                    ))}
-                  </select>
+                  <SelectMenu
+                    id="program"
+                    value={form.program}
+                    onChange={(program) => setForm((prev) => ({ ...prev, program }))}
+                    required
+                    placeholder={t.apply.programField}
+                    options={programOptions.map((p) => ({ value: p.title, label: p.title }))}
+                  />
+                </div>
+                <div className="field">
+                  <label htmlFor="duration">{t.apply.durationField} *</label>
+                  <SelectMenu
+                    id="duration"
+                    value={form.duration}
+                    onChange={(duration) => setForm((prev) => ({ ...prev, duration }))}
+                    required
+                    placeholder={t.apply.durationField}
+                    options={COURSE_DURATION_MONTHS.map((months, i) => ({
+                      value: String(months),
+                      label: t.apply.durationOptions[i],
+                    }))}
+                  />
                 </div>
                 <div className="field-row">
                   <div className="field">
                     <label htmlFor="level">{t.apply.levelField}</label>
-                    <select id="level" value={form.level} onChange={update("level")}>
-                      <option value="" disabled>
-                        —
-                      </option>
-                      {t.apply.levelOptions.map((lvl) => (
-                        <option key={lvl} value={lvl}>
-                          {lvl}
-                        </option>
-                      ))}
-                    </select>
+                    <SelectMenu
+                      id="level"
+                      value={form.level}
+                      onChange={(level) => setForm((prev) => ({ ...prev, level }))}
+                      searchable
+                      placeholder={t.apply.levelField}
+                      options={t.apply.levelOptions.map((lvl) => ({ value: lvl, label: lvl }))}
+                    />
                   </div>
                   <div className="field">
                     <label htmlFor="schedule">{t.apply.scheduleField}</label>
-                    <select id="schedule" value={form.schedule} onChange={update("schedule")}>
-                      <option value="" disabled>
-                        —
-                      </option>
-                      {t.apply.scheduleOptions.map((s) => (
-                        <option key={s} value={s}>
-                          {s}
-                        </option>
-                      ))}
-                    </select>
+                    <SelectMenu
+                      id="schedule"
+                      value={form.schedule}
+                      onChange={(schedule) => setForm((prev) => ({ ...prev, schedule }))}
+                      placeholder={t.apply.scheduleField}
+                      options={t.apply.scheduleOptions.map((s) => ({ value: s, label: s }))}
+                    />
                   </div>
                 </div>
                 <div className="field">
@@ -266,6 +299,10 @@ export default function ApplyContent() {
                   <ReviewItem label={t.apply.email} value={form.email} />
                   <ReviewItem label={t.apply.country} value={form.country} />
                   <ReviewItem label={t.apply.programField} value={form.program} />
+                  <ReviewItem
+                    label={t.apply.durationField}
+                    value={t.apply.durationOptions[COURSE_DURATION_MONTHS.indexOf((Number(form.duration) as (typeof COURSE_DURATION_MONTHS)[number]))] || form.duration}
+                  />
                   <ReviewItem label={t.apply.levelField} value={form.level} />
                   <ReviewItem label={t.apply.scheduleField} value={form.schedule} />
                   <ReviewItem label={t.apply.startDateField} value={form.startDate} />

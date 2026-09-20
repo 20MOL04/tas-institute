@@ -52,10 +52,8 @@ export const SITE_DEFAULTS: SiteContent = {
   hoursEn: "Monday to Friday, 8 am to 5 pm",
   homeHeroFr: "Apprenez l'anglais. Construisez votre avenir.",
   homeHeroEn: "Learn English. Build your future.",
-  homeLeadFr:
-    "À Accra, TAS English Institute accompagne des étudiants africains et internationaux avec un enseignement structuré, des enseignants expérimentés et un cadre d'apprentissage sérieux.",
-  homeLeadEn:
-    "In Accra, TAS English Institute supports African and international students with structured teaching, experienced teachers and a serious learning setting.",
+  homeLeadFr: "Cours à Accra. 18 enseignants. Réponse sur WhatsApp.",
+  homeLeadEn: "Classes in Accra. 18 teachers. We reply on WhatsApp.",
   gallery: [],
 };
 
@@ -72,10 +70,26 @@ export function whatsappLinkFromDisplay(display: string, message: string) {
   return `${whatsappUrlFromDisplay(display)}?text=${encodeURIComponent(message)}`;
 }
 
+const STALE_HOME_LEAD_FR = [
+  "À Accra, TAS English Institute accompagne des étudiants africains et internationaux avec un enseignement structuré, des enseignants expérimentés et un cadre d'apprentissage sérieux.",
+  "Huit heures d'anglais par jour à Accra. 18 enseignants. Une chambre près des salles. WhatsApp pour commencer.",
+];
+const STALE_HOME_LEAD_EN = [
+  "In Accra, TAS English Institute supports African and international students with structured teaching, experienced teachers and a serious learning setting.",
+  "In Accra, TAS English Institute supports African and international students with structured teaching, experienced instructors and a serious learning environment.",
+  "Eight hours of English a day in Accra. 18 teachers. A room near class. WhatsApp to start.",
+];
+
 export function readSiteContent(): SiteContent {
   const saved = readJson<Partial<SiteContent> | null>(KEY, null);
   if (!saved) return SITE_DEFAULTS;
-  return { ...SITE_DEFAULTS, ...saved, gallery: saved.gallery ?? [] };
+  const homeLeadFr = saved.homeLeadFr && !STALE_HOME_LEAD_FR.includes(saved.homeLeadFr)
+    ? saved.homeLeadFr
+    : SITE_DEFAULTS.homeLeadFr;
+  const homeLeadEn = saved.homeLeadEn && !STALE_HOME_LEAD_EN.includes(saved.homeLeadEn)
+    ? saved.homeLeadEn
+    : SITE_DEFAULTS.homeLeadEn;
+  return { ...SITE_DEFAULTS, ...saved, homeLeadFr, homeLeadEn, gallery: saved.gallery ?? [] };
 }
 
 export function writeSiteContent(next: SiteContent) {

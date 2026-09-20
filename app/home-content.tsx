@@ -8,6 +8,7 @@ import { TwoLineHeroTitle } from "./components/AccentTitle";
 import Faq from "./components/Faq";
 import StatsBand from "./components/StatsBand";
 import LocationCard from "./components/LocationCard";
+import TeacherMarquee, { TEACHER_PHOTOS } from "./components/TeacherMarquee";
 import { IconBook, IconPeople, IconPin, IconGlobe, IconInfo } from "./components/icons";
 import RoomCard from "./components/RoomCard";
 import OutingCard from "./components/OutingCard";
@@ -77,26 +78,26 @@ const STORIES = [
       "The 3-month intensive training at TAS English Institute gave me the opportunity to continue my studies in France.",
     nameFr: "Témoignage publié",
     nameEn: "Published testimonial",
-    metaFr: "Site officiel TAS",
-    metaEn: "Official TAS website",
+    metaFr: "Site TAS",
+    metaEn: "TAS website",
   },
   {
     src: "/images/student-1.jpg",
     quoteFr: "Les cours sont structurés, l'ambiance est internationale et on progresse vraiment à l'oral.",
     quoteEn: "The classes are structured, the atmosphere is international and speaking really improves.",
-    nameFr: "Étudiant(e)",
-    nameEn: "Student",
-    metaFr: "Avis à confirmer",
-    metaEn: "Review to confirm",
+    nameFr: "Étudiant TAS",
+    nameEn: "TAS student",
+    metaFr: "Accra",
+    metaEn: "Accra",
   },
   {
     src: "/images/student-2.jpg",
     quoteFr: "Les enseignants sont disponibles et le campus est un vrai cadre pour apprendre.",
     quoteEn: "The teachers are available and campus is a real place to learn.",
-    nameFr: "Étudiant(e)",
-    nameEn: "Student",
-    metaFr: "Avis à confirmer",
-    metaEn: "Review to confirm",
+    nameFr: "Étudiant TAS",
+    nameEn: "TAS student",
+    metaFr: "Accra",
+    metaEn: "Accra",
   },
 ];
 
@@ -190,18 +191,14 @@ export default function HomeContent() {
       <section className="section home-after-hero">
         <div className="container">
           <div className="section-head-center reveal">
-            <span className="sec-kicker">{fr ? "Programmes" : "Programs"}</span>
-            <h2>{fr ? "Choisissez le programme adapté à vos objectifs" : "Choose the Right Program for Your Goals"}</h2>
-            <p className="lede">
-              {fr
-                ? "Trois parcours actuellement proposés par TAS : anglais intensif, anglais en durée longue, et informatique."
-                : "Three pathways currently offered by TAS: intensive English, longer English courses, and computer courses."}
-            </p>
+            <span className="sec-kicker">{t.home.programsEyebrow}</span>
+            <h2>{t.home.programsTitle}</h2>
+            <p className="lede">{t.home.programsSubtitle}</p>
           </div>
           <div className="home-cards-3 reveal reveal-stagger">
             {PROGRAMS.map((p) => (
               <Link key={p.src} href={p.href} className="card card-hover">
-                <PhotoFrame src={p.src} alt="" ratio="16-10" sizes="(max-width: 1023px) 78vw, 30vw" />
+                <PhotoFrame src={p.src} alt="" ratio="16-10" sizes="(max-width: 1023px) 78vw, 33vw" />
                 <div className="card-body">
                   <h3>{fr ? p.titleFr : p.titleEn}</h3>
                   <p className="small muted">{fr ? p.textFr : p.textEn}</p>
@@ -221,43 +218,55 @@ export default function HomeContent() {
       <section className="section section-alt">
         <div className="container">
           <div className="section-head-center reveal">
-            <span className="sec-kicker">{fr ? "Notre école" : "Our school"}</span>
-            <h2>{fr ? "Une communauté accueillante au cœur d'Accra" : "A Welcoming Community in the Heart of Accra"}</h2>
-            <p className="lede">
-              {fr
-                ? "TAS English Institute est une école de langue à Accra (Alajo, Kotobabi) qui propose des cours d'anglais et des formations professionnelles, notamment pour des étudiants francophones."
-                : "TAS English Institute is a language school in Accra (Alajo, Kotobabi) offering English and professional courses, including for Francophone students."}
-            </p>
-            <Link href="/about" className="btn btn-primary">
-              {t.common.learnMore}
+            <span className="sec-kicker">{t.home.teachersEyebrow}</span>
+            <h2>{t.home.teachersTitle}</h2>
+            <p className="lede">{fr ? "Une équipe en classe, tous les jours." : "A team in class, every day."}</p>
+          </div>
+        </div>
+        <TeacherMarquee photos={TEACHER_PHOTOS} />
+        <div className="container">
+          <div className="section-foot reveal">
+            <Link href="/teachers" className="btn btn-secondary">
+              {t.home.teachersCta}
             </Link>
           </div>
-          <div className="hp-video reveal">
-            <PhotoFrame src="/images/campus-video-thumbnail.png" alt="" ratio="21-9" sizes="(max-width: 1023px) 92vw, 1180px" />
-            <div className="hp-video-ui">
-              <span className="hp-play" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M8 5v14l11-7L8 5Z" />
-                </svg>
-              </span>
-              <strong>{fr ? "Visite du campus" : "Watch Our Campus Tour"}</strong>
-              <span className="small">{fr ? "Vidéo à confirmer" : "Video to confirm"}</span>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <div className="home-split reveal">
+            <div className="home-split-copy">
+              <span className="sec-kicker">{t.home.whyEyebrow}</span>
+              <h2>{t.home.whyTitle}</h2>
+              <p className="lede">{fr ? "Une école à Accra, pour les étudiants d'Afrique de l'Ouest." : "A school in Accra, for students from West Africa."}</p>
+              <Link href="/about" className="btn btn-primary">
+                {t.common.learnMore}
+              </Link>
+            </div>
+            <div className="hp-video">
+              <PhotoFrame src="/images/campus-video-thumbnail.png" alt="" ratio="21-9" sizes="(max-width: 1023px) 92vw, 60vw" />
+              <div className="hp-video-ui">
+                <span className="hp-play" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7L8 5Z" />
+                  </svg>
+                </span>
+                <strong>{fr ? "Le campus" : "The campus"}</strong>
+                <span className="small">{fr ? "Alajo, Accra" : "Alajo, Accra"}</span>
+              </div>
             </div>
           </div>
           <StatsBand />
         </div>
       </section>
 
-      <section className="section">
+      <section className="section section-alt">
         <div className="container">
           <div className="section-head-center reveal">
-            <span className="sec-kicker">{fr ? "Logement" : "Housing"}</span>
-            <h2>{fr ? "Votre maison loin de chez vous" : "Your Home Away From Home"}</h2>
-            <p className="lede">
-              {fr
-                ? "TAS aide les étudiants à se loger près du campus. Trois formules, avec leurs équipements et leur tarif."
-                : "TAS helps students find housing close to campus. Three options, with what each includes and its price."}
-            </p>
+            <span className="sec-kicker">{t.accommodation.optionsKicker}</span>
+            <h2>{t.accommodation.optionsTitle}</h2>
+            <p className="lede">{fr ? "Près des cours. Vous réservez sur WhatsApp." : "Near class. You book on WhatsApp."}</p>
           </div>
           <div className="home-cards-3 reveal reveal-stagger">
             {TAS_ROOMS.map((room) => (
@@ -286,18 +295,18 @@ export default function HomeContent() {
           </ul>
           <div className="section-foot reveal">
             <Link href="/accommodation" className="btn btn-primary">
-              {fr ? "Voir l'hébergement" : "View Accommodation"}
+              {fr ? "Voir l'hébergement" : "View housing"}
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="section section-alt">
+      <section className="section">
         <div className="container">
           <div className="section-head-center reveal">
             <span className="sec-kicker">{t.excursions.kicker}</span>
             <h2>{t.excursions.title}</h2>
-            <p className="lede">{t.excursions.text}</p>
+            <p className="lede">{fr ? "Cape Coast, Kakum, Accra, la mer." : "Cape Coast, Kakum, Accra, the sea."}</p>
           </div>
           <div className="home-cards-4 reveal reveal-stagger">
             {TAS_OUTINGS.map((outing) => (
@@ -312,30 +321,38 @@ export default function HomeContent() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section section-alt">
         <div className="container">
           <div className="section-head-center reveal">
-            <span className="sec-kicker">{fr ? "Avis" : "Reviews"}</span>
-            <h2>{fr ? "Des parcours réels. Des progrès concrets." : "Real Stories. Real Progress."}</h2>
-            <p className="lede">
-              {fr
-                ? "Ce que disent les étudiants passés par TAS English Institute."
-                : "What students who came through TAS English Institute have to say."}
-            </p>
+            <span className="sec-kicker">{t.home.storyEyebrow}</span>
+            <h2>{t.home.storyTitle}</h2>
+            <p className="lede">{t.home.storyText}</p>
           </div>
-          <div className="stories-row reveal reveal-stagger">
-            {STORIES.map((story) => (
-              <article key={story.src} className="card story-card">
-                <PhotoFrame src={story.src} alt="" ratio="3-2" sizes="120px" />
-                <div className="card-body">
-                  <p className="story-quote">« {fr ? story.quoteFr : story.quoteEn} »</p>
-                  <div>
-                    <span className="story-name">{fr ? story.nameFr : story.nameEn}</span>
-                    <span className="story-meta">{fr ? story.metaFr : story.metaEn}</span>
-                  </div>
+          <div className="stories-board reveal">
+            <article className="card story-card is-lead">
+              <PhotoFrame src={STORIES[0].src} alt="" ratio="16-10" sizes="(max-width: 1023px) 92vw, 50vw" />
+              <div className="card-body">
+                <p className="story-quote">« {fr ? STORIES[0].quoteFr : STORIES[0].quoteEn} »</p>
+                <div>
+                  <span className="story-name">{fr ? STORIES[0].nameFr : STORIES[0].nameEn}</span>
+                  <span className="story-meta">{fr ? STORIES[0].metaFr : STORIES[0].metaEn}</span>
                 </div>
-              </article>
-            ))}
+              </div>
+            </article>
+            <div className="stories-board-side">
+              {STORIES.slice(1).map((story) => (
+                <article key={story.src} className="card story-card">
+                  <PhotoFrame src={story.src} alt="" ratio="3-2" sizes="120px" />
+                  <div className="card-body">
+                    <p className="story-quote">« {fr ? story.quoteFr : story.quoteEn} »</p>
+                    <div>
+                      <span className="story-name">{fr ? story.nameFr : story.nameEn}</span>
+                      <span className="story-meta">{fr ? story.metaFr : story.metaEn}</span>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
           <div className="section-foot reveal">
             <Link href="/student-stories" className="btn btn-secondary">
@@ -375,11 +392,9 @@ export default function HomeContent() {
       <section className="section">
         <div className="container">
           <div className="section-head-center reveal">
-            <span className="sec-kicker">{fr ? "Campus" : "Campus"}</span>
-            <h2>{fr ? "La vie à TAS English Institute" : "Life at TAS English"}</h2>
-            <p className="lede">
-              {fr ? "Un aperçu du campus, des salles et de la communauté." : "A glimpse of campus, classrooms and community."}
-            </p>
+            <span className="sec-kicker">{t.home.campusEyebrow}</span>
+            <h2>{t.home.campusTitle}</h2>
+            <p className="lede">{t.home.campusText}</p>
           </div>
           <div className="home-mosaic reveal reveal-stagger">
             {GALLERY.map((src) => (
@@ -390,7 +405,7 @@ export default function HomeContent() {
           </div>
           <div className="section-foot reveal">
             <Link href="/gallery" className="btn btn-secondary">
-              {fr ? "Voir la galerie" : "View Full Gallery"}
+              {fr ? "Voir la galerie" : "View the gallery"}
             </Link>
           </div>
         </div>
@@ -399,13 +414,9 @@ export default function HomeContent() {
       <section className="section section-alt">
         <div className="container">
           <div className="section-head-center reveal">
-            <span className="sec-kicker">{fr ? "Blog" : "Blog"}</span>
-            <h2>{fr ? "Ressources pour progresser" : "Insights & Resources for Your Growth"}</h2>
-            <p className="lede">
-              {fr
-                ? "Conseils pour l'oral, la vie au Ghana et le choix de programme."
-                : "Tips on speaking, life in Ghana and choosing a program."}
-            </p>
+            <span className="sec-kicker">{t.resources.heroEyebrow}</span>
+            <h2>{t.resources.heroTitle}</h2>
+            <p className="lede">{t.resources.heroSubtitle}</p>
           </div>
           <div className="blog-grid reveal reveal-stagger">
             <Link href="/resources" className="card card-hover blog-lead">
@@ -456,9 +467,7 @@ export default function HomeContent() {
             <h2>{t.location.sectionTitle}</h2>
             <p className="lede">{t.location.sectionText}</p>
           </div>
-          <div className="reveal">
-            <LocationCard />
-          </div>
+          <LocationCard />
         </div>
       </section>
 
@@ -468,11 +477,9 @@ export default function HomeContent() {
         </div>
         <div className="container">
           <div className="section-head-center reveal">
-            <span className="sec-kicker">{fr ? "Inscription" : "Admission"}</span>
-            <h2>{fr ? "Rejoignez TAS English aujourd'hui" : "Join TAS English Today"}</h2>
-            <p className="lede">
-              {fr ? "Passez à l'étape suivante vers un avenir plus clair." : "Take the next step toward a brighter future."}
-            </p>
+            <span className="sec-kicker">{t.home.stepsKicker}</span>
+            <h2>{t.home.finalCtaTitle}</h2>
+            <p className="lede">{t.home.finalCtaText}</p>
             <div className="hp-cta-actions">
               <Link href="/apply" className="btn btn-primary">
                 {t.home.finalCtaButton}
@@ -482,7 +489,7 @@ export default function HomeContent() {
               </a>
             </div>
             <p className="hp-cta-caption">
-              {fr ? "Plus qu'une langue. Un avenir plus clair." : "More Than a Language. A Brighter Future."}
+              {fr ? "Une place à Accra. Un rythme. Un départ." : "A place in Accra. A pace. A start."}
             </p>
           </div>
         </div>

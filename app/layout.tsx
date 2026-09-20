@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Instrument_Serif, Plus_Jakarta_Sans } from "next/font/google";
 import "./design-system.css";
+import "./components/ui/select-menu.css";
 import { LangProvider } from "./LangProvider";
 import SiteChrome from "./components/SiteChrome";
 
@@ -31,6 +32,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" className={`${jakarta.variable} ${display.variable}`}>
+      <head>
+        <link rel="preconnect" href="https://www.google.com" />
+        <link rel="preconnect" href="https://maps.googleapis.com" />
+        <link rel="preconnect" href="https://maps.gstatic.com" crossOrigin="" />
+        <link rel="dns-prefetch" href="https://www.google.com" />
+      </head>
       <body>
         <LangProvider>
           <SiteChrome>{children}</SiteChrome>

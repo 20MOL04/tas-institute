@@ -4,6 +4,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { LEADS_CHANGED, LEAD_STAGES, PROGRAMS, fmtDate, leadSourceLabel, liveLeads, type Lead } from "../../_data";
 import { Badge, OsCard, PageHead, statusTone } from "../../_components/ui";
 import LeadActions from "../../_components/LeadActions";
+import { durationLabelFr, isCourseDuration } from "../../../lib/course-duration";
 
 function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
@@ -43,6 +44,7 @@ export default function LiveLeadProfile({ id }: { id: string }) {
           <Field label="Pays">{lead.country}</Field>
           <Field label="Source">{leadSourceLabel(lead.source)}</Field>
           <Field label="Programme">{program?.name ?? lead.programId}</Field>
+          <Field label="Durée">{lead.durationMonths && isCourseDuration(lead.durationMonths) ? durationLabelFr(lead.durationMonths) : "Non indiquée"}</Field>
           <Field label="Reçue le">{fmtDate(lead.createdAt)}</Field>
           <Field label="Dernier contact">{fmtDate(lead.lastContact)}</Field>
           <Field label="Suivi par">{lead.owner}</Field>

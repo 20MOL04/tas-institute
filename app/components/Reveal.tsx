@@ -1,8 +1,8 @@
 "use client";
 
-// Adds the .in class to every .reveal element once it enters the viewport, so
-// sections fade up on scroll without each page having to wire its own observer.
-// Elements already in view on load are revealed immediately.
+// Adds the .in class to every .reveal element once it nears the viewport.
+// rootMargin starts the motion before the block is fully on screen, so the
+// arrival feels finished rather than a late fade.
 
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
@@ -27,7 +27,7 @@ export default function Reveal() {
           io.unobserve(entry.target);
         });
       },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 },
+      { rootMargin: "0px 0px 22% 0px", threshold: 0.08 },
     );
 
     targets.forEach((el) => io.observe(el));

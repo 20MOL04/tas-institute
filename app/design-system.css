@@ -62,6 +62,7 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
 }
 
 body {
@@ -2392,6 +2393,21 @@ a.card {
   filter: saturate(0.88) contrast(1.02);
 }
 
+.location-map-poster {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 480ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.location-map-poster.is-gone {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .location-info {
   display: flex;
   flex-direction: column;
@@ -2725,7 +2741,7 @@ a.card {
 }
 
 .section-head-center h2 {
-  max-width: 24ch;
+  max-width: 36ch;
 }
 
 .section-head-center .lede {
@@ -2734,6 +2750,132 @@ a.card {
 
 .section-head-center .btn {
   margin-top: 4px;
+}
+
+.home-split {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.85fr) minmax(0, 1.15fr);
+  gap: 36px 48px;
+  align-items: center;
+}
+
+.home-split-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.home-offer {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.home-offer-lead {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.home-offer-lead .photo-frame {
+  flex: 1;
+  min-height: 280px;
+  aspect-ratio: auto;
+}
+
+.home-offer-side {
+  display: grid;
+  gap: 16px;
+}
+
+.stories-board {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.stories-board-side {
+  display: grid;
+  gap: 16px;
+}
+
+.story-card.is-lead {
+  grid-template-columns: 1fr;
+}
+
+.story-card.is-lead > .photo-frame {
+  height: 220px;
+  aspect-ratio: auto;
+}
+
+.teacher-marquee {
+  display: grid;
+  gap: 10px;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding-block: 8px;
+}
+
+.teacher-marquee-row {
+  position: relative;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+}
+
+.teacher-marquee-track {
+  display: flex;
+  gap: 10px;
+  width: max-content;
+  animation: home-marquee 46s linear infinite;
+}
+
+.teacher-marquee-row.is-reverse .teacher-marquee-track {
+  animation-direction: reverse;
+  animation-duration: 52s;
+}
+
+.teacher-marquee-copy {
+  display: flex;
+  gap: 10px;
+  margin-left: 10px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .teacher-marquee:hover .teacher-marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+.teacher-marquee-cell {
+  position: relative;
+  flex: none;
+  width: 168px;
+  height: 210px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--tas-navy);
+  border: 1px solid var(--tas-border);
+}
+
+.teacher-marquee-cell img {
+  object-fit: cover;
+  max-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .teacher-marquee-track {
+    animation: none;
+  }
+
+  .teacher-marquee-row {
+    overflow-x: auto;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
 }
 
 .stories-row {
@@ -2935,6 +3077,25 @@ a.card {
 }
 
 @media (max-width: 1023px) {
+  .home-split,
+  .home-offer,
+  .stories-board {
+    grid-template-columns: 1fr;
+  }
+
+  .home-offer-lead .photo-frame {
+    min-height: 200px;
+  }
+
+  .story-card.is-lead > .photo-frame {
+    height: 180px;
+  }
+
+  .teacher-marquee-cell {
+    width: 128px;
+    height: 160px;
+  }
+
   .home-cards-3 {
     display: flex;
     overflow-x: auto;
@@ -3446,20 +3607,39 @@ a.card {
 
 .reveal {
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 620ms cubic-bezier(0.2, 0.6, 0.2, 1), transform 620ms cubic-bezier(0.2, 0.6, 0.2, 1);
+  transform: translate3d(0, 40px, 0);
+  transition:
+    opacity 920ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 920ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 920ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal:not(.reveal-stagger) {
+  filter: blur(8px);
 }
 
 .reveal.in {
   opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+.reveal .photo-frame img {
+  transform: scale(1.08);
+  transition: transform 1.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.in .photo-frame img {
   transform: none;
 }
 
 /* Staggered children inside a revealed container (card grids, stat bands). */
 .reveal-stagger > * {
   opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 560ms cubic-bezier(0.2, 0.6, 0.2, 1), transform 560ms cubic-bezier(0.2, 0.6, 0.2, 1);
+  transform: translate3d(0, 32px, 0) scale(0.98);
+  transition:
+    opacity 820ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 820ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal-stagger.in > * {
@@ -3467,27 +3647,41 @@ a.card {
   transform: none;
 }
 
+.reveal-stagger.in > *:nth-child(1) {
+  transition-delay: 40ms;
+}
+
 .reveal-stagger.in > *:nth-child(2) {
-  transition-delay: 70ms;
+  transition-delay: 120ms;
 }
 
 .reveal-stagger.in > *:nth-child(3) {
-  transition-delay: 140ms;
+  transition-delay: 200ms;
 }
 
 .reveal-stagger.in > *:nth-child(4) {
-  transition-delay: 210ms;
+  transition-delay: 280ms;
 }
 
-.reveal-stagger.in > *:nth-child(n + 5) {
-  transition-delay: 280ms;
+.reveal-stagger.in > *:nth-child(5) {
+  transition-delay: 340ms;
+}
+
+.reveal-stagger.in > *:nth-child(n + 6) {
+  transition-delay: 400ms;
+}
+
+.card-hover:hover .photo-frame img {
+  transform: scale(1.045);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal,
-  .reveal-stagger > * {
+  .reveal-stagger > *,
+  .reveal .photo-frame img {
     opacity: 1;
     transform: none;
+    filter: none;
     transition: none;
   }
 

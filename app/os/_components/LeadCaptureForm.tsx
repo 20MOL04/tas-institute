@@ -1,21 +1,32 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { COUNTRIES, PROGRAMS, addLead } from "../_data";
+import { PROGRAMS, addLead } from "../_data";
+import { COURSE_DURATION_MONTHS, durationLabelFr, type CourseDurationMonths } from "../../lib/course-duration";
 import OsConfirm from "./OsConfirm";
+import SelectMenu from "../../components/ui/SelectMenu";
+import CountryField from "../../components/ui/CountryField";
+
+const SOURCES = [
+  { value: "WhatsApp", label: "WhatsApp" },
+  { value: "Formulaire", label: "Formulaire" },
+  { value: "Contact", label: "Contact" },
+  { value: "Walk-in", label: "Sur place" },
+];
 
 export default function LeadCaptureForm({ onDone }: { onDone?: () => void }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [country, setCountry] = useState<string>(COUNTRIES[0].name);
+  const [country, setCountry] = useState("");
   const [source, setSource] = useState("WhatsApp");
   const [programId, setProgramId] = useState(PROGRAMS[0]?.id ?? "eng-intensive");
+  const [durationMonths, setDurationMonths] = useState<CourseDurationMonths>(3);
   const [note, setNote] = useState("");
   const [ask, setAsk] = useState(false);
 
   function submit(e: FormEvent) {
     e.preventDefault();
-    if (!name.trim() || !phone.trim()) return;
+    if (!name.trim() || !phone.trim() || !country.trim()) return;
     setAsk(true);
   }
 
@@ -26,6 +37,7 @@ export default function LeadCaptureForm({ onDone }: { onDone?: () => void }) {
       phone: phone.trim(),
       country,
       programId,
+      durationMonths,
       note: note.trim() || "Demande enregistrée au bureau.",
       source,
     });
@@ -48,32 +60,30 @@ export default function LeadCaptureForm({ onDone }: { onDone?: () => void }) {
       </label>
       <label className="os-field">
         <span>Pays</span>
-        <select className="os-input" value={country} onChange={(ev) => setCountry(ev.target.value)}>
-          {COUNTRIES.map((c) => (
-            <option key={c.code} value={c.name}>
-              {c.name}
-            </option>
-          ))}
-        </select>
+        <CountryField value={country} onChange={setCountry} required />
       </label>
       <label className="os-field">
         <span>Source</span>
-        <select className="os-input" value={source} onChange={(ev) => setSource(ev.target.value)}>
-          <option value="WhatsApp">WhatsApp</option>
-          <option value="Formulaire">Formulaire</option>
-          <option value="Contact">Contact</option>
-          <option value="Walk-in">Sur place</option>
-        </select>
+        <SelectMenu value={source} onChange={setSource} options={SOURCES} />
       </label>
       <label className="os-field">
         <span>Programme</span>
-        <select className="os-input" value={programId} onChange={(ev) => setProgramId(ev.target.value)}>
-          {PROGRAMS.filter((p) => p.schoolId === "tas").map((p) => (
-            <option key={p.id} value={p.id}>
-              {p.name}
-            </option>
-          ))}
-        </select>
+        <SelectMenu
+          value={programId}
+          onChange={setProgramId}
+          options={PROGRAMS.filter((p) => p.schoolId === "tas").map((p) => ({ value: p.id, label: p.name }))}
+        />
+      </label>
+      <label className="os-field">
+        <span>Durée</span>
+        <SelectMenu
+          value={String(durationMonths)}
+          onChange={(next) => setDurationMonths(Number(next) as CourseDurationMonths)}
+          options={COURSE_DURATION_MONTHS.map((months) => ({
+            value: String(months),
+            label: durationLabelFr(months),
+          }))}
+        />
       </label>
       <label className="os-field">
         <span>Note</span>

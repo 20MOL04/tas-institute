@@ -167,7 +167,7 @@ function writeApproval(next: Approval) {
 function applyDecision(row: Approval) {
   if (row.status === "pending") return;
   if (row.kind === "enroll" || row.kind === "reject") {
-    patchApplication(row.relatedId, { status: row.status === "accepted" ? "approved" : "rejected" });
+    patchApplication(row.relatedId, { status: row.status === "accepted" ? "enrolled" : "rejected" });
   }
   if (row.kind === "transfer" && row.status === "accepted") {
     const transfer = TRANSFERS.find((t) => t.id === row.relatedId);

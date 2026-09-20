@@ -19,6 +19,7 @@ import {
   type PaymentMethod,
   type Student,
 } from "../../_data";
+import { durationLabelFr } from "../../../lib/course-duration";
 import {
   Badge,
   DOCUMENT_STATUS_FR,
@@ -30,6 +31,7 @@ import {
 import { useOs } from "../../_components/OsProvider";
 import { useLivePayments } from "../../_components/useLivePayments";
 import OsConfirm from "../../_components/OsConfirm";
+import SelectMenu from "../../../components/ui/SelectMenu";
 
 type Tab = "overview" | "payments" | "documents" | "attendance" | "grades";
 
@@ -157,6 +159,7 @@ export default function StudentTabs({
               <Field label="École">{schoolName}</Field>
               <Field label="Campus">{campusName}</Field>
               <Field label="Programme">{programName}</Field>
+              <Field label="Durée">{student.durationMonths ? durationLabelFr(student.durationMonths) : "Non indiquée"}</Field>
               <Field label="Niveau">{student.level}</Field>
               <Field label="Mois suivant">
                 {student.status !== "active"
@@ -203,23 +206,19 @@ export default function StudentTabs({
               </label>
               <label className="os-field">
                 <span>Objet</span>
-                <select className="os-input" value={purpose} onChange={(ev) => setPurpose(ev.target.value as Payment["purpose"])}>
-                  {PURPOSES.map((p) => (
-                    <option key={p} value={p}>
-                      {p}
-                    </option>
-                  ))}
-                </select>
+                <SelectMenu
+                  value={purpose}
+                  onChange={(next) => setPurpose(next as Payment["purpose"])}
+                  options={PURPOSES.map((p) => ({ value: p, label: p }))}
+                />
               </label>
               <label className="os-field">
                 <span>Moyen</span>
-                <select className="os-input" value={method} onChange={(ev) => setMethod(ev.target.value as PaymentMethod)}>
-                  {METHODS.map((m) => (
-                    <option key={m} value={m}>
-                      {m}
-                    </option>
-                  ))}
-                </select>
+                <SelectMenu
+                  value={method}
+                  onChange={(next) => setMethod(next as PaymentMethod)}
+                  options={METHODS.map((m) => ({ value: m, label: m }))}
+                />
               </label>
               <button type="submit" className="os-btn os-btn-primary">
                 Enregistrer le paiement
@@ -361,6 +360,7 @@ export default function StudentTabs({
                     : nextLevel}
             </Field>
             <Field label="Programme">{programName}</Field>
+            <Field label="Durée">{student.durationMonths ? durationLabelFr(student.durationMonths) : "Non indiquée"}</Field>
             <Field label="Groupe">{groupName}</Field>
             <Field label="Salle">{groupRoom}</Field>
             <Field label="Horaires">{groupSchedule}</Field>

@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
-  COUNTRIES,
   LEAD_SOURCES,
   LEAD_STAGES,
   PROGRAMS,
@@ -19,6 +18,9 @@ import { Badge, KpiCard, OsCard, PersonCell, VoirLink, statusTone } from "../_co
 import { useLiveLeads } from "../_components/useLiveLeads";
 import LeadActions from "../_components/LeadActions";
 import { downloadCsv, printTable } from "../_lib/exportFile";
+import { durationLabelFr, isCourseDuration } from "../../lib/course-duration";
+import SelectMenu from "../../components/ui/SelectMenu";
+import CountryField from "../../components/ui/CountryField";
 
 type Bucket = "all" | "overdue" | LeadStage;
 
@@ -102,8 +104,15 @@ export default function LeadsTable() {
             onClick={() =>
               downloadCsv(
                 "inscriptions-en-ligne",
-                ["Nom", "Téléphone", "Pays", "Source", "Étape"],
-                rows.map((l) => [l.name, l.phone, l.country, leadSourceLabel(l.source), stageLabel(l.stage)]),
+                ["Nom", "Téléphone", "Pays", "Source", "Durée", "Étape"],
+                rows.map((l) => [
+                  l.name,
+                  l.phone,
+                  l.country,
+                  leadSourceLabel(l.source),
+                  l.durationMonths && isCourseDuration(l.durationMonths) ? durationLabelFr(l.durationMonths) : "Non indiquée",
+                  stageLabel(l.stage),
+                ]),
               )
             }
           >
@@ -115,8 +124,15 @@ export default function LeadsTable() {
             onClick={() =>
               printTable(
                 "Inscriptions en ligne",
-                ["Nom", "Téléphone", "Pays", "Source", "Étape"],
-                rows.map((l) => [l.name, l.phone, l.country, leadSourceLabel(l.source), stageLabel(l.stage)]),
+                ["Nom", "Téléphone", "Pays", "Source", "Durée", "Étape"],
+                rows.map((l) => [
+                  l.name,
+                  l.phone,
+                  l.country,
+                  leadSourceLabel(l.source),
+                  l.durationMonths && isCourseDuration(l.durationMonths) ? durationLabelFr(l.durationMonths) : "Non indiquée",
+                  stageLabel(l.stage),
+                ]),
               )
             }
           >
@@ -134,41 +150,34 @@ export default function LeadsTable() {
           placeholder="Nom, téléphone, ville, n°"
           aria-label="Rechercher"
         />
-        <select className="os-select" aria-label="Source" value={source} onChange={(e) => setSource(e.target.value)}>
-          <option value="all">Toutes les sources</option>
-          {LEAD_SOURCES.map((src) => (
-            <option key={src} value={src}>
-              {leadSourceLabel(src)}
-            </option>
-          ))}
-        </select>
-        <select
-          className="os-select"
+        <SelectMenu
+          compact
+          aria-label="Source"
+          value={source}
+          onChange={setSource}
+          options={[
+            { value: "all", label: "Toutes les sources" },
+            ...LEAD_SOURCES.map((src) => ({ value: src, label: leadSourceLabel(src) })),
+          ]}
+        />
+        <CountryField
+          compact
+          allowAll
           aria-label="Pays"
           value={country}
-          onChange={(e) => setCountry(e.target.value)}
-        >
-          <option value="all">Tous les pays</option>
-          {COUNTRIES.map((c) => (
-            <option key={c.code} value={c.name}>
-              {c.name}
-            </option>
-          ))}
-        </select>
-        <select
-          className="os-select"
+          onChange={setCountry}
+        />
+        <SelectMenu
+          compact
           aria-label="File"
           value={bucket}
-          onChange={(e) => setBucket(e.target.value as Bucket)}
-        >
-          <option value="all">Toute la file</option>
-          <option value="overdue">À relancer</option>
-          {LEAD_STAGES.map((s) => (
-            <option key={s.key} value={s.key}>
-              {s.label}
-            </option>
-          ))}
-        </select>
+          onChange={(next) => setBucket(next as Bucket)}
+          options={[
+            { value: "all", label: "Toute la file" },
+            { value: "overdue", label: "À relancer" },
+            ...LEAD_STAGES.map((s) => ({ value: s.key, label: s.label })),
+          ]}
+        />
       </div>
       {rows.length === 0 ? (
         <p className="os-empty">Aucune inscription pour ces filtres.</p>
@@ -180,6 +189,7 @@ export default function LeadsTable() {
                 <th>Nom</th>
                 <th>Téléphone</th>
                 <th>Source</th>
+                <th>Durée</th>
                 <th>Étape</th>
                 <th className="os-th-action">Action</th>
               </tr>
@@ -192,6 +202,7 @@ export default function LeadsTable() {
                   </td>
                   <td>{lead.phone}</td>
                   <td>{leadSourceLabel(lead.source)}</td>
+                  <td>{lead.durationMonths && isCourseDuration(lead.durationMonths) ? durationLabelFr(lead.durationMonths) : "Non indiquée"}</td>
                   <td>
                     <Badge tone={statusTone(lead.stage)}>{stageLabel(lead.stage)}</Badge>
                   </td>
