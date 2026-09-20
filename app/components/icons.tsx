@@ -45,3 +45,73 @@ export function IconPin({ className }: IconProps) {
     </svg>
   );
 }
+
+export function IconPhone({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <path
+        d="M6.4 3.8h2.3l1.5 3.6-2 1.4a10.6 10.6 0 0 0 5 5l1.4-2 3.6 1.5v2.3c0 1.4-1.2 2.5-2.6 2.3C9.9 17.4 6.6 14.1 4.1 6.4c-.2-1.4.9-2.6 2.3-2.6Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function IconMail({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <rect x="3.2" y="5.5" width="17.6" height="13" rx="2.2" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M4 7l8 5.6L20 7" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function IconBus({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <rect x="4.5" y="3.8" width="15" height="13.4" rx="2.4" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M4.5 11.5h15M8 17.2v2.2M16 17.2v2.2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <circle cx="8.6" cy="14.4" r="1" fill="currentColor" />
+      <circle cx="15.4" cy="14.4" r="1" fill="currentColor" />
+    </svg>
+  );
+}
+
+export function IconWhatsApp({ className }: IconProps) {
+  return (
+    <svg className={className ?? "wa-icon"} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12.04 2C6.58 2 2.15 6.4 2.15 11.84c0 1.97.52 3.89 1.51 5.58L2 22l4.74-1.55a9.86 9.86 0 0 0 5.3 1.48h.01c5.46 0 9.89-4.4 9.89-9.84C21.94 6.4 17.5 2 12.04 2Zm5.76 13.96c-.24.68-1.4 1.25-1.93 1.33-.5.08-1.13.11-1.82-.11-.42-.14-.96-.31-1.65-.6-2.9-1.25-4.78-4.17-4.93-4.36-.14-.2-1.18-1.57-1.18-3 0-1.42.74-2.12 1-2.41.26-.29.57-.36.76-.36h.55c.17 0 .41-.07.64.49.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.2-.15.32-.3.49-.14.17-.3.38-.43.51-.14.14-.29.29-.12.56.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.23 1.38.28.14.44.12.6-.07.17-.2.7-.81.88-1.09.19-.28.37-.23.62-.14.26.1 1.63.77 1.91.91.28.14.47.21.54.33.07.12.07.68-.17 1.36Z" />
+    </svg>
+  );
+}
+
+/** Checklist mark. Heavier stroke than the rest of the set on purpose: it sits
+ *  inside a 20px disc, where a 1.6 stroke reads as a hairline. */
+export function IconCheck({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className={className} style={{ width: 13, height: 13 }}>
+      <path d="M5 12.5l4.4 4.4L19 7.4" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function IconInfo({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <circle cx="12" cy="12" r="8.2" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M12 11v5.2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <circle cx="12" cy="8" r="1.05" fill="currentColor" />
+    </svg>
+  );
+}
+
+export function IconClock({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <circle cx="12" cy="12" r="8.2" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M12 7.6V12l3.2 2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  );
+}

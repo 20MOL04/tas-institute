@@ -2,102 +2,146 @@
 
 import { useState, type FormEvent } from "react";
 import { useLang } from "../LangProvider";
-import PhotoFrame from "../components/PhotoFrame";
-import type { CSSProperties } from "react";
+import PageHero from "../components/PageHero";
+import LocationCard from "../components/LocationCard";
+import { IconClock, IconMail, IconPhone, IconWhatsApp } from "../components/icons";
+import { addLead } from "../os/_data/growth";
+import { useSiteContent } from "../lib/useSiteContent";
+import { whatsappUrlFromDisplay } from "../lib/siteStore";
 
 export default function ContactContent() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
+  const c = t.contact;
+  const site = useSiteContent();
   const [sent, setSent] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+  const waUrl = whatsappUrlFromDisplay(site.whatsapp);
+  const hours = lang === "en" ? site.hoursEn : site.hoursFr;
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    // Demo form — no backend wired up yet, mirrors the Apply page's
-    // documented judgment call (see apply-content.tsx top comment).
+    if (sent) return;
+    setSent(true);
+    addLead({
+      name: name.trim(),
+      phone: phone.trim() || email.trim(),
+      country: "Ghana",
+      programId: "eng-intensive",
+      note: [subject.trim(), message.trim(), email.trim()].filter(Boolean).join(". "),
+      source: "Contact",
+    });
     setSent(true);
   };
 
   return (
     <>
-      <section className="section-tight hero-halo">
-        <div className="container split" style={{ "--split-ratio": "1.1fr 1fr", alignItems: "center", gap: "var(--space-6)" } as CSSProperties}>
-          <div className="section-head" style={{ marginBottom: 0 }}>
-            <span className="eyebrow">{t.contact.heroEyebrow}</span>
-            <h1>{t.contact.heroTitle}</h1>
-            <p className="lede">{t.contact.heroSubtitle}</p>
+      <PageHero src="/images/hero-contact.png" alt="" eyebrow={c.heroEyebrow} title={c.heroTitle} subtitle={c.heroSubtitle} />
+
+      {/* CHANNELS */}
+      <section className="section">
+        <div className="container">
+          <div className="section-head-center reveal">
+            <span className="sec-kicker">{c.channelsKicker}</span>
+            <h2>{c.channelsTitle}</h2>
+            <p className="lede">{c.channelsText}</p>
           </div>
-          <PhotoFrame src="/images/contact-office.jpg" alt="Accueil / bureau administratif" ratio="3-2" priority />
+          <div className="home-cards-3 reveal reveal-stagger">
+            <a
+              id="whatsapp"
+              href={waUrl}
+              className="card card-pad card-hover"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="icon-badge">
+                <IconWhatsApp />
+              </span>
+              <h3>{c.whatsappChannelTitle}</h3>
+              <p className="small muted">{c.whatsappChannelText}</p>
+              <strong className="channel-value">{site.whatsapp}</strong>
+            </a>
+
+            <a href={`tel:${site.phone.replace(/\s/g, "")}`} className="card card-pad card-hover">
+              <span className="icon-badge">
+                <IconPhone />
+              </span>
+              <h3>{c.phoneChannelTitle}</h3>
+              <p className="small muted">{c.phoneChannelText}</p>
+              <strong className="channel-value">{site.phone}</strong>
+            </a>
+
+            <a href={`mailto:${site.email}`} className="card card-pad card-hover">
+              <span className="icon-badge">
+                <IconMail />
+              </span>
+              <h3>{c.emailChannelTitle}</h3>
+              <p className="small muted">{c.emailChannelText}</p>
+              <strong className="channel-value">{site.email}</strong>
+            </a>
+          </div>
+          <p className="section-note reveal">
+            <IconClock />
+            <span>
+              {c.hoursLabel} : {hours}
+            </span>
+          </p>
         </div>
       </section>
 
-      <section className="section">
-        <div className="container split" style={{ "--split-ratio": "0.9fr 1.1fr", gap: "var(--space-6)" } as CSSProperties}>
-          {/* CONTACT INFO */}
-          <div className="stack">
-            <h2 style={{ fontSize: "1.2rem" }}>{t.contact.infoTitle}</h2>
-            <ul className="stack" style={{ gap: "var(--space-2)" }}>
-              <InfoRow label={t.contact.addressLabel} value={t.contact.address} />
-              <InfoRow label={t.contact.phoneLabel} value={t.contact.phone} />
-              <InfoRow label={t.contact.emailLabel} value={t.contact.email} />
-              <InfoRow label={t.contact.hoursLabel} value={t.contact.hours} />
-            </ul>
-
-            <div className="card" style={{ background: "var(--tas-warm-gray)", border: "none" }}>
-              <p className="small muted" style={{ margin: 0 }}>
-                {t.contact.mapNote}
-              </p>
-            </div>
-
-            <div id="whatsapp" className="card stack" style={{ scrollMarginTop: "var(--header-h)" }}>
-              <h3>{t.contact.whatsappCtaTitle}</h3>
-              <p className="small muted">{t.contact.whatsappCtaText}</p>
-              <p className="small" style={{ color: "var(--tas-gray-mid)" }}>
-                {t.contact.whatsappLabel}: {t.contact.whatsapp}
-              </p>
-              <a
-                href="#whatsapp"
-                className="btn btn-whatsapp"
-                style={{ alignSelf: "start" }}
-                onClick={(e) => e.preventDefault()}
-                aria-disabled="true"
-                title={t.common.toConfirm}
-              >
-                <span className="dot" aria-hidden="true" />
-                {t.contact.whatsappCtaButton}
-              </a>
-            </div>
+      {/* MAP */}
+      <section className="section section-alt">
+        <div className="container">
+          <div className="section-head-center reveal">
+            <span className="sec-kicker">{t.location.kicker}</span>
+            <h2>{t.location.sectionTitle}</h2>
+            <p className="lede">{t.location.sectionText}</p>
           </div>
+          <div className="reveal">
+            <LocationCard />
+          </div>
+        </div>
+      </section>
 
-          {/* CONTACT FORM */}
-          <div className="card" style={{ padding: "var(--space-4)" }}>
-            <h2 style={{ fontSize: "1.2rem", marginBottom: "var(--space-3)" }}>{t.contact.formTitle}</h2>
-
+      {/* FORM */}
+      <section className="section">
+        <div className="container">
+          <div className="section-head-center reveal">
+            <span className="sec-kicker">{c.formKicker}</span>
+            <h2>{c.formTitle}</h2>
+            <p className="lede">{c.formText}</p>
+          </div>
+          <div className="form-wrap card reveal">
             {sent ? (
               <p className="lede">{t.apply.submittedText}</p>
             ) : (
               <form className="stack" onSubmit={handleSubmit}>
                 <div className="field-row">
                   <div className="field">
-                    <label htmlFor="c-name">{t.contact.nameField} *</label>
-                    <input id="c-name" required />
+                    <label htmlFor="c-name">{c.nameField} *</label>
+                    <input id="c-name" required value={name} onChange={(e) => setName(e.target.value)} />
                   </div>
                   <div className="field">
-                    <label htmlFor="c-email">{t.contact.emailField} *</label>
-                    <input id="c-email" type="email" required />
+                    <label htmlFor="c-email">{c.emailField} *</label>
+                    <input id="c-email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
                   </div>
                 </div>
                 <div className="field-row">
                   <div className="field">
-                    <label htmlFor="c-phone">{t.contact.phoneField}</label>
-                    <input id="c-phone" />
+                    <label htmlFor="c-phone">{c.phoneField}</label>
+                    <input id="c-phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
                   </div>
                   <div className="field">
-                    <label htmlFor="c-subject">{t.contact.subjectField}</label>
-                    <input id="c-subject" />
+                    <label htmlFor="c-subject">{c.subjectField}</label>
+                    <input id="c-subject" value={subject} onChange={(e) => setSubject(e.target.value)} />
                   </div>
                 </div>
                 <div className="field">
-                  <label htmlFor="c-message">{t.contact.messageField} *</label>
-                  <textarea id="c-message" required />
+                  <label htmlFor="c-message">{c.messageField} *</label>
+                  <textarea id="c-message" required value={message} onChange={(e) => setMessage(e.target.value)} />
                 </div>
                 <p className="small muted">{t.common.requiredNote}</p>
                 <button type="submit" className="btn btn-primary" style={{ alignSelf: "start" }}>
@@ -109,16 +153,5 @@ export default function ContactContent() {
         </div>
       </section>
     </>
-  );
-}
-
-function InfoRow({ label, value }: { label: string; value: string }) {
-  return (
-    <li>
-      <span className="small muted" style={{ display: "block" }}>
-        {label}
-      </span>
-      <span style={{ fontWeight: 600, color: "var(--tas-navy)" }}>{value}</span>
-    </li>
   );
 }

@@ -1,0 +1,44 @@
+---
+description: Règle 1 — langue visible de l'app TAS (tirets, emojis, jargon)
+alwaysApply: true
+---
+
+# Règle 1 — langue de l'app (figée)
+
+Texte **vu par un humain** (FR et EN) : école, pas développeur.
+
+## Interdit
+
+- Tiret entre des mots : `mot-de-passe`, `sign-in`, `back-office`, `Choisissez-votre`. Écrire des mots séparés.
+- Tiret long ou puce milieu comme colle de phrase : ` — `, ` – `, ` · ` entre deux mots. Une phrase, une virgule, ou un retour à la ligne.
+- Emojis.
+- Mots techniques : prototype, Digital OS, OS, KPI, pipeline, backend, API, localStorage, CTA, UTM, dashboard (EN), CRUD, mock, dummy, placeholder, simulé, maquette.
+- Objets génériques à l'écran : « Carte 1 », « Item », « Object », « Data », « Widget ».
+
+## Autorisé
+
+- Matricules et codes métier : `TAS-26-0001`, `CEO-26-0001`, `INT-A1-1` (ce n'est pas de la prose).
+- Traits d'union du français grammatical rare : aucun dans cette app, préférer `mot de passe`.
+- Classes CSS et noms de fichiers : hors sujet (pas affichés).
+
+## Vocabulaire
+
+| Interdit | Dire |
+|---|---|
+| Dashboard | Tableau de bord (FR) / Home (EN) |
+| Cuisine du site | Back office |
+| Prototype local | (rien, ne pas le dire) |
+| Digital OS | TAS App |
+| KPI | le chiffre, le total |
+| Sign in / Sign-in | Sign in (deux mots) / Connexion |
+
+| Leads | Inscriptions en ligne |
+| Formulaire et WhatsApp | App, bureau Administration |
+| Trafic (visites, inscriptions, ça rapporte) | App, chez le fondateur, et Back office |
+| Back office | Pages, médias, trafic, blocages |
+
+Le formulaire du site et WhatsApp sont des **inscriptions en ligne**. Ils vivent dans l’app, bureau Administration. Le Back office ne les traite pas : il publie la page et le bouton, l’école reçoit la demande dans l’app.
+
+Le **trafic** (visites, inscriptions, ça rapporte) a deux surfaces et une seule source de chiffres : chez le fondateur, dans l’app, et dans le Back office. Pas dans le bureau Administration.
+
+Le Back office **regarde** les files (dossiers coincés, transferts, validations, impayés, sessions pleines). Il ne les tranche pas. Le fondateur est le second niveau de décision.

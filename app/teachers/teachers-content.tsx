@@ -1,6 +1,7 @@
 "use client";
 
 import { useLang } from "../LangProvider";
+import PageHero from "../components/PageHero";
 import PhotoFrame from "../components/PhotoFrame";
 
 const IMAGES = ["/images/teacher-1.jpg", "/images/teacher-2.jpg", "/images/teacher-3.jpg"];
@@ -15,29 +16,23 @@ export default function TeachersContent() {
 
   return (
     <>
-      <section className="section-tight hero-halo">
-        <div className="container">
-          <div className="section-head center">
-            <span className="eyebrow">{t.teachers.heroEyebrow}</span>
-            <h1>{t.teachers.heroTitle}</h1>
-            <p className="lede">{t.teachers.heroSubtitle}</p>
-          </div>
-        </div>
-      </section>
+      <PageHero src="/images/hero-teachers.png" alt="" eyebrow={t.teachers.heroEyebrow} title={t.teachers.heroTitle} subtitle={t.teachers.heroSubtitle} />
 
       <section className="section">
         <div className="container">
           <div className="grid grid-3">
             {t.teachers.list.map((teacher, i) => (
-              <div key={teacher.name} className="card card-hover stack">
-                <PhotoFrame src={IMAGES[i]} alt={teacher.imageAlt} ratio="1-1" className="stack" />
-                <span className="placeholder-note">{t.teachers.placeholderLabel}</span>
-                <h3>{teacher.name}</h3>
-                <span className="badge">{teacher.specialty}</span>
-                <p className="small muted">{teacher.bio}</p>
-                <p className="small" style={{ color: "var(--tas-gray-mid)" }}>
-                  {t.teachers.experienceNote}
-                </p>
+              <div key={teacher.name} className="card card-hover">
+                <PhotoFrame src={IMAGES[i]} alt={teacher.imageAlt} ratio="1-1" />
+                <div className="card-body">
+                  <span className="placeholder-note">{t.teachers.placeholderLabel}</span>
+                  <h3>{teacher.name}</h3>
+                  <span className="badge">{teacher.specialty}</span>
+                  <p className="small muted">{teacher.bio}</p>
+                  <p className="small" style={{ color: "var(--tas-gray-mid)" }}>
+                    {t.teachers.experienceNote}
+                  </p>
+                </div>
               </div>
             ))}
           </div>

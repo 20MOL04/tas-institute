@@ -13,8 +13,9 @@
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { useLang } from "../LangProvider";
-import PhotoFrame from "../components/PhotoFrame";
-import type { CSSProperties } from "react";
+import PageHero from "../components/PageHero";
+import { addLead, programIdFromApplySlug } from "../os/_data/growth";
+import { IconCheck } from "../components/icons";
 
 interface FormState {
   fullName: string;
@@ -64,7 +65,7 @@ export default function ApplyContent() {
         return t.common.requiredNote;
       }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
-        return t.apply.email + " — invalid format";
+        return t.common.requiredNote;
       }
     }
     if (current === 1 && !form.program) {
@@ -89,10 +90,22 @@ export default function ApplyContent() {
   };
 
   const submitForm = () => {
+    if (submitted) return;
     if (!consent) {
       setError(t.apply.consentLabel);
       return;
     }
+    setSubmitted(true);
+    addLead({
+      name: form.fullName,
+      phone: form.whatsapp.trim() || form.phone,
+      country: form.country,
+      programId: programIdFromApplySlug(form.program),
+      note: [form.message.trim(), form.hearAbout ? `Source indiquée : ${form.hearAbout}` : "", form.email ? form.email : ""]
+        .filter(Boolean)
+        .join(". ") || "Demande reçue depuis le site.",
+      source: "Formulaire",
+    });
     setError("");
     setSubmitted(true);
   };
@@ -108,8 +121,8 @@ export default function ApplyContent() {
     return (
       <section className="section" style={{ textAlign: "center" }}>
         <div className="container stack" style={{ alignItems: "center", maxWidth: 560, margin: "0 auto" }}>
-          <span className="icon-check" style={{ width: 40, height: 40, fontSize: "1.1rem" }}>
-            ✓
+          <span className="icon-check icon-check-lg">
+            <IconCheck />
           </span>
           <h1>{t.apply.submittedTitle}</h1>
           <p className="lede">{t.apply.submittedText}</p>
@@ -129,23 +142,14 @@ export default function ApplyContent() {
 
   return (
     <>
-      <section className="section-tight hero-halo">
-        <div className="container split" style={{ "--split-ratio": "1.1fr 1fr", alignItems: "center", gap: "var(--space-6)" } as CSSProperties}>
-          <div className="section-head" style={{ marginBottom: 0 }}>
-            <span className="eyebrow">{t.apply.heroEyebrow}</span>
-            <h1>{t.apply.heroTitle}</h1>
-            <p className="lede">{t.apply.heroSubtitle}</p>
-          </div>
-          <PhotoFrame src="/images/group-outdoor.jpg" alt="Groupe d'étudiants en extérieur" ratio="3-2" />
-        </div>
-      </section>
+      <PageHero src="/images/hero-apply.png" alt="" eyebrow={t.apply.heroEyebrow} title={t.apply.heroTitle} subtitle={t.apply.heroSubtitle} />
 
       <section className="section-tight">
         <div className="container" style={{ maxWidth: 760 }}>
           <div className="stepper">
             {t.apply.steps.map((s, i) => (
               <div key={s.n} className={`step${i === step ? " active" : ""}${i < step ? " done" : ""}`}>
-                <span className="dot">{i < step ? "✓" : s.n}</span>
+                <span className="dot">{i < step ? <IconCheck /> : s.n}</span>
                 <span className="label">{s.label}</span>
               </div>
             ))}
@@ -271,9 +275,11 @@ export default function ApplyContent() {
                   <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
                   <span>{t.apply.consentLabel}</span>
                 </label>
-                <p className="small" style={{ color: "var(--tas-gray-mid)" }}>
-                  {t.apply.demoNote}
-                </p>
+                {t.apply.demoNote ? (
+                  <p className="small" style={{ color: "var(--tas-gray-mid)" }}>
+                    {t.apply.demoNote}
+                  </p>
+                ) : null}
               </fieldset>
             )}
 

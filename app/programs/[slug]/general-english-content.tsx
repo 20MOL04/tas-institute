@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useLang } from "../../LangProvider";
 import PhotoFrame from "../../components/PhotoFrame";
+import Faq from "../../components/Faq";
+import { IconCheck } from "../../components/icons";
 import type { CSSProperties } from "react";
 
 // The one populated Program Detail page (brief: reusable template, only
@@ -27,18 +29,18 @@ export default function GeneralEnglishContent() {
               <h1>{p.title}</h1>
               <div className="tag-list small muted">
                 <span>
-                  {t.programs.levelLabel}: {p.level}
+                  {t.programDetail.levelLabel}: {p.level}
                 </span>
                 <span>·</span>
                 <span>
-                  {t.programs.durationLabel}: {p.duration}
+                  {t.programDetail.durationLabel}: {p.duration}
                 </span>
               </div>
               <Link href="/apply" className="btn btn-primary" style={{ marginTop: "var(--space-2)", alignSelf: "start" }}>
                 {t.common.applyNowCta}
               </Link>
             </div>
-            <PhotoFrame src="/images/classroom-2.jpg" alt={p.heroImageAlt} ratio="4-3" priority />
+            <PhotoFrame src="/images/program-english-short.png" alt={p.heroImageAlt} ratio="4-3" priority />
           </div>
         </div>
       </section>
@@ -61,7 +63,7 @@ export default function GeneralEnglishContent() {
           <ul className="grid grid-2">
             {p.whoItems.map((item) => (
               <li key={item} style={{ display: "flex", gap: 10 }}>
-                <span className="icon-check">✓</span>
+                <span className="icon-check"><IconCheck /></span>
                 <span className="small muted">{item}</span>
               </li>
             ))}
@@ -76,7 +78,7 @@ export default function GeneralEnglishContent() {
           <ul className="grid grid-2">
             {p.learnItems.map((item) => (
               <li key={item} style={{ display: "flex", gap: 10 }}>
-                <span className="icon-check">✓</span>
+                <span className="icon-check"><IconCheck /></span>
                 <span className="small muted">{item}</span>
               </li>
             ))}
@@ -109,7 +111,7 @@ export default function GeneralEnglishContent() {
             <ul className="stack">
               {p.requirementsItems.map((item) => (
                 <li key={item} style={{ display: "flex", gap: 10 }}>
-                  <span className="icon-check">✓</span>
+                  <span className="icon-check"><IconCheck /></span>
                   <span className="small muted">{item}</span>
                 </li>
               ))}
@@ -120,7 +122,7 @@ export default function GeneralEnglishContent() {
             <ul className="stack">
               {p.includedItems.map((item) => (
                 <li key={item} style={{ display: "flex", gap: 10 }}>
-                  <span className="icon-check">✓</span>
+                  <span className="icon-check"><IconCheck /></span>
                   <span className="small muted">{item}</span>
                 </li>
               ))}
@@ -133,14 +135,7 @@ export default function GeneralEnglishContent() {
       <section className="section section-alt">
         <div className="container" style={{ maxWidth: 780 }}>
           <h2 style={{ marginBottom: "var(--space-3)" }}>{p.faqTitle}</h2>
-          <div>
-            {p.faq.map((item) => (
-              <details key={item.q} className="faq-item">
-                <summary>{item.q}</summary>
-                <p>{item.a}</p>
-              </details>
-            ))}
-          </div>
+          <Faq items={p.faq} />
         </div>
       </section>
 

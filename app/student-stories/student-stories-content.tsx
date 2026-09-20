@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useLang } from "../LangProvider";
+import PageHero from "../components/PageHero";
 import PhotoFrame from "../components/PhotoFrame";
-import type { CSSProperties } from "react";
 
 // Brief rule 9 / spec rule 9: never invent testimonials or results. This
 // page shows the intended layout fully styled, but every piece of story
@@ -15,17 +15,8 @@ export default function StudentStoriesContent() {
 
   return (
     <>
-      <section className="section-tight hero-halo">
-        <div className="container">
-          <div className="section-head center">
-            <span className="eyebrow">{t.stories.heroEyebrow}</span>
-            <h1>{t.stories.heroTitle}</h1>
-            <p className="lede">{t.stories.heroSubtitle}</p>
-          </div>
-        </div>
-      </section>
+      <PageHero src="/images/hero-stories.png" alt="" eyebrow={t.stories.heroEyebrow} title={t.stories.heroTitle} subtitle={t.stories.heroSubtitle} />
 
-      {/* FEATURED STORY */}
       <section className="section">
         <div className="container">
           <div className="stack" style={{ gap: "var(--space-2)", marginBottom: "var(--space-3)" }}>
@@ -33,9 +24,9 @@ export default function StudentStoriesContent() {
             <span className="placeholder-note">{t.stories.placeholderLabel}</span>
           </div>
 
-          <div className="card split" style={{ "--split-ratio": "1fr 1.2fr", gap: "var(--space-5)", padding: "var(--space-4)" } as CSSProperties}>
-            <PhotoFrame src="/images/student-story-1.jpg" alt={f.imageAlt} ratio="4-3" />
-            <div className="stack">
+          <div className="card">
+            <PhotoFrame src="/images/student-story-1.jpg" alt={f.imageAlt} ratio="21-9" />
+            <div className="card-body">
               <div className="grid grid-2 small muted">
                 <span>
                   {f.studentLabel}: {f.studentPlaceholder}
@@ -83,7 +74,6 @@ export default function StudentStoriesContent() {
         </div>
       </section>
 
-      {/* OTHER STORIES */}
       <section className="section section-alt">
         <div className="container">
           <div className="section-head">
@@ -91,11 +81,13 @@ export default function StudentStoriesContent() {
           </div>
           <div className="grid grid-3">
             {t.stories.other.map((story, i) => (
-              <div key={story.studentPlaceholder + i} className="card card-hover stack">
+              <div key={story.studentPlaceholder + i} className="card card-hover">
                 <PhotoFrame src="/images/student-story-2.jpg" alt={story.imageAlt} ratio="4-3" />
-                <span className="placeholder-note">{t.stories.placeholderLabel}</span>
-                <h3 style={{ fontSize: "1rem" }}>{story.studentPlaceholder}</h3>
-                <p className="small muted">{story.programPlaceholder}</p>
+                <div className="card-body">
+                  <span className="placeholder-note">{t.stories.placeholderLabel}</span>
+                  <h3 style={{ fontSize: "1rem" }}>{story.studentPlaceholder}</h3>
+                  <p className="small muted">{story.programPlaceholder}</p>
+                </div>
               </div>
             ))}
           </div>
