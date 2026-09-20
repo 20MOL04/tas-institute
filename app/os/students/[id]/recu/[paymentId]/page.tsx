@@ -117,7 +117,7 @@ export default function ReceiptPage({ params }: { params: { id: string; paymentI
         </div>
         <div className="os-receipt-sign">
           <div>
-            <p>L'élève</p>
+            <p>{"L'élève"}</p>
             <b>{student.name}</b>
           </div>
           <div>

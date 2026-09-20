@@ -80,7 +80,7 @@ export default function MediaEditor() {
         <div className="os-section-body">
           <form className="os-stack-form" onSubmit={addFromUrl}>
             <label className="os-field">
-              <span>Adresse de l'image</span>
+              <span>{"Adresse de l'image"}</span>
               <input className="os-input" value={url} onChange={(ev) => setUrl(ev.target.value)} />
             </label>
             <label className="os-field">
@@ -88,7 +88,7 @@ export default function MediaEditor() {
               <input className="os-input" value={alt} onChange={(ev) => setAlt(ev.target.value)} />
             </label>
             <label className="os-field">
-              <span>Ou depuis l'ordinateur</span>
+              <span>{"Ou depuis l'ordinateur"}</span>
               <input className="os-input" type="file" accept="image/*" onChange={addFromFile} />
             </label>
             {error ? <p className="os-field-error">{error}</p> : null}
