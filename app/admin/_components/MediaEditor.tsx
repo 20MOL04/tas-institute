@@ -14,7 +14,7 @@ function Shot({ photo, onRemove }: { photo: GalleryPhoto; onRemove?: () => void 
     <div>
       <div className="os-media-shot">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={photo.src} alt={photo.alt} />
+        <img src={photo.kind === "video" ? photo.poster || photo.src : photo.src} alt={photo.alt} />
       </div>
       <div className="os-page-actions" style={{ marginTop: 8 }}>
         {onRemove ? (

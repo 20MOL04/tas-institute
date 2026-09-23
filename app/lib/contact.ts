@@ -9,6 +9,13 @@ export function whatsappLink(message: string) {
 export const TAS_EMAIL = "tasghana@gmail.com";
 export const TAS_ADDRESS = "Accra, Alajo, Kotobabi, Ghana";
 
+/** Pages publiées par l'école sur tasenglishinstitut.com. */
+export const TAS_SOCIAL = [
+  { id: "facebook", label: "Facebook", href: "https://www.facebook.com/TasEnglishInstitut" },
+  { id: "instagram", label: "Instagram", href: "https://www.instagram.com/tasenglishinstitute/" },
+  { id: "youtube", label: "YouTube", href: "https://www.youtube.com/watch?v=2FteX9oWgSw" },
+] as const;
+
 /**
  * Location as published by the school: "Alajo Polo Junction, Accra Ghana" on the
  * 2024 flyer, "Accra, Ghana, Alajo, Kotobabi, New Town" on the contact page.

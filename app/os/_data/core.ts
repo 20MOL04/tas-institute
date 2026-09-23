@@ -84,7 +84,7 @@ export type Program = {
   name: string;
   category: "english" | "computer";
   hoursPerDay: number;
-  /** Monthly tuition used for the prototype only — the school publishes no price. */
+  /** Tarif affiche 2024, référence 3 mois. */
   mockFee: number;
   levels: string[];
 };
@@ -96,7 +96,7 @@ export const PROGRAMS: Program[] = [
     name: "Anglais intensif",
     category: "english",
     hoursPerDay: 8,
-    mockFee: 450000,
+    mockFee: 445000,
     levels: ["B1", "B2", "B3", "I1", "I2", "I3", "P1", "P2", "P3"],
   },
   {
@@ -105,7 +105,7 @@ export const PROGRAMS: Program[] = [
     name: "Anglais longue durée",
     category: "english",
     hoursPerDay: 5,
-    mockFee: 300000,
+    mockFee: 170000,
     levels: ["B1", "B2", "B3", "I1", "I2", "I3", "P1", "P2", "P3"],
   },
   {
@@ -155,11 +155,15 @@ export const ENGLISH_SKILLS = [
 ] as const;
 
 export const COMPUTER_MODULES = [
-  "MS Office",
-  "Graphisme",
-  "Bases de données",
-  "Marketing digital",
-  "Réseaux",
+  "Microsoft Office Admin",
+  "Infographie",
+  "Réparation d'ordinateurs",
+  "Excel financier",
+  "VBA Excel",
+  "Oracle",
+  "Réseaux MCITP",
+  "Sites web",
+  "Réseaux Cisco",
 ] as const;
 
 /* ----- intakes ------------------------------------------------------------ */

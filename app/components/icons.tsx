@@ -87,6 +87,32 @@ export function IconWhatsApp({ className }: IconProps) {
   );
 }
 
+export function IconFacebook({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M14.2 8.4h2.3V5.2h-2.3c-2.6 0-4.3 1.6-4.3 4.3v1.7H8.2v3.2h1.7V21h3.4v-6.6h2.5l.5-3.2h-3V9.6c0-.8.4-1.2 1.2-1.2Z" />
+    </svg>
+  );
+}
+
+export function IconInstagram({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="3.6" y="3.6" width="16.8" height="16.8" rx="5" stroke="currentColor" strokeWidth="1.7" />
+      <circle cx="12" cy="12" r="3.6" stroke="currentColor" strokeWidth="1.7" />
+      <circle cx="16.7" cy="7.3" r="1" fill="currentColor" />
+    </svg>
+  );
+}
+
+export function IconYoutube({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M21.6 8.2a2.8 2.8 0 0 0-2-2C18 5.8 12 5.8 12 5.8s-6 0-7.6.4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 3.8 2.8 2.8 0 0 0 2 2c1.6.4 7.6.4 7.6.4s6 0 7.6-.4a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-3.8ZM10.2 15.1V8.9L15.5 12l-5.3 3.1Z" />
+    </svg>
+  );
+}
+
 /** Checklist mark. Heavier stroke than the rest of the set on purpose: it sits
  *  inside a 20px disc, where a 1.6 stroke reads as a hairline. */
 export function IconCheck({ className }: IconProps) {

@@ -3,10 +3,8 @@
 // button labels, body copy). Default language is French, English is the
 // secondary language, switched client-side by app/LangProvider.tsx.
 //
-// Content rule (brief, rule 9 / spec section 9): never invent statistics,
-// prices, exact durations, years of experience, or testimonials. Where a
-// real figure would normally go, this file uses a short qualitative phrase
-// instead, or an explicit "TO CONFIRM" placeholder.
+// Content rule: do not invent statistics, years of experience, or testimonials.
+// Program fees and housing prices come from the school's 2024 flyer (app/lib/fees.ts, app/lib/rooms.ts).
 
 export type Lang = "fr" | "en";
 
@@ -53,6 +51,7 @@ const fr = {
     emailLabel: "Email",
     email: "tasghana@gmail.com",
     rights: "Tous droits réservés.",
+    socialLabel: "Réseaux sociaux",
   },
   location: {
     kicker: "Nous trouver",
@@ -211,6 +210,14 @@ const fr = {
     whoTitle: "Une institution centrée sur l'étudiant",
     whoText:
       "TAS English Institute accueille des étudiants africains et internationaux pour des programmes d'anglais et des formations professionnelles courtes, dans un cadre structuré basé à Accra, au Ghana.",
+    founderEyebrow: "Direction",
+    founderTitle: "Rencontrez le fondateur",
+    founderRole: "Fondateur et directeur",
+    founderName: "",
+    founderBio:
+      "Il a créé TAS English Institute à Accra pour les étudiants francophones d'Afrique de l'Ouest. Un campus, 18 enseignants, un rythme de cours clair.",
+    founderVision:
+      "Une école sérieuse, où l'on apprend l'anglais et des compétences utiles, avec un encadrement de qualité.",
     missionTitle: "Notre mission",
     missionText:
       "Donner à chaque étudiant les outils linguistiques et professionnels nécessaires pour poursuivre ses études, son travail ou ses projets avec confiance.",
@@ -324,9 +331,9 @@ const fr = {
         hours: "3 h",
         level: "Tous niveaux",
         format: "Présentiel",
-        content: "MS Office, graphisme, bases de données, marketing digital, réseaux",
+        content: "Office, infographie, réparation, Excel, bases de données, réseaux, sites web",
         description:
-          "Une formation courte en compétences numériques, suivie seule ou en complément d'un cours d'anglais.",
+          "Des modules de 2 à 6 mois, 3 heures par jour, seuls ou en complément d'un cours d'anglais.",
       },
     ],
     skillsKicker: "Anglais",
@@ -342,15 +349,8 @@ const fr = {
       { title: "Débat", text: "L'argumentation en anglais devant le groupe." },
     ],
     modulesKicker: "Informatique",
-    modulesTitle: "Les cinq modules du cours d'informatique",
-    modulesText: "Trois heures par jour, pour des compétences directement utilisables au travail.",
-    modules: [
-      { title: "MS Office", text: "Word, Excel, PowerPoint — les outils attendus en entreprise." },
-      { title: "Graphisme", text: "Les bases de la création visuelle et de la mise en page." },
-      { title: "Bases de données", text: "Structurer, stocker et retrouver de l'information." },
-      { title: "Marketing digital", text: "Présence en ligne, réseaux sociaux, contenus." },
-      { title: "Réseaux", text: "Les fondamentaux des réseaux informatiques." },
-    ],
+    modulesTitle: "Les cours d'informatique",
+    modulesText: "Trois heures par jour. Chaque module a sa durée et son tarif.",
     compareKicker: "Comparatif",
     compareTitle: "Quel programme correspond à votre situation",
     compareText: "Les trois cours côte à côte, sur les critères qui comptent pour décider.",
@@ -373,13 +373,31 @@ const fr = {
           "Vous visez des compétences numériques",
         ],
       },
-      { label: "Tarifs et sessions", values: ["À confirmer", "À confirmer", "À confirmer"] },
+      { label: "Tarifs", values: ["Dès 209 000 CFA", "Dès 170 000 CFA", "Dès 450 GHC"] },
     ],
     priceKicker: "Frais de scolarité",
-    priceTitle: "Des tarifs abordables et un paiement facilité",
+    priceTitle: "Les tarifs de l'école",
     priceText:
-      "L'école indique pratiquer des prix abordables et faciliter le paiement des frais. Les montants et les dates de rentrée sont communiqués directement par TAS English Institute — à confirmer.",
-    priceCta: "Demander les tarifs sur WhatsApp",
+      "Cours intensifs à 8 heures par jour, cours normaux à 5 heures, préparation aux examens, et informatique à 3 heures. Inscription et certificat sont indiqués sous chaque tableau.",
+    priceCta: "Poser une question sur WhatsApp",
+    feesIntensiveTitle: "Cours intensifs",
+    feesIntensiveText: "Académique et oral, 8 heures par jour.",
+    feesRegularTitle: "Cours normaux, courte, moyenne et longue durée",
+    feesRegularText: "Académique et oral, 5 heures par jour. Avec ou sans informatique.",
+    feesExamTitle: "TOEFL, IELTS et TOEIC",
+    feesExamText: "Cours d'examen, 1 h 30 par jour.",
+    feesColDuration: "Durée",
+    feesColHours: "Heures par jour",
+    feesColPrice: "Prix",
+    feesColNoIt: "Sans informatique",
+    feesColWithIt: "Avec informatique",
+    feesColDays: "Jours",
+    feesColExam: "Frais d'examen",
+    feesMonths: "Par mois",
+    feesEnrollment: "Inscription",
+    feesCertificate: "Retrait du certificat",
+    feesIncluded: "Il est offert",
+    feesMonthsShort: "mois",
     ctaKicker: "Inscription",
     ctaTitle: "Prêt à choisir votre programme",
     ctaText: "Écrivez-nous votre objectif et votre niveau actuel, l'équipe vous orientera.",
@@ -598,23 +616,24 @@ const fr = {
     heroEyebrow: "Hébergement",
     heroTitle: "Un logement pensé pour étudier sereinement",
     heroSubtitle:
-      "Trois chambres meublées, près des cours. Dès 60 000 CFA par mois. Vous réservez sur WhatsApp.",
+      "Quatre formules meublées, près des cours. Dès 60 000 CFA par mois. Vous réservez sur WhatsApp.",
     optionsKicker: "Les formules",
-    optionsTitle: "Trois chambres, trois budgets",
+    optionsTitle: "Quatre logements, quatre budgets",
     optionsText:
       "Les logements proposés par l'école, avec leurs équipements et leur tarif. Réservez la formule qui vous convient directement sur WhatsApp.",
-    bookCta: "Réserver cette chambre",
+    bookCta: "Réserver cette formule",
     bookMessage:
       "Bonjour TAS English Institute, je souhaite réserver la formule « {room} » pour mon séjour. Pouvez-vous me confirmer la disponibilité et les modalités ?",
     perPeriod: "/ mois",
-    priceNote: "Ces tarifs sont par mois. Contactez l'école sur WhatsApp pour réserver une chambre.",
+    priceNote:
+      "Ces tarifs sont par mois. Contactez l'école sur WhatsApp pour réserver.",
     stepsKicker: "Réservation",
     stepsTitle: "Comment réserver votre chambre",
     stepsText: "Trois étapes, sans avance de frais en ligne.",
     steps: [
       {
         title: "Choisissez votre formule",
-        text: "Comparez les trois chambres et retenez celle qui correspond à votre budget.",
+        text: "Comparez les logements et retenez celui qui correspond à votre budget.",
       },
       {
         title: "Écrivez-nous sur WhatsApp",
@@ -672,7 +691,7 @@ const fr = {
   gallery: {
     heroEyebrow: "Galerie",
     heroTitle: "La vie à TAS en images",
-    heroSubtitle: "Salles, campus, communauté. Accra, tel que les étudiants le voient.",
+    heroSubtitle: "Salles, campus, sorties. Accra et le Ghana, tels que les étudiants les voient.",
     categories: ["Campus", "Classes", "Communauté", "Événements"],
   },
   resources: {
@@ -743,6 +762,7 @@ const en: typeof fr = {
     emailLabel: "Email",
     email: "tasghana@gmail.com",
     rights: "All rights reserved.",
+    socialLabel: "Social networks",
   },
   location: {
     kicker: "Find us",
@@ -901,6 +921,14 @@ const en: typeof fr = {
     whoTitle: "An institution centered on the student",
     whoText:
       "TAS English Institute welcomes African and international students for English programs and short professional courses, in a structured setting based in Accra, Ghana.",
+    founderEyebrow: "Leadership",
+    founderTitle: "Meet the founder",
+    founderRole: "Founder and Director",
+    founderName: "",
+    founderBio:
+      "He founded TAS English Institute in Accra for Francophone students from West Africa. One campus, 18 teachers, a clear daily pace.",
+    founderVision:
+      "A serious school, where students learn English and useful skills, with close support.",
     missionTitle: "Our Mission",
     missionText:
       "To give every student the language and professional tools they need to pursue their studies, work or projects with confidence.",
@@ -1012,9 +1040,8 @@ const en: typeof fr = {
         hours: "3 h",
         level: "All levels",
         format: "On campus",
-        content: "MS Office, graphic design, databases, digital marketing, networking",
-        description:
-          "A short digital-skills course, taken on its own or alongside an English course.",
+        content: "Office, graphic design, repair, Excel, databases, networks, websites",
+        description: "Modules of 2 to 6 months, 3 hours a day, on their own or with an English course.",
       },
     ],
     skillsKicker: "English",
@@ -1030,15 +1057,8 @@ const en: typeof fr = {
       { title: "Debate", text: "Arguing a case in English in front of the group." },
     ],
     modulesKicker: "Computer",
-    modulesTitle: "The five modules of the computer course",
-    modulesText: "Three hours a day, for skills you can use at work straight away.",
-    modules: [
-      { title: "MS Office", text: "Word, Excel, PowerPoint — the tools employers expect." },
-      { title: "Graphic design", text: "The basics of visual creation and layout." },
-      { title: "Databases", text: "Structuring, storing and retrieving information." },
-      { title: "Digital marketing", text: "Online presence, social media, content." },
-      { title: "Networking", text: "The fundamentals of computer networks." },
-    ],
+    modulesTitle: "Computer courses",
+    modulesText: "Three hours a day. Each module has its own length and fee.",
     compareKicker: "Comparison",
     compareTitle: "Which program fits your situation",
     compareText: "The three courses side by side, on the criteria that matter when deciding.",
@@ -1057,13 +1077,31 @@ const en: typeof fr = {
           "You are after digital skills",
         ],
       },
-      { label: "Fees and sessions", values: ["To confirm", "To confirm", "To confirm"] },
+      { label: "Fees", values: ["From 209 000 CFA", "From 170 000 CFA", "From 450 GHC"] },
     ],
     priceKicker: "Tuition",
-    priceTitle: "Affordable fees and flexible payment",
+    priceTitle: "School fees",
     priceText:
-      "The school states that it keeps fees affordable and makes payment easier. Amounts and intake dates are communicated directly by TAS English Institute — to confirm.",
-    priceCta: "Ask about fees on WhatsApp",
+      "Intensive courses at 8 hours a day, regular courses at 5 hours, exam preparation, and computer courses at 3 hours. Registration and certificate fees sit under each table.",
+    priceCta: "Ask a question on WhatsApp",
+    feesIntensiveTitle: "Intensive courses",
+    feesIntensiveText: "Academic work and speaking, 8 hours a day.",
+    feesRegularTitle: "Regular courses, short, medium and long duration",
+    feesRegularText: "Academic work and speaking, 5 hours a day. With or without computer class.",
+    feesExamTitle: "TOEFL, IELTS and TOEIC",
+    feesExamText: "Exam class, 1 h 30 a day.",
+    feesColDuration: "Duration",
+    feesColHours: "Hours a day",
+    feesColPrice: "Fee",
+    feesColNoIt: "Without computer",
+    feesColWithIt: "With computer",
+    feesColDays: "Days",
+    feesColExam: "Exam fee",
+    feesMonths: "Per month",
+    feesEnrollment: "Registration",
+    feesCertificate: "Certificate collection",
+    feesIncluded: "Included",
+    feesMonthsShort: "months",
     ctaKicker: "Admission",
     ctaTitle: "Ready to choose your program",
     ctaText: "Tell us your goal and your current level, and the team will guide you.",
@@ -1280,23 +1318,24 @@ const en: typeof fr = {
     heroEyebrow: "Accommodation",
     heroTitle: "Housing designed for focused study",
     heroSubtitle:
-      "Three furnished rooms, near class. From 60,000 CFA a month. You book on WhatsApp.",
+      "Four furnished options, near class. From 60 000 CFA a month. You book on WhatsApp.",
     optionsKicker: "The options",
-    optionsTitle: "Three rooms, three budgets",
+    optionsTitle: "Four homes, four budgets",
     optionsText:
-      "The housing the school offers, with what each room includes and its price. Book the option you want straight from WhatsApp.",
-    bookCta: "Book this room",
+      "The housing the school offers, with what each place includes and its price. Book the option you want straight from WhatsApp.",
+    bookCta: "Book this option",
     bookMessage:
       "Hello TAS English Institute, I would like to book the \"{room}\" option for my stay. Could you confirm availability and the next steps?",
     perPeriod: "/ month",
-    priceNote: "These prices are per month. Contact the school on WhatsApp to book a room.",
+    priceNote:
+      "These prices are per month. Contact the school on WhatsApp to book.",
     stepsKicker: "Booking",
     stepsTitle: "How to book your room",
     stepsText: "Three steps, with no online prepayment.",
     steps: [
       {
         title: "Pick your option",
-        text: "Compare the three rooms and choose the one that fits your budget.",
+        text: "Compare the options and choose the one that fits your budget.",
       },
       {
         title: "Message us on WhatsApp",
@@ -1354,7 +1393,7 @@ const en: typeof fr = {
   gallery: {
     heroEyebrow: "Gallery",
     heroTitle: "Life at TAS in pictures",
-    heroSubtitle: "Rooms, campus, community. Accra as students see it.",
+    heroSubtitle: "Classrooms, campus, outings. Accra and Ghana, as students see them.",
     categories: ["Campus", "Classes", "Community", "Events"],
   },
   resources: {

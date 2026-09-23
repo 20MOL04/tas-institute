@@ -1,3 +1,5 @@
+@import "./components/ui/select-menu.css";
+
 /* ==========================================================================
    TAS English Institute — Design System
    Single source of truth for design tokens and shared component styles.
@@ -599,6 +601,10 @@ a.card {
   aspect-ratio: 1 / 1;
 }
 
+.photo-frame.r-4-5 {
+  aspect-ratio: 4 / 5;
+}
+
 .photo-frame.r-16-10 {
   aspect-ratio: 16 / 10;
 }
@@ -1104,7 +1110,8 @@ a.card {
   gap: var(--space-2);
 }
 
-.gallery-grid .photo-frame {
+.gallery-grid .photo-frame,
+.gallery-grid .outing-video {
   border-radius: var(--radius);
 }
 
@@ -1180,6 +1187,33 @@ a.card {
   flex-direction: column;
 }
 
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+}
+
+.footer-social a {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: var(--tas-white);
+}
+
+.footer-social a:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--tas-white);
+}
+
+.footer-social svg {
+  width: 18px;
+  height: 18px;
+}
+
 .footer-link-cols {
   display: grid !important;
   grid-template-columns: 1fr 1fr;
@@ -1244,6 +1278,10 @@ a.card {
 
 .footer-bottom a {
   color: var(--tas-on-navy-muted);
+}
+
+.footer-bottom .footer-social a {
+  color: var(--tas-white);
 }
 
 .footer-bottom a:hover {
@@ -1533,7 +1571,7 @@ a.card {
 .home-hero {
   position: relative;
   isolation: isolate;
-  min-height: calc(100dvh - var(--header-h) - 48px);
+  min-height: min(56.25vw, calc(100dvh - var(--header-h) - 40px));
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -1558,7 +1596,7 @@ a.card {
 
 .home-hero-media img {
   object-fit: cover;
-  object-position: 62% 28%;
+  object-position: center 42%;
 }
 
 .home-hero-overlay {
@@ -2052,10 +2090,26 @@ a.card {
   }
 
   .home-hero {
-    min-height: auto;
+    min-height: 0;
+    justify-content: flex-start;
+  }
+
+  .home-hero-media {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    flex-shrink: 0;
+  }
+
+  .home-hero-overlay {
+    background: linear-gradient(180deg, rgba(7, 16, 32, 0.08) 0%, rgba(7, 16, 32, 0.28) 100%);
   }
 
   .home-hero-body {
+    width: 100%;
+    max-width: none;
+    background: #071020;
     padding-top: var(--space-8);
     padding-bottom: 24px;
     padding-inline: 16px;
@@ -2246,6 +2300,51 @@ a.card {
   place-items: center;
   box-shadow: var(--shadow-md);
   border: none;
+}
+
+.outing-video {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.outing-video video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.outing-video-ui {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0;
+  padding: 16px;
+  border: 0;
+  width: 100%;
+  background: rgba(4, 22, 48, 0.28);
+  color: var(--tas-white);
+  cursor: pointer;
+  z-index: 2;
+}
+
+.outing-video-ui:focus-visible {
+  outline: 2px solid var(--tas-white);
+  outline-offset: -4px;
+}
+
+.hp-video .outing-video {
+  position: absolute;
+  inset: 0;
+  aspect-ratio: auto;
+  min-height: 280px;
 }
 
 /* ----- Room card ---------------------------------------------------------- */
@@ -2614,6 +2713,49 @@ a.card {
   gap: 16px;
 }
 
+.leader-split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: 40px;
+  align-items: center;
+}
+
+.leader-photo {
+  border-radius: var(--radius-lg);
+}
+
+.leader-photo img {
+  object-position: 50% 12%;
+}
+
+.leader-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.leader-copy h2 {
+  margin: 0;
+}
+
+.leader-copy p {
+  margin: 0;
+  max-width: 42ch;
+}
+
+.leader-role {
+  font-size: 0.92rem;
+  font-weight: 650;
+  color: var(--tas-blue);
+}
+
+.leader-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--tas-navy);
+}
+
 /* Comparison table: scrollable on narrow screens, no inner borders on the
    left header column so the three courses read as the columns. */
 .compare-wrap {
@@ -2666,13 +2808,44 @@ a.card {
 
 .compare-table tbody tr:last-child th,
 .compare-table tbody tr:last-child td {
-  border-bottom: none;
+  border-bottom: 0;
+}
+
+.fee-table {
+  min-width: 520px;
+}
+
+.fee-table th + th,
+.fee-table td,
+.fee-table tbody th {
+  width: auto;
+}
+
+.fee-block + .fee-block {
+  margin-top: var(--space-6);
+}
+
+.fee-heading {
+  margin: 0 0 6px;
+  color: var(--tas-navy);
+  font-size: 1.12rem;
+}
+
+.fee-block > .small {
+  margin-bottom: 14px;
+}
+
+.fee-num {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  font-weight: 650;
 }
 
 @media (max-width: 1023px) {
   .skill-grid,
   .module-split,
-  .mv-split {
+  .mv-split,
+  .leader-split {
     grid-template-columns: 1fr;
   }
 
@@ -3160,7 +3333,7 @@ a.card {
   display: block;
   font-size: clamp(1.5rem, 1.15rem + 1.2vw, 2.1rem);
   font-weight: 800;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: var(--tas-navy);
   line-height: 1.05;
 }

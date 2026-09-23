@@ -3,14 +3,19 @@
 import { useEffect, useRef, useState } from "react";
 import { useLang } from "../LangProvider";
 import { TAS_KPIS } from "../lib/kpi";
-import { IconBook, IconGlobe, IconPeople, IconPin } from "./icons";
+import { IconBook, IconClock, IconGlobe, IconPeople } from "./icons";
 
-const ICONS = [IconPeople, IconGlobe, IconBook, IconPin];
+const ICONS = [IconPeople, IconGlobe, IconBook, IconClock];
 
-/** The rating-style values need one decimal, and a comma in French. */
 function format(current: number, target: number, fr: boolean) {
-  const text = current.toFixed(Number.isInteger(target) ? 0 : 1);
-  return fr ? text.replace(".", ",") : text;
+  const decimals = Number.isInteger(target) ? 0 : 1;
+  const value = decimals === 0 ? Math.round(current) : current;
+  return value
+    .toLocaleString(fr ? "fr-FR" : "en-US", {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    })
+    .replace(/\u202f|\u2009/g, "\u00a0");
 }
 
 /** Horizontal band of the institute's headline figures, counting up on scroll. */

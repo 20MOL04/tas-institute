@@ -15,7 +15,15 @@ import {
 export const SITE_CHANGED = "tas-site-changed";
 const KEY = "tas-site-content";
 
-export type GalleryPhoto = { id: string; src: string; alt: string };
+export type GalleryPhoto = {
+  id: string;
+  src: string;
+  alt: string;
+  kind?: "photo" | "video";
+  poster?: string;
+  titleFr?: string;
+  titleEn?: string;
+};
 
 export type SiteContent = {
   phone: string;
@@ -32,15 +40,49 @@ export type SiteContent = {
 };
 
 export const SITE_GALLERY_BASE: GalleryPhoto[] = [
-  { id: "base-1", src: "/images/gallery-1.jpg", alt: "" },
-  { id: "base-2", src: "/images/gallery-2.jpg", alt: "" },
-  { id: "base-3", src: "/images/classroom-1.jpg", alt: "" },
-  { id: "base-4", src: "/images/gallery-3.jpg", alt: "" },
-  { id: "base-5", src: "/images/group-outdoor.jpg", alt: "" },
-  { id: "base-6", src: "/images/gallery-4.jpg", alt: "" },
-  { id: "base-7", src: "/images/computer-lab.jpg", alt: "" },
-  { id: "base-8", src: "/images/gallery-5.jpg", alt: "" },
-  { id: "base-9", src: "/images/about-campus.jpg", alt: "" },
+  {
+    id: "v-kakum-walk",
+    kind: "video",
+    src: "/videos/kakum-walk.mp4",
+    poster: "/images/outings/kakum-walk-poster.jpg",
+    alt: "",
+    titleFr: "Canopée, Kakum",
+    titleEn: "Kakum canopy",
+  },
+  {
+    id: "v-kakum-canopy",
+    kind: "video",
+    src: "/videos/kakum-canopy.mp4",
+    poster: "/images/outings/kakum-canopy-poster.jpg",
+    alt: "",
+    titleFr: "Forêt de Kakum",
+    titleEn: "Kakum forest",
+  },
+  {
+    id: "v-kakum-entrance",
+    kind: "video",
+    src: "/videos/kakum-entrance.mp4",
+    poster: "/images/outings/kakum-entrance-poster.jpg",
+    alt: "",
+    titleFr: "Arrivée à Kakum",
+    titleEn: "Arriving at Kakum",
+  },
+  { id: "out-kakum-group", src: "/images/outings/kakum-group.jpg", alt: "" },
+  { id: "out-kakum-selfie", src: "/images/outings/kakum-selfie.jpg", alt: "" },
+  { id: "out-kakum-bridge", src: "/images/outings/kakum-bridge.jpg", alt: "" },
+  { id: "out-kakum-walkway", src: "/images/outings/kakum-walkway.jpg", alt: "" },
+  { id: "out-kakum-welcome", src: "/images/outings/kakum-welcome.jpg", alt: "" },
+  { id: "out-kakum-span", src: "/images/outings/kakum-span.jpg", alt: "" },
+  { id: "out-kakum-museum", src: "/images/outings/kakum-museum.jpg", alt: "" },
+  { id: "out-kakum-forest", src: "/images/outings/kakum-forest.jpg", alt: "" },
+  { id: "out-kakum-path", src: "/images/outings/kakum-path.jpg", alt: "" },
+  { id: "out-kakum-bamboo", src: "/images/outings/kakum-bamboo.jpg", alt: "" },
+  { id: "out-cape-group", src: "/images/outings/cape-coast-group.jpg", alt: "" },
+  { id: "out-cape-castle", src: "/images/outings/cape-coast-castle.jpg", alt: "" },
+  { id: "out-cape-court", src: "/images/outings/cape-coast-court.jpg", alt: "" },
+  { id: "base-class", src: "/images/classroom-1.jpg", alt: "" },
+  { id: "base-lab", src: "/images/computer-lab.jpg", alt: "" },
+  { id: "base-campus", src: "/images/about-campus.jpg", alt: "" },
 ];
 
 export const SITE_DEFAULTS: SiteContent = {

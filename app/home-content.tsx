@@ -12,6 +12,7 @@ import TeacherMarquee, { TEACHER_PHOTOS } from "./components/TeacherMarquee";
 import { IconBook, IconPeople, IconPin, IconGlobe, IconInfo } from "./components/icons";
 import RoomCard from "./components/RoomCard";
 import OutingCard from "./components/OutingCard";
+import OutingVideo from "./components/OutingVideo";
 import { TAS_ROOMS } from "./lib/rooms";
 import { TAS_OUTINGS } from "./lib/excursions";
 import { useSiteContent } from "./lib/useSiteContent";
@@ -43,8 +44,8 @@ const PROGRAMS = [
     src: "/images/program-computer.png",
     titleFr: "Cours d'informatique",
     titleEn: "Computer courses",
-    textFr: "MS Office, graphisme, bases de données, marketing digital et réseaux. 3 heures par jour.",
-    textEn: "MS Office, graphic design, database, digital marketing and networking. 3 hours per day.",
+    textFr: "Office, infographie, réparation, Excel, bases de données, réseaux, sites web. 3 heures par jour.",
+    textEn: "Office, graphic design, repair, Excel, databases, networks, websites. 3 hours a day.",
   },
 ];
 
@@ -101,7 +102,12 @@ const STORIES = [
   },
 ];
 
-const GALLERY = ["/images/gallery-campus.png", "/images/classroom-1.jpg", "/images/group-outdoor.jpg", "/images/library-study.jpg"];
+const GALLERY = [
+  "/images/outings/kakum-selfie.jpg",
+  "/images/outings/cape-coast-group.jpg",
+  "/images/outings/kakum-bridge.jpg",
+  "/images/outings/kakum-welcome.jpg",
+];
 
 const BLOG = [
   {
@@ -137,9 +143,18 @@ export default function HomeContent() {
     <div className="home">
       <section className="home-hero">
         <div className="home-hero-media">
-          <Image src="/images/hero-tas.png" alt={t.home.heroImageAlt} fill priority sizes="100vw" />
+          <Image
+            src="/images/hero-home.jpg"
+            alt={t.home.heroImageAlt}
+            fill
+            priority
+            quality={95}
+            sizes="100vw"
+            unoptimized
+            style={{ objectFit: "cover", objectPosition: "center 42%" }}
+          />
+          <div className="home-hero-overlay" aria-hidden="true" />
         </div>
-        <div className="home-hero-overlay" aria-hidden="true" />
         <div className="home-hero-body">
           <span className="home-chip">Accra, Ghana</span>
           <h1>
@@ -245,16 +260,12 @@ export default function HomeContent() {
               </Link>
             </div>
             <div className="hp-video">
-              <PhotoFrame src="/images/campus-video-thumbnail.png" alt="" ratio="21-9" sizes="(max-width: 1023px) 92vw, 60vw" />
-              <div className="hp-video-ui">
-                <span className="hp-play" aria-hidden="true">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M8 5v14l11-7L8 5Z" />
-                  </svg>
-                </span>
-                <strong>{fr ? "Le campus" : "The campus"}</strong>
-                <span className="small">{fr ? "Alajo, Accra" : "Alajo, Accra"}</span>
-              </div>
+              <OutingVideo
+                src="/videos/kakum-canopy.mp4"
+                poster="/images/outings/kakum-canopy-poster.jpg"
+                title={fr ? "Sortie à Kakum" : "Kakum outing"}
+                caption={fr ? "La canopée" : "The canopy"}
+              />
             </div>
           </div>
           <StatsBand />
@@ -268,9 +279,9 @@ export default function HomeContent() {
             <h2>{t.accommodation.optionsTitle}</h2>
             <p className="lede">{fr ? "Près des cours. Vous réservez sur WhatsApp." : "Near class. You book on WhatsApp."}</p>
           </div>
-          <div className="home-cards-3 reveal reveal-stagger">
+          <div className="home-cards-4 reveal reveal-stagger">
             {TAS_ROOMS.map((room) => (
-              <RoomCard key={room.slug} room={room} sizes="(max-width: 1023px) 78vw, 33vw" />
+              <RoomCard key={room.slug} room={room} sizes="(max-width: 1023px) 78vw, 24vw" />
             ))}
           </div>
           <p className="section-note reveal">

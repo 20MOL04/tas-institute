@@ -10,14 +10,23 @@ interface PageHeroProps {
   eyebrow?: string;
   title: string;
   subtitle?: string;
+  objectPosition?: string;
   children?: ReactNode;
 }
 
-export default function PageHero({ src, alt, eyebrow, title, subtitle, children }: PageHeroProps) {
+export default function PageHero({ src, alt, eyebrow, title, subtitle, objectPosition, children }: PageHeroProps) {
   return (
     <section className="page-hero">
       <div className="page-hero-media">
-        <Image src={src} alt={alt} fill priority sizes="100vw" />
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          priority
+          quality={95}
+          sizes="100vw"
+          style={{ objectFit: "cover", objectPosition: objectPosition ?? "center 30%" }}
+        />
       </div>
       <div className="page-hero-overlay" aria-hidden="true" />
       <div className="page-hero-copy">

@@ -18,7 +18,7 @@
 import Image, { type ImageProps } from "next/image";
 import { useState } from "react";
 
-type Ratio = "4-3" | "3-2" | "1-1" | "16-10" | "21-9";
+type Ratio = "4-3" | "3-2" | "1-1" | "4-5" | "16-10" | "21-9";
 
 interface PhotoFrameProps extends Omit<ImageProps, "fill" | "style" | "onError"> {
   ratio?: Ratio;

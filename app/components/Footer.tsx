@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { useLang } from "../LangProvider";
 import { useSiteContent } from "../lib/useSiteContent";
+import { TAS_SOCIAL } from "../lib/contact";
 import { whatsappUrlFromDisplay } from "../lib/siteStore";
+import { IconFacebook, IconInstagram, IconYoutube } from "./icons";
 
 const STUDY_LINKS = [
   { href: "/programs", key: "programs" as const },
@@ -81,6 +83,17 @@ export default function Footer() {
           <span>
             © {new Date().getFullYear()} TAS English Institute. {t.footer.rights}
           </span>
+
+          <nav className="footer-social" aria-label={t.footer.socialLabel}>
+            {TAS_SOCIAL.map((item) => {
+              const Icon = item.id === "facebook" ? IconFacebook : item.id === "instagram" ? IconInstagram : IconYoutube;
+              return (
+                <a key={item.id} href={item.href} target="_blank" rel="noopener noreferrer" aria-label={item.label}>
+                  <Icon />
+                </a>
+              );
+            })}
+          </nav>
 
           <div className="legal-links">
             <Link href="#">{t.footer.terms}</Link>

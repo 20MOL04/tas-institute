@@ -92,13 +92,11 @@
 }
 
 .tas-menu-panel {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: calc(100% + 8px);
   z-index: 80;
   max-height: 280px;
   overflow: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   padding: 6px;
   border: 1px solid var(--menu-border);
   border-radius: 12px;
@@ -107,10 +105,22 @@
   box-shadow: var(--menu-shadow);
 }
 
-.tas-menu-option {
+.tas-menu-panel.is-overlay {
+  position: fixed;
+  z-index: 400;
+  margin: 0;
+  right: auto;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+button.tas-menu-option {
   width: 100%;
   min-height: 40px;
   display: flex;
+  flex: none;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
@@ -128,6 +138,12 @@
 .tas-menu-option.has-hint {
   min-height: 52px;
   align-items: flex-start;
+}
+
+@media (max-width: 767px) {
+  .tas-menu-option {
+    min-height: 44px;
+  }
 }
 
 .tas-menu-option-copy {

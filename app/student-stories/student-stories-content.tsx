@@ -15,7 +15,14 @@ export default function StudentStoriesContent() {
 
   return (
     <>
-      <PageHero src="/images/hero-stories.png" alt="" eyebrow={t.stories.heroEyebrow} title={t.stories.heroTitle} subtitle={t.stories.heroSubtitle} />
+      <PageHero
+        src="/images/hero-stories.jpg"
+        alt=""
+        eyebrow={t.stories.heroEyebrow}
+        title={t.stories.heroTitle}
+        subtitle={t.stories.heroSubtitle}
+        objectPosition="70% 58%"
+      />
 
       <section className="section">
         <div className="container">

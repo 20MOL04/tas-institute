@@ -6,16 +6,44 @@ import PageHero from "../components/PageHero";
 import PhotoFrame from "../components/PhotoFrame";
 import StatsBand from "../components/StatsBand";
 import { TAS_WHATSAPP_URL } from "../lib/contact";
+import {
+  COMPUTER_CERTIFICATE_GHC,
+  COMPUTER_COURSES,
+  COMPUTER_ENROLLMENT_GHC,
+  COMPUTER_HOURS,
+  EXAM_CLASS_CFA,
+  EXAM_DAYS_EN,
+  EXAM_DAYS_FR,
+  EXAM_FEES,
+  EXAM_HOURS_EN,
+  EXAM_HOURS_FR,
+  INTENSIVE_FEES,
+  INTENSIVE_HOURS,
+  REGULAR_CERTIFICATE_GHC,
+  REGULAR_ENROLLMENT_CFA,
+  REGULAR_FEES,
+  REGULAR_HOURS,
+  REGULAR_INCLUDED_EN,
+  REGULAR_INCLUDED_FR,
+  formatMoney,
+} from "../lib/fees";
 
 export default function ProgramsContent() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const p = t.programs;
+  const fr = lang === "fr";
 
   return (
     <>
-      <PageHero src="/images/hero-programs.png" alt="" eyebrow={p.heroEyebrow} title={p.heroTitle} subtitle={p.heroSubtitle} />
+      <PageHero
+        src="/images/hero-programs.jpg"
+        alt=""
+        eyebrow={p.heroEyebrow}
+        title={p.heroTitle}
+        subtitle={p.heroSubtitle}
+        objectPosition="72% 58%"
+      />
 
-      {/* OFFICIAL FIGURES */}
       <section className="section">
         <div className="container">
           <div className="section-head-center reveal">
@@ -27,7 +55,6 @@ export default function ProgramsContent() {
         </div>
       </section>
 
-      {/* THE THREE COURSES */}
       <section className="section section-alt">
         <div className="container">
           <div className="section-head-center reveal">
@@ -65,7 +92,6 @@ export default function ProgramsContent() {
         </div>
       </section>
 
-      {/* ENGLISH SKILLS */}
       <section className="section section-glow">
         <div className="container">
           <div className="section-head-center reveal">
@@ -87,7 +113,6 @@ export default function ProgramsContent() {
         </div>
       </section>
 
-      {/* COMPUTER MODULES */}
       <section className="section section-alt">
         <div className="container">
           <div className="section-head-center reveal">
@@ -95,24 +120,37 @@ export default function ProgramsContent() {
             <h2>{p.modulesTitle}</h2>
             <p className="lede">{p.modulesText}</p>
           </div>
-          <div className="module-split reveal">
-            <PhotoFrame src="/images/program-computer.png" alt="" ratio="4-3" sizes="(max-width: 1023px) 92vw, 40vw" />
-            <ol className="skill-grid skill-grid-1 reveal-stagger">
-              {p.modules.map((module, i) => (
-                <li key={module.title}>
-                  <span className="sec-step">{i + 1}</span>
-                  <div>
-                    <strong>{module.title}</strong>
-                    <span>{module.text}</span>
-                  </div>
-                </li>
-              ))}
-            </ol>
+          <div className="compare-wrap reveal">
+            <table className="compare-table fee-table">
+              <thead>
+                <tr>
+                  <th scope="col">{p.listKicker}</th>
+                  <th scope="col">{p.feesColDuration}</th>
+                  <th scope="col">{p.feesColHours}</th>
+                  <th scope="col">{p.feesColPrice}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {COMPUTER_COURSES.map((course) => (
+                  <tr key={course.id}>
+                    <th scope="row">{fr ? course.titleFr : course.titleEn}</th>
+                    <td>
+                      {course.months} {p.feesMonthsShort}
+                    </td>
+                    <td>{COMPUTER_HOURS} h</td>
+                    <td className="fee-num">{formatMoney(course.priceGhc, "GHC")}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
+          <p className="section-note reveal">
+            {p.feesEnrollment} : {formatMoney(COMPUTER_ENROLLMENT_GHC, "GHC")}. {p.feesCertificate} :{" "}
+            {formatMoney(COMPUTER_CERTIFICATE_GHC, "GHC")}.
+          </p>
         </div>
       </section>
 
-      {/* COMPARISON TABLE */}
       <section className="section">
         <div className="container">
           <div className="section-head-center reveal">
@@ -149,13 +187,102 @@ export default function ProgramsContent() {
         </div>
       </section>
 
-      {/* TUITION */}
       <section className="section section-alt">
         <div className="container">
           <div className="section-head-center reveal">
             <span className="sec-kicker">{p.priceKicker}</span>
             <h2>{p.priceTitle}</h2>
             <p className="lede">{p.priceText}</p>
+          </div>
+
+          <div className="fee-block reveal">
+            <h3 className="fee-heading">{p.feesIntensiveTitle}</h3>
+            <p className="small muted">{p.feesIntensiveText}</p>
+            <div className="compare-wrap">
+              <table className="compare-table fee-table">
+                <thead>
+                  <tr>
+                    <th scope="col">{p.feesColDuration}</th>
+                    <th scope="col">{p.feesColHours}</th>
+                    <th scope="col">{p.feesColPrice}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {INTENSIVE_FEES.map((row) => (
+                    <tr key={row.priceCfa}>
+                      <th scope="row">{fr ? row.durationFr : row.durationEn}</th>
+                      <td>{INTENSIVE_HOURS} h</td>
+                      <td className="fee-num">{formatMoney(row.priceCfa, "CFA")}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div className="fee-block reveal">
+            <h3 className="fee-heading">{p.feesRegularTitle}</h3>
+            <p className="small muted">{p.feesRegularText}</p>
+            <div className="compare-wrap">
+              <table className="compare-table fee-table">
+                <thead>
+                  <tr>
+                    <th scope="col">{p.feesColDuration}</th>
+                    <th scope="col">{p.feesColHours}</th>
+                    <th scope="col">{p.feesColNoIt}</th>
+                    <th scope="col">{p.feesColWithIt}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {REGULAR_FEES.map((row) => (
+                    <tr key={row.withoutItCfa}>
+                      <th scope="row">{fr ? row.durationFr : row.durationEn}</th>
+                      <td>{REGULAR_HOURS} h</td>
+                      <td className="fee-num">{formatMoney(row.withoutItCfa, "CFA")}</td>
+                      <td className="fee-num">{formatMoney(row.withItCfa, "CFA")}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="section-note">
+              {p.feesEnrollment} : {formatMoney(REGULAR_ENROLLMENT_CFA, "CFA")}. {p.feesCertificate} :{" "}
+              {formatMoney(REGULAR_CERTIFICATE_GHC, "GHC")}. {p.feesIncluded} : {(fr ? REGULAR_INCLUDED_FR : REGULAR_INCLUDED_EN).join(", ")}.
+            </p>
+          </div>
+
+          <div className="fee-block reveal">
+            <h3 className="fee-heading">{p.feesExamTitle}</h3>
+            <p className="small muted">{p.feesExamText}</p>
+            <div className="compare-wrap">
+              <table className="compare-table fee-table">
+                <thead>
+                  <tr>
+                    <th scope="col">{p.listKicker}</th>
+                    <th scope="col">{p.feesColDuration}</th>
+                    <th scope="col">{p.feesColHours}</th>
+                    <th scope="col">{p.feesColDays}</th>
+                    <th scope="col">{p.feesColPrice}</th>
+                    <th scope="col">{p.feesColExam}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {EXAM_FEES.map((row) => (
+                    <tr key={row.name}>
+                      <th scope="row">{row.name}</th>
+                      <td>{p.feesMonths}</td>
+                      <td>{fr ? EXAM_HOURS_FR : EXAM_HOURS_EN}</td>
+                      <td>{fr ? EXAM_DAYS_FR : EXAM_DAYS_EN}</td>
+                      <td className="fee-num">{formatMoney(EXAM_CLASS_CFA, "CFA")}</td>
+                      <td className="fee-num">{formatMoney(row.examCfa, "CFA")}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div className="section-foot reveal">
             <a href={TAS_WHATSAPP_URL} className="btn btn-secondary" target="_blank" rel="noopener noreferrer">
               {p.priceCta}
             </a>
@@ -163,7 +290,6 @@ export default function ProgramsContent() {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="section section-navy">
         <div className="container">
           <div className="section-head-center reveal" style={{ marginBottom: 0 }}>

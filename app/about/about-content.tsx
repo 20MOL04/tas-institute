@@ -8,6 +8,7 @@ import StatsBand from "../components/StatsBand";
 import { IconBook, IconGlobe, IconPeople, IconPin } from "../components/icons";
 import { useSiteContent } from "../lib/useSiteContent";
 import { whatsappUrlFromDisplay } from "../lib/siteStore";
+import { FOUNDER_PHOTO } from "../lib/founder";
 
 const VALUE_ICONS = [IconBook, IconPeople, IconGlobe, IconPin];
 
@@ -26,7 +27,14 @@ export default function AboutContent() {
 
   return (
     <>
-      <PageHero src="/images/hero-about.png" alt="" eyebrow={a.heroEyebrow} title={a.heroTitle} subtitle={a.heroSubtitle} />
+      <PageHero
+        src="/images/hero-about.jpg"
+        alt=""
+        eyebrow={a.heroEyebrow}
+        title={a.heroTitle}
+        subtitle={a.heroSubtitle}
+        objectPosition="72% 48%"
+      />
 
       {/* WHO IS TAS + HEADLINE FIGURES */}
       <section className="section">
@@ -37,6 +45,31 @@ export default function AboutContent() {
             <p className="lede">{a.whoText}</p>
           </div>
           <StatsBand />
+        </div>
+      </section>
+
+      <section className="section section-alt">
+        <div className="container">
+          <div className="leader-split reveal">
+            <PhotoFrame
+              src={FOUNDER_PHOTO}
+              alt={a.founderName || a.founderRole}
+              ratio="4-5"
+              className="leader-photo"
+              sizes="(max-width: 1023px) 88vw, 38vw"
+            />
+            <div className="leader-copy">
+              <span className="sec-kicker">{a.founderEyebrow}</span>
+              <h2>{a.founderTitle}</h2>
+              <p className="leader-role">{a.founderRole}</p>
+              {a.founderName ? <p className="leader-name">{a.founderName}</p> : null}
+              <p>{a.founderBio}</p>
+              <p className="muted">{a.founderVision}</p>
+              <Link href="/contact" className="btn btn-primary">
+                {t.common.learnMore}
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 

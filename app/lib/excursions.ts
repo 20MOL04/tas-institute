@@ -15,7 +15,7 @@ export type Outing = {
 export const TAS_OUTINGS: Outing[] = [
   {
     slug: "cape-coast",
-    image: "/images/about-campus.jpg",
+    image: "/images/outings/cape-coast-group.jpg",
     titleFr: "Cape Coast",
     titleEn: "Cape Coast",
     textFr: "Le château, l'histoire, et une journée hors d'Accra avec le groupe.",
@@ -23,7 +23,7 @@ export const TAS_OUTINGS: Outing[] = [
   },
   {
     slug: "kakum",
-    image: "/images/group-outdoor.jpg",
+    image: "/images/outings/kakum-group.jpg",
     titleFr: "Kakum",
     titleEn: "Kakum",
     textFr: "La canopée en forêt, une sortie nature pendant la formation.",

@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useOs } from "./OsProvider";
 import { useOsT } from "./useOsT";
+import { IcChevronDown } from "./icons";
+import { FOUNDER_PHOTO } from "../../lib/founder";
 
 function roleLabel(role: string | undefined, t: ReturnType<typeof useOsT>["t"]) {
   if (role === "founder" || role === "director" || role === "superadmin") return t.gate.ceo.title;
@@ -19,6 +21,7 @@ export default function AccountMenu() {
   const { lang, setLang, t } = useOsT();
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLDivElement>(null);
+  const founder = session?.role === "founder";
 
   useEffect(() => {
     function onDoc(e: MouseEvent) {
@@ -32,12 +35,24 @@ export default function AccountMenu() {
     <div className="os-account" ref={root}>
       <button
         type="button"
-        className="os-avatar-btn"
+        className={`os-avatar-btn${founder ? " is-chip" : ""}`}
         aria-label={t.account.profile}
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
       >
-        <span className="os-avatar">{user.initials}</span>
+        {founder ? (
+          <span className="os-avatar is-photo">
+            <img src={FOUNDER_PHOTO} alt="" />
+          </span>
+        ) : (
+          <span className="os-avatar">{user.initials}</span>
+        )}
+        {founder ? (
+          <>
+            <span className="os-account-role os-hide-mobile">{roleLabel(session?.role, t)}</span>
+            <IcChevronDown />
+          </>
+        ) : null}
       </button>
       {open ? (
         <div className="os-account-menu" role="menu">

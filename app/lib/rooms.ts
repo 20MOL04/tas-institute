@@ -1,9 +1,6 @@
 /**
- * The three housing options exactly as the school publishes them on
- * tasenglishinstitut.com/courses (price + what's included). The site states no
- * billing period; the school confirmed the prices are monthly.
- *
- * Single source of truth: the home page teaser and /accommodation both read it.
+ * Logements de l'affiche TAS 2024. Tarifs mensuels.
+ * Accueil et /accommodation lisent cette liste.
  */
 export type Room = {
   slug: string;
@@ -17,30 +14,39 @@ export type Room = {
 
 export const TAS_ROOMS: Room[] = [
   {
+    slug: "apartment",
+    image: "/images/accommodation-living.jpg",
+    price: "260 000",
+    titleFr: "Appartement deux chambres, Alajo",
+    titleEn: "Two bedroom apartment, Alajo",
+    includesFr: ["Eau", "Poubelle", "Climatisation", "Douche et toilette", "Cuisine", "TV"],
+    includesEn: ["Water", "Waste collection", "Air conditioning", "Shower and toilet", "Kitchen", "TV"],
+  },
+  {
     slug: "air-conditioned",
     image: "/images/accommodation-air-conditioned.png",
     price: "130 000",
-    titleFr: "Chambre climatisée",
-    titleEn: "Air-conditioned room",
-    includesFr: ["Eau", "Climatisation", "Douche et toilette", "Cuisine", "TV"],
-    includesEn: ["Water", "Air conditioning", "Shower and toilet", "Kitchen", "TV"],
+    titleFr: "Chambre climatisée, Kotobabi",
+    titleEn: "Air conditioned room, Kotobabi",
+    includesFr: ["Eau", "Poubelle", "Climatisation", "Douche et toilette", "Cuisine", "TV"],
+    includesEn: ["Water", "Waste collection", "Air conditioning", "Shower and toilet", "Kitchen", "TV"],
   },
   {
     slug: "standard",
     image: "/images/accommodation-standard.png",
     price: "100 000",
-    titleFr: "Chambre non climatisée",
-    titleEn: "Non-air-conditioned room",
-    includesFr: ["Eau", "Douche et toilette", "Cuisine", "TV"],
-    includesEn: ["Water", "Shower and toilet", "Kitchen", "TV"],
+    titleFr: "Chambre sans climatisation, Kotobabi",
+    titleEn: "Room without air conditioning, Kotobabi",
+    includesFr: ["Eau", "Poubelle", "Ventilateur", "Douche et toilette", "Cuisine", "TV"],
+    includesEn: ["Water", "Waste collection", "Fan", "Shower and toilet", "Kitchen", "TV"],
   },
   {
     slug: "shared",
     image: "/images/accommodation-shared.png",
     price: "60 000",
-    titleFr: "Deux par chambre",
-    titleEn: "Two per room",
-    includesFr: ["Eau", "Douche et toilette", "Cuisine"],
-    includesEn: ["Water", "Shower and toilet", "Kitchen"],
+    titleFr: "Deux personnes par chambre, Kotobabi",
+    titleEn: "Two people per room, Kotobabi",
+    includesFr: ["Eau", "Poubelle", "Ventilateur", "Cuisine", "Toilette"],
+    includesEn: ["Water", "Waste collection", "Fan", "Kitchen", "Toilet"],
   },
 ];

@@ -162,7 +162,14 @@ export default function ApplyContent() {
 
   return (
     <>
-      <PageHero src="/images/hero-apply.png" alt="" eyebrow={t.apply.heroEyebrow} title={t.apply.heroTitle} subtitle={t.apply.heroSubtitle} />
+      <PageHero
+        src="/images/hero-apply.jpg"
+        alt=""
+        eyebrow={t.apply.heroEyebrow}
+        title={t.apply.heroTitle}
+        subtitle={t.apply.heroSubtitle}
+        objectPosition="72% 38%"
+      />
 
       <section className="section-tight">
         <div className="container" style={{ maxWidth: 760 }}>

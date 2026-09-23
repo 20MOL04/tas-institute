@@ -16,7 +16,14 @@ export default function AccommodationContent() {
 
   return (
     <>
-      <PageHero src="/images/hero-accommodation.png" alt="" eyebrow={a.heroEyebrow} title={a.heroTitle} subtitle={a.heroSubtitle} />
+      <PageHero
+        src="/images/hero-accommodation.jpg"
+        alt=""
+        eyebrow={a.heroEyebrow}
+        title={a.heroTitle}
+        subtitle={a.heroSubtitle}
+        objectPosition="78% 48%"
+      />
 
       {/* OPTIONS */}
       <section className="section">
@@ -26,7 +33,7 @@ export default function AccommodationContent() {
             <h2>{a.optionsTitle}</h2>
             <p className="lede">{a.optionsText}</p>
           </div>
-          <div className="home-cards-3 reveal reveal-stagger">
+          <div className="home-cards-4 reveal reveal-stagger">
             {TAS_ROOMS.map((room) => (
               <RoomCard key={room.slug} room={room} />
             ))}

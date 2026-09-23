@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent } from "react";
+import { useEffect, useId, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
+import { createPortal } from "react-dom";
+import "./select-menu.css";
 
 export type SelectOption = {
   value: string;
@@ -42,6 +44,78 @@ function Check() {
   );
 }
 
+const GAP = 6;
+const PAD = 8;
+const MAX_H = 280;
+
+type PanelBox = {
+  left: number;
+  width: number;
+  maxHeight: number;
+  top?: number;
+  bottom?: number;
+  placement: "up" | "down";
+  vars: CSSProperties;
+};
+
+function readVars(el: HTMLElement): CSSProperties {
+  const s = getComputedStyle(el);
+  const keys = [
+    "--menu-bg",
+    "--menu-bg-soft",
+    "--menu-panel",
+    "--menu-border",
+    "--menu-text",
+    "--menu-muted",
+    "--menu-accent",
+    "--menu-shadow",
+  ];
+  const out: Record<string, string> = {};
+  keys.forEach((key) => {
+    const v = s.getPropertyValue(key).trim();
+    if (v) out[key] = v;
+  });
+  return out as CSSProperties;
+}
+
+function layoutPanel(anchor: HTMLElement): PanelBox {
+  const r = anchor.getBoundingClientRect();
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const width = Math.min(Math.max(r.width, 200), Math.max(120, vw - PAD * 2));
+  let left = r.left;
+  if (left + width > vw - PAD) left = vw - PAD - width;
+  if (left < PAD) left = PAD;
+
+  const below = Math.max(0, vh - r.bottom - GAP - PAD);
+  const above = Math.max(0, r.top - GAP - PAD);
+  const mobile = window.matchMedia("(max-width: 767px)").matches;
+  const preferUp = mobile || (below < MAX_H && above > below);
+  const placement: "up" | "down" = preferUp && above >= 96 ? "up" : "down";
+  const room = placement === "up" ? above : below;
+  const maxHeight = Math.min(MAX_H, Math.max(96, room));
+  const vars = readVars(anchor);
+
+  if (placement === "up") {
+    return {
+      left,
+      width,
+      maxHeight,
+      bottom: Math.max(PAD, vh - r.top + GAP),
+      placement,
+      vars,
+    };
+  }
+  return {
+    left,
+    width,
+    maxHeight,
+    top: Math.min(Math.max(PAD, r.bottom + GAP), vh - PAD - 96),
+    placement,
+    vars,
+  };
+}
+
 export default function SelectMenu({
   id,
   value,
@@ -58,10 +132,14 @@ export default function SelectMenu({
   const uid = useId();
   const listId = `${uid}-list`;
   const rootRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const skipFocusOpen = useRef(false);
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
+  const [box, setBox] = useState<PanelBox | null>(null);
+  const [mounted, setMounted] = useState(false);
 
   const selected = options.find((row) => row.value === value);
   const shown = useMemo(() => {
@@ -77,41 +155,99 @@ export default function SelectMenu({
   }, [options, query, searchable, filterOptions]);
 
   useEffect(() => {
-    function onDoc(ev: MouseEvent) {
-      if (!rootRef.current?.contains(ev.target as Node)) {
-        setOpen(false);
-        setQuery("");
-      }
-    }
-    document.addEventListener("mousedown", onDoc);
-    return () => document.removeEventListener("mousedown", onDoc);
+    setMounted(true);
   }, []);
+
+  function syncBox() {
+    if (rootRef.current) setBox(layoutPanel(rootRef.current));
+  }
+
+  function openMenu() {
+    if (disabled) return;
+    setOpen(true);
+    syncBox();
+  }
+
+  function close() {
+    setOpen(false);
+    setQuery("");
+    setBox(null);
+  }
+
+  function pick(next: string) {
+    skipFocusOpen.current = true;
+    onChange(next);
+    close();
+    inputRef.current?.blur();
+    window.setTimeout(() => {
+      skipFocusOpen.current = false;
+    }, 0);
+  }
 
   useEffect(() => {
     if (!open) return;
-    const idx = Math.max(0, shown.findIndex((row) => row.value === value));
-    setActive(idx);
-    inputRef.current?.focus();
-  }, [open, shown, value]);
+    const onOther = (ev: Event) => {
+      if ((ev as CustomEvent<string>).detail !== uid) close();
+    };
+    window.addEventListener("tas-menu-open", onOther);
+    window.dispatchEvent(new CustomEvent("tas-menu-open", { detail: uid }));
+    return () => window.removeEventListener("tas-menu-open", onOther);
+  }, [open, uid]);
 
-  function pick(next: string) {
-    onChange(next);
-    setOpen(false);
-    setQuery("");
-  }
+  useEffect(() => {
+    if (!open) return;
+    function place(ev?: Event) {
+      const target = ev?.target;
+      if (target instanceof Node && panelRef.current?.contains(target)) return;
+      syncBox();
+    }
+    place();
+    const vv = window.visualViewport;
+    window.addEventListener("resize", place);
+    window.addEventListener("scroll", place, true);
+    vv?.addEventListener("resize", place);
+    vv?.addEventListener("scroll", place);
+    return () => {
+      window.removeEventListener("resize", place);
+      window.removeEventListener("scroll", place, true);
+      vv?.removeEventListener("resize", place);
+      vv?.removeEventListener("scroll", place);
+    };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    function onDoc(ev: PointerEvent) {
+      const node = ev.target as Node;
+      if (rootRef.current?.contains(node) || panelRef.current?.contains(node)) return;
+      close();
+    }
+    const timer = window.setTimeout(() => {
+      document.addEventListener("pointerdown", onDoc, true);
+    }, 0);
+    return () => {
+      window.clearTimeout(timer);
+      document.removeEventListener("pointerdown", onDoc, true);
+    };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const idx = shown.findIndex((row) => row.value === value);
+    setActive(idx < 0 ? 0 : idx);
+  }, [open, shown, value]);
 
   function onKey(ev: KeyboardEvent) {
     if (disabled) return;
     if (!open && (ev.key === "ArrowDown" || ev.key === "Enter" || ev.key === " ")) {
       ev.preventDefault();
-      setOpen(true);
+      openMenu();
       return;
     }
     if (!open) return;
     if (ev.key === "Escape") {
       ev.preventDefault();
-      setOpen(false);
-      setQuery("");
+      close();
     }
     if (ev.key === "ArrowDown") {
       ev.preventDefault();
@@ -128,19 +264,66 @@ export default function SelectMenu({
     }
   }
 
+  const panel =
+    open && box && mounted
+      ? createPortal(
+          <div
+            ref={panelRef}
+            className={`tas-menu-panel is-overlay is-${box.placement}`}
+            id={listId}
+            role="listbox"
+            style={{
+              ...box.vars,
+              position: "fixed",
+              zIndex: 400,
+              overflow: "auto",
+              left: box.left,
+              width: box.width,
+              maxHeight: box.maxHeight,
+              top: box.placement === "up" ? "auto" : box.top,
+              bottom: box.placement === "up" ? box.bottom : "auto",
+            }}
+          >
+            {shown.length === 0 ? (
+              <p className="tas-menu-empty">Aucun résultat.</p>
+            ) : (
+              shown.map((row, i) => (
+                <button
+                  key={row.value}
+                  type="button"
+                  role="option"
+                  className={`tas-menu-option${row.value === value ? " is-selected" : ""}${i === active ? " is-active" : ""}${row.hint ? " has-hint" : ""}`}
+                  aria-selected={row.value === value}
+                  onMouseEnter={() => setActive(i)}
+                  onPointerDown={(ev) => ev.preventDefault()}
+                  onClick={() => pick(row.value)}
+                >
+                  <span className="tas-menu-option-copy">
+                    <span className="tas-menu-option-label">{row.label}</span>
+                    {row.hint ? <span className="tas-menu-option-hint">{row.hint}</span> : null}
+                  </span>
+                  {row.value === value ? <Check /> : null}
+                </button>
+              ))
+            )}
+          </div>,
+          document.body,
+        )
+      : null;
+
   return (
     <div
       ref={rootRef}
       className={`tas-menu${open ? " is-open" : ""}${compact ? " is-compact" : ""}${searchable ? " is-search" : ""}`}
     >
       {searchable ? (
-        <div className="tas-menu-trigger" onClick={() => !disabled && setOpen(true)}>
+        <div className="tas-menu-trigger" onPointerDown={() => openMenu()}>
           <input
             ref={inputRef}
             id={id}
             className="tas-menu-search"
             value={open ? query : selected ? optionText(selected) : ""}
-            placeholder={placeholder}
+            placeholder={open && selected && !query ? optionText(selected) : placeholder}
             required={required && !value}
             disabled={disabled}
             role="combobox"
@@ -149,10 +332,17 @@ export default function SelectMenu({
             aria-autocomplete="list"
             aria-label={ariaLabel}
             autoComplete="off"
-            onFocus={() => setOpen(true)}
+            onFocus={() => {
+              if (disabled) return;
+              if (skipFocusOpen.current) {
+                skipFocusOpen.current = false;
+                return;
+              }
+              openMenu();
+            }}
             onChange={(ev) => {
               setQuery(ev.target.value);
-              setOpen(true);
+              openMenu();
               setActive(0);
             }}
             onKeyDown={onKey}
@@ -169,7 +359,7 @@ export default function SelectMenu({
           aria-controls={listId}
           aria-haspopup="listbox"
           aria-label={ariaLabel}
-          onClick={() => setOpen((v) => !v)}
+          onClick={() => (open ? close() : openMenu())}
           onKeyDown={onKey}
         >
           <span className={`tas-menu-value${selected ? "" : " is-empty"}`}>
@@ -178,31 +368,7 @@ export default function SelectMenu({
           <Chevron />
         </button>
       )}
-      {open ? (
-        <div className="tas-menu-panel" id={listId} role="listbox">
-          {shown.length === 0 ? (
-            <p className="tas-menu-empty">Aucun résultat.</p>
-          ) : (
-            shown.map((row, i) => (
-              <button
-                key={row.value}
-                type="button"
-                role="option"
-                className={`tas-menu-option${row.value === value ? " is-selected" : ""}${i === active ? " is-active" : ""}${row.hint ? " has-hint" : ""}`}
-                aria-selected={row.value === value}
-                onMouseEnter={() => setActive(i)}
-                onClick={() => pick(row.value)}
-              >
-                <span className="tas-menu-option-copy">
-                  <span className="tas-menu-option-label">{row.label}</span>
-                  {row.hint ? <span className="tas-menu-option-hint">{row.hint}</span> : null}
-                </span>
-                {row.value === value ? <Check /> : null}
-              </button>
-            ))
-          )}
-        </div>
-      ) : null}
+      {panel}
     </div>
   );
 }

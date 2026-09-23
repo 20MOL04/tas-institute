@@ -12,7 +12,14 @@ export default function ResourcesContent() {
 
   return (
     <>
-      <PageHero src="/images/hero-resources.png" alt="" eyebrow={t.resources.heroEyebrow} title={t.resources.heroTitle} subtitle={t.resources.heroSubtitle} />
+      <PageHero
+        src="/images/hero-resources.jpg"
+        alt=""
+        eyebrow={t.resources.heroEyebrow}
+        title={t.resources.heroTitle}
+        subtitle={t.resources.heroSubtitle}
+        objectPosition="70% 42%"
+      />
 
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="container">

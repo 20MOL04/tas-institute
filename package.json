@@ -20,5 +20,22 @@
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.35",
     "typescript": "^5.5.4"
-  }
+  },
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/20MOL04/tas-institute.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/20MOL04/tas-institute/issues"
+  },
+  "homepage": "https://github.com/20MOL04/tas-institute#readme"
 }

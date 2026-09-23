@@ -11,7 +11,14 @@ export default function UniversityGuidanceContent() {
 
   return (
     <>
-      <PageHero src="/images/hero-university.png" alt="" eyebrow={t.universityGuidance.heroEyebrow} title={t.universityGuidance.heroTitle} subtitle={t.universityGuidance.heroSubtitle} />
+      <PageHero
+        src="/images/hero-university.jpg"
+        alt=""
+        eyebrow={t.universityGuidance.heroEyebrow}
+        title={t.universityGuidance.heroTitle}
+        subtitle={t.universityGuidance.heroSubtitle}
+        objectPosition="68% 46%"
+      />
 
       <section className="section">
         <div className="container">

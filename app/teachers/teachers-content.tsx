@@ -16,7 +16,14 @@ export default function TeachersContent() {
 
   return (
     <>
-      <PageHero src="/images/hero-teachers.png" alt="" eyebrow={t.teachers.heroEyebrow} title={t.teachers.heroTitle} subtitle={t.teachers.heroSubtitle} />
+      <PageHero
+        src="/images/hero-teachers.jpg"
+        alt=""
+        eyebrow={t.teachers.heroEyebrow}
+        title={t.teachers.heroTitle}
+        subtitle={t.teachers.heroSubtitle}
+        objectPosition="68% 8%"
+      />
 
       <section className="section">
         <div className="container">
