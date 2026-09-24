@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
-import BrandIcon from "../../components/BrandIcon";
 import { IcAlert, IcClose, IcFile, IcGrid, IcHome, IcMenu, IcTrend, IcVideo } from "../../os/_components/icons";
 
 const ADMIN_NAV = [
@@ -29,11 +28,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
         <aside className={`os-sidebar${open ? " open" : ""}`}>
           <div className="os-brand">
             <Link href="/admin" className="os-brand" style={{ flex: 1, minWidth: 0, padding: 0, height: "auto" }} onClick={() => setOpen(false)}>
-              <BrandIcon size={30} className="os-brand-mark" />
-              <span className="os-brand-text">
-                <strong>TAS</strong>
-                <span>Back office</span>
-              </span>
+              <img src="/brand/tas-logo-white-480.png" alt="TAS English Institute" className="os-brand-logo" />
             </Link>
             <button type="button" className="os-close-mobile" onClick={() => setOpen(false)} aria-label="Fermer">
               <IcClose />

@@ -128,8 +128,8 @@ export const SITE_DEFAULTS: SiteContent = {
   hoursEn: "Monday to Friday, 8 am to 5 pm",
   homeHeroFr: "Apprenez l'anglais. Construisez votre avenir.",
   homeHeroEn: "Learn English. Build your future.",
-  homeLeadFr: "Cours à Accra. 18 enseignants. Réponse sur WhatsApp.",
-  homeLeadEn: "Classes in Accra. 18 teachers. We reply on WhatsApp.",
+  homeLeadFr: "Des cours d'anglais en immersion à Accra, pensés pour les étudiants francophones. Parlez avec assurance, réussissez vos examens, ouvrez-vous de nouvelles portes.",
+  homeLeadEn: "Immersive English classes in Accra, designed for French-speaking students. Speak with confidence, pass your exams, open new doors.",
   gallery: [],
 };
 
@@ -149,11 +149,13 @@ export function whatsappLinkFromDisplay(display: string, message: string) {
 const STALE_HOME_LEAD_FR = [
   "À Accra, TAS English Institute accompagne des étudiants africains et internationaux avec un enseignement structuré, des enseignants expérimentés et un cadre d'apprentissage sérieux.",
   "Huit heures d'anglais par jour à Accra. 18 enseignants. Une chambre près des salles. WhatsApp pour commencer.",
+  "Cours à Accra. 18 enseignants. Réponse sur WhatsApp.",
 ];
 const STALE_HOME_LEAD_EN = [
   "In Accra, TAS English Institute supports African and international students with structured teaching, experienced teachers and a serious learning setting.",
   "In Accra, TAS English Institute supports African and international students with structured teaching, experienced instructors and a serious learning environment.",
   "Eight hours of English a day in Accra. 18 teachers. A room near class. WhatsApp to start.",
+  "Classes in Accra. 18 teachers. We reply on WhatsApp.",
 ];
 
 export function readSiteContent(): SiteContent {
@@ -165,7 +167,10 @@ export function readSiteContent(): SiteContent {
   const homeLeadEn = saved.homeLeadEn && !STALE_HOME_LEAD_EN.includes(saved.homeLeadEn)
     ? saved.homeLeadEn
     : SITE_DEFAULTS.homeLeadEn;
-  return { ...SITE_DEFAULTS, ...saved, homeLeadFr, homeLeadEn, gallery: saved.gallery ?? [] };
+  // L'ancien numéro principal enregistré dans le navigateur ne doit plus s'afficher.
+  const STALE_PHONES = ["+233 256 272 220"];
+  const phone = saved.phone && !STALE_PHONES.includes(saved.phone) ? saved.phone : SITE_DEFAULTS.phone;
+  return { ...SITE_DEFAULTS, ...saved, phone, homeLeadFr, homeLeadEn, gallery: saved.gallery ?? [] };
 }
 
 export function writeSiteContent(next: SiteContent) {

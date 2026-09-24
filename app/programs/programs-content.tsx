@@ -6,6 +6,7 @@ import PageHero from "../components/PageHero";
 import PhotoFrame from "../components/PhotoFrame";
 import StatsBand from "../components/StatsBand";
 import { TAS_WHATSAPP_URL } from "../lib/contact";
+import CtaBackdrop from "../components/CtaBackdrop";
 import {
   COMPUTER_CERTIFICATE_GHC,
   COMPUTER_COURSES,
@@ -288,7 +289,8 @@ export default function ProgramsContent() {
         </div>
       </section>
 
-      <section className="section section-navy">
+      <section className="section section-navy cta-photo">
+        <CtaBackdrop src="/images/tas/graduation-diploma-2.jpg" />
         <div className="container">
           <div className="section-head-center reveal" style={{ marginBottom: 0 }}>
             <span className="sec-kicker">{p.ctaKicker}</span>

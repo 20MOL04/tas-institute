@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import Image from "./components/FadeImage";
 import { useLang } from "./LangProvider";
 import PhotoFrame from "./components/PhotoFrame";
 import { TwoLineHeroTitle } from "./components/AccentTitle";
@@ -12,8 +12,9 @@ import TeacherMarquee, { TEACHER_PHOTOS } from "./components/TeacherMarquee";
 import { IconBook, IconPeople, IconPin, IconGlobe, IconInfo } from "./components/icons";
 import RoomCard from "./components/RoomCard";
 import OutingCard from "./components/OutingCard";
-import TestimonialCard from "./components/TestimonialCard";
+import TestimonialSlider from "./components/TestimonialSlider";
 import OutingReel from "./components/OutingReel";
+import HeroSlideshow from "./components/HeroSlideshow";
 import { OUTING_CLIPS } from "./lib/outingMedia";
 import { HOME_GRADUATES, PUBLISHED_TESTIMONIALS } from "./lib/testimonials";
 import { TAS_ROOMS } from "./lib/rooms";
@@ -107,15 +108,15 @@ export default function HomeContent() {
     <div className="home">
       <section className="home-hero">
         <div className="home-hero-media">
-          <Image
-            src="/images/hero-home.jpg"
-            alt={t.home.heroImageAlt}
-            fill
-            priority
-            quality={95}
-            sizes="100vw"
-            unoptimized
-            style={{ objectFit: "cover", objectPosition: "center 42%" }}
+          <HeroSlideshow
+            slides={[
+              { src: "/images/hero-home.jpg", alt: t.home.heroImageAlt, position: "center 42%" },
+              { src: "/images/tas/graduation-caps-yellow.jpg", alt: "", position: "center 35%" },
+              { src: "/images/tas/graduation-class-hall.jpg", alt: "", position: "center 30%" },
+              { src: "/images/tas/graduation-caps-group.jpg", alt: "", position: "center 30%" },
+              { src: "/images/tas/graduate-duo.jpg", alt: "", position: "center 25%" },
+              { src: "/images/tas/graduation-class-night.jpg", alt: "", position: "center 35%" },
+            ]}
           />
           <div className="home-hero-overlay" aria-hidden="true" />
         </div>
@@ -137,7 +138,7 @@ export default function HomeContent() {
             <span className="home-avatars">
               {AVATARS.map((src) => (
                 <span key={src} className="home-avatar">
-                  <Image src={src} alt="" fill sizes="36px" style={{ objectFit: "cover" }} />
+                  <Image src={src} alt="" fill sizes="56px" style={{ objectFit: "cover" }} />
                 </span>
               ))}
             </span>
@@ -298,10 +299,8 @@ export default function HomeContent() {
             <h2>{t.home.storyTitle}</h2>
             <p className="lede">{t.home.storyText}</p>
           </div>
-          <div className="testimonial-grid reveal reveal-stagger">
-            {PUBLISHED_TESTIMONIALS.map((item) => (
-              <TestimonialCard key={item.id} item={item} />
-            ))}
+          <div className="reveal">
+            <TestimonialSlider items={PUBLISHED_TESTIMONIALS} />
           </div>
           <h3 className="graduates-title reveal">{fr ? "Nos diplômés" : "Our graduates"}</h3>
           <div className="graduates-row reveal reveal-stagger">
@@ -430,7 +429,7 @@ export default function HomeContent() {
 
       <section className="section hp-cta">
         <div className="hp-cta-media" aria-hidden="true">
-          <Image src="/images/tas/class-poster.jpg" alt="" fill sizes="100vw" style={{ objectFit: "cover" }} />
+          <Image src="/images/tas/graduation-caps-yellow.jpg" alt="" fill sizes="100vw" style={{ objectFit: "cover", objectPosition: "50% 35%" }} />
         </div>
         <div className="container">
           <div className="section-head-center reveal">

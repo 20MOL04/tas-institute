@@ -6,6 +6,7 @@ import { useLang } from "../LangProvider";
 import PageHero from "../components/PageHero";
 import PhotoFrame from "../components/PhotoFrame";
 import { ARTICLES_BY_DATE, formatArticleDate } from "../lib/articles";
+import CtaBackdrop from "../components/CtaBackdrop";
 
 export default function ResourcesContent() {
   const { t, lang } = useLang();
@@ -82,7 +83,8 @@ export default function ResourcesContent() {
         </div>
       </section>
 
-      <section className="section-navy section-tight">
+      <section className="section-navy section-tight cta-photo">
+        <CtaBackdrop src="/images/tas/graduation-class-night.jpg" />
         <div className="container" style={{ textAlign: "center" }}>
           <h2>{t.home.finalCtaTitle}</h2>
           <Link href="/apply" className="btn btn-primary" style={{ marginTop: "var(--space-2)" }}>

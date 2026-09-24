@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "./FadeImage";
 
 import { TEACHER_PHOTOS } from "../lib/teachers";
 

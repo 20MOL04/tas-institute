@@ -355,23 +355,6 @@ export default function ApplyContent() {
           </form>
         </div>
       </section>
-
-      <div className="sticky-cta">
-        {step > 0 && (
-          <button type="button" className="btn btn-secondary" onClick={goBack}>
-            {t.apply.back}
-          </button>
-        )}
-        {step < 3 ? (
-          <button type="button" className="btn btn-primary" onClick={goNext}>
-            {t.apply.continue}
-          </button>
-        ) : (
-          <button type="button" className="btn btn-primary" onClick={submitForm}>
-            {t.apply.submit}
-          </button>
-        )}
-      </div>
     </>
   );
 }

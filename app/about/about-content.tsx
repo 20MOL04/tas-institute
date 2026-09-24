@@ -9,6 +9,7 @@ import { IconBook, IconGlobe, IconPeople, IconPin } from "../components/icons";
 import { useSiteContent } from "../lib/useSiteContent";
 import { whatsappUrlFromDisplay } from "../lib/siteStore";
 import { FOUNDER_PHOTO } from "../lib/founder";
+import CtaBackdrop from "../components/CtaBackdrop";
 
 const VALUE_ICONS = [IconBook, IconPeople, IconGlobe, IconPin];
 
@@ -206,7 +207,8 @@ export default function AboutContent() {
       </section>
 
       {/* CTA */}
-      <section className="section section-navy">
+      <section className="section section-navy cta-photo">
+        <CtaBackdrop src="/images/tas/graduation-class-hall.jpg" />
         <div className="container">
           <div className="section-head-center reveal" style={{ marginBottom: 0 }}>
             <span className="sec-kicker">{a.journeyEyebrow}</span>

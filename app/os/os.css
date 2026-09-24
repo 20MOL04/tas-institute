@@ -3408,3 +3408,25 @@ button.os-tile {
   height: 100%;
   object-fit: cover;
 }
+
+/* Haut de la barre latérale : seulement le logo principal, en grand. */
+.os-brand-logo {
+  display: block;
+  height: 46px;
+  width: auto;
+  max-width: 100%;
+}
+
+.os-sidebar:not(.collapsed) .os-brand .os-brand-mark {
+  display: none;
+}
+
+.os-sidebar.collapsed .os-brand-logo {
+  display: none;
+}
+
+.os-sidebar .os-brand {
+  height: auto;
+  min-height: var(--topbar-height);
+  padding-block: 14px;
+}

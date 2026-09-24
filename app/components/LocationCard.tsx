@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useLang } from "../LangProvider";
 import { IconBus, IconMail, IconPhone, IconPin } from "./icons";
-import { TAS_DIRECTIONS_URL, TAS_LOCATION, TAS_MAP_EMBED_URL, TAS_MAP_STATIC_URL, TAS_SCHOOL_PHONES } from "../lib/contact";
+import { TAS_DIRECTIONS_URL, TAS_LOCATION, TAS_MAP_EMBED_URL, TAS_MAP_STATIC_URL } from "../lib/contact";
 import { useSiteContent } from "../lib/useSiteContent";
 import { whatsappUrlFromDisplay } from "../lib/siteStore";
 
@@ -82,7 +82,7 @@ export default function LocationCard({ compact = false }: { compact?: boolean })
                 <div>
                   <strong>{c.phoneLabel}</strong>
                   <span>
-                    {[site.phone, ...TAS_SCHOOL_PHONES].join(", ")}, WhatsApp {site.whatsapp}
+                    {site.phone}
                   </span>
                 </div>
               </li>

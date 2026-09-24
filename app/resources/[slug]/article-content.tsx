@@ -9,6 +9,7 @@ import { IconClock, IconWhatsApp } from "../../components/icons";
 import { formatArticleDate, getArticle, relatedArticles } from "../../lib/articles";
 import { useSiteContent } from "../../lib/useSiteContent";
 import { whatsappLinkFromDisplay } from "../../lib/siteStore";
+import CtaBackdrop from "../../components/CtaBackdrop";
 
 export default function ArticleContent({ slug }: { slug: string }) {
   const { t, lang } = useLang();
@@ -85,7 +86,8 @@ export default function ArticleContent({ slug }: { slug: string }) {
         </div>
       </section>
 
-      <section className="section-navy section-tight">
+      <section className="section-navy section-tight cta-photo">
+        <CtaBackdrop src="/images/tas/graduation-caps-yellow.jpg" />
         <div className="container" style={{ textAlign: "center" }}>
           <h2>{t.home.finalCtaTitle}</h2>
           <Link href="/apply" className="btn btn-primary" style={{ marginTop: "var(--space-2)" }}>

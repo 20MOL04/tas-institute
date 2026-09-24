@@ -4,8 +4,9 @@ import Link from "next/link";
 import { useLang } from "../LangProvider";
 import PageHero from "../components/PageHero";
 import PhotoFrame from "../components/PhotoFrame";
-import TestimonialCard from "../components/TestimonialCard";
+import TestimonialSlider from "../components/TestimonialSlider";
 import { GRADUATION_PHOTOS, PUBLISHED_TESTIMONIALS } from "../lib/testimonials";
+import CtaBackdrop from "../components/CtaBackdrop";
 
 // Uniquement des témoignages et photos réels, fournis par l'école (lib/testimonials.ts).
 export default function StudentStoriesContent() {
@@ -28,11 +29,7 @@ export default function StudentStoriesContent() {
             <h2>{t.stories.testimonialsTitle}</h2>
             <p className="lede">{t.stories.testimonialsText}</p>
           </div>
-          <div className="testimonial-grid">
-            {PUBLISHED_TESTIMONIALS.map((item) => (
-              <TestimonialCard key={item.id} item={item} />
-            ))}
-          </div>
+          <TestimonialSlider items={PUBLISHED_TESTIMONIALS} />
         </div>
       </section>
 
@@ -57,7 +54,8 @@ export default function StudentStoriesContent() {
         </div>
       </section>
 
-      <section className="section-navy section-tight">
+      <section className="section-navy section-tight cta-photo">
+        <CtaBackdrop src="/images/tas/graduation-diploma-3.jpg" />
         <div className="container" style={{ textAlign: "center" }}>
           <h2>{t.stories.ctaTitle}</h2>
           <Link href="/apply" className="btn btn-primary" style={{ marginTop: "var(--space-3)" }}>

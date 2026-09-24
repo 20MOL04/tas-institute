@@ -8,7 +8,7 @@ import { IconClock, IconMail, IconPhone, IconWhatsApp } from "../components/icon
 import { addLead } from "../os/_data/growth";
 import { useSiteContent } from "../lib/useSiteContent";
 import { whatsappUrlFromDisplay } from "../lib/siteStore";
-import { TAS_SCHOOL_PHONES, telLink } from "../lib/contact";
+import { telLink } from "../lib/contact";
 
 export default function ContactContent() {
   const { t, lang } = useLang();
@@ -66,20 +66,14 @@ export default function ContactContent() {
               <strong className="channel-value">{site.whatsapp}</strong>
             </a>
 
-            <div className="card card-pad card-hover">
+            <a href={telLink(site.phone)} className="card card-pad card-hover">
               <span className="icon-badge">
                 <IconPhone />
               </span>
               <h3>{c.phoneChannelTitle}</h3>
               <p className="small muted">{c.phoneChannelText}</p>
-              <div className="channel-values">
-                {[site.phone, ...TAS_SCHOOL_PHONES].map((n) => (
-                  <a key={n} href={telLink(n)} className="channel-value">
-                    {n}
-                  </a>
-                ))}
-              </div>
-            </div>
+              <strong className="channel-value">{site.phone}</strong>
+            </a>
 
             <a href={`mailto:${site.email}`} className="card card-pad card-hover">
               <span className="icon-badge">

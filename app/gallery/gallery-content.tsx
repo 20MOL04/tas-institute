@@ -6,6 +6,7 @@ import PhotoFrame from "../components/PhotoFrame";
 import OutingVideo from "../components/OutingVideo";
 import { liveGallery } from "../lib/siteStore";
 import { useSiteContent } from "../lib/useSiteContent";
+import FinalCta from "../components/FinalCta";
 
 export default function GalleryContent() {
   const { t, lang } = useLang();
@@ -56,6 +57,7 @@ export default function GalleryContent() {
           </div>
         </div>
       </section>
+      <FinalCta image="/images/tas/graduation-caps-group.jpg" />
     </>
   );
 }

@@ -5,6 +5,7 @@ import { useLang } from "../LangProvider";
 import PageHero from "../components/PageHero";
 import PhotoFrame from "../components/PhotoFrame";
 import type { CSSProperties } from "react";
+import FinalCta from "../components/FinalCta";
 
 export default function UniversityGuidanceContent() {
   const { t } = useLang();
@@ -55,6 +56,7 @@ export default function UniversityGuidanceContent() {
           </div>
         </div>
       </section>
+      <FinalCta image="/images/tas/graduation-diploma-2.jpg" />
     </>
   );
 }

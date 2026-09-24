@@ -10,7 +10,6 @@ import {
   TAS_EMAIL,
   TAS_LOCATION,
   TAS_PHONE_DISPLAY,
-  TAS_SCHOOL_PHONES,
   TAS_SOCIAL,
   TAS_WHATSAPP_DISPLAY,
   TAS_WHATSAPP_URL,
@@ -45,7 +44,7 @@ ${SITE_NAME} (TAS) est une école d'anglais et de formation professionnelle situ
 ## Contact
 
 - WhatsApp (inscriptions, réponse rapide) : ${TAS_WHATSAPP_DISPLAY} (${TAS_WHATSAPP_URL})
-- Téléphone : ${[TAS_PHONE_DISPLAY, ...TAS_SCHOOL_PHONES].join(", ")}
+- Téléphone : ${TAS_PHONE_DISPLAY}
 - E-mail : ${TAS_EMAIL}
 - Adresse : ${TAS_LOCATION.addressFr}
 - Horaires : lundi à vendredi, 8 h à 17 h (heure GMT)

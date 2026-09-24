@@ -4,6 +4,7 @@ import { useLang } from "../LangProvider";
 import PageHero from "../components/PageHero";
 import PhotoFrame from "../components/PhotoFrame";
 import { TEACHER_PHOTOS } from "../components/TeacherMarquee";
+import FinalCta from "../components/FinalCta";
 
 // Vraies photos de l'équipe (même liste que la bande défilante de l'accueil).
 // Pas de noms ni de biographies tant que l'école ne les a pas fournis.
@@ -42,6 +43,7 @@ export default function TeachersContent() {
           </div>
         </div>
       </section>
+      <FinalCta image="/images/tas/graduation-class-hall.jpg" />
     </>
   );
 }

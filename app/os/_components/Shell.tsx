@@ -114,11 +114,8 @@ export default function Shell({ children }: { children: ReactNode }) {
         <aside className={`os-sidebar${collapsed ? " collapsed" : ""}${mobileOpen ? " open" : ""}`}>
           <div className="os-brand">
             <Link href="/os" className="os-brand" style={{ flex: 1, minWidth: 0, padding: 0, height: "auto" }} onClick={closeMobile}>
+              <img src="/brand/tas-logo-white-480.png" alt="TAS English Institute" className="os-brand-logo" />
               <BrandIcon size={30} className="os-brand-mark" />
-              <span className="os-brand-text">
-                <strong>TAS App</strong>
-                <span>{session?.name ?? "TAS App"}</span>
-              </span>
             </Link>
             <button type="button" className="os-collapse" onClick={toggleCollapsed} aria-label="Replier le menu">
               <IcChevronRight />

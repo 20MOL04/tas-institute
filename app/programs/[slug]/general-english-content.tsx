@@ -6,6 +6,7 @@ import PhotoFrame from "../../components/PhotoFrame";
 import Faq from "../../components/Faq";
 import { IconCheck } from "../../components/icons";
 import type { CSSProperties } from "react";
+import CtaBackdrop from "../../components/CtaBackdrop";
 
 // The one populated Program Detail page (brief: reusable template, only
 // General English Course fully filled in as the example). Every section
@@ -140,7 +141,8 @@ export default function GeneralEnglishContent() {
       </section>
 
       {/* CTA */}
-      <section className="section-navy section-tight">
+      <section className="section-navy section-tight cta-photo">
+        <CtaBackdrop src="/images/tas/graduation-diploma-1.jpg" />
         <div className="container" style={{ textAlign: "center" }}>
           <h2>{p.ctaTitle}</h2>
           <p className="lede" style={{ margin: "var(--space-2) auto", color: "var(--tas-on-navy-muted)" }}>

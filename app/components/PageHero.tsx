@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "./FadeImage";
 import type { ReactNode } from "react";
 import { LastWordAccent } from "./AccentTitle";
 
@@ -23,7 +23,7 @@ export default function PageHero({ src, alt, eyebrow, title, subtitle, objectPos
           alt={alt}
           fill
           priority
-          quality={95}
+          quality={82}
           sizes="100vw"
           style={{ objectFit: "cover", objectPosition: objectPosition ?? "center 30%" }}
         />

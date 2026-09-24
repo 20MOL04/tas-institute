@@ -1,32 +1,24 @@
 "use client";
 
-// Renders an image slot that:
-//  1) always paints a CSS gradient placeholder sized to the correct aspect
-//     ratio first (see .photo-frame in design-system.css) — so the layout
-//     never breaks even when the file listed in CAHIER-DES-CHARGES.md has
-//     not been dropped into public/images/ yet;
-//  2) layers next/image on top using a plain string `src` (never a static
-//     import), so a missing file cannot fail the Next.js build — it only
-//     404s at request time;
-//  3) hides the <img> on error, revealing the placeholder wash underneath
-//     instead of a broken-image icon.
-//
-// This is a Client Component specifically so it can carry the onError
-// handler (next/image forbids passing inline event handlers from a Server
-// Component boundary).
+// Emplacement d'image :
+//  1) un fond coloré au bon format s'affiche tout de suite (.photo-frame dans design-system.css),
+//     la mise en page ne bouge donc jamais ;
+//  2) l'image apparaît en fondu une fois entièrement chargée, jamais « à moitié dessinée » ;
+//  3) si le fichier manque, l'image est masquée et le fond reste, au lieu d'une icône cassée.
 
 import Image, { type ImageProps } from "next/image";
 import { useState } from "react";
 
 type Ratio = "4-3" | "3-2" | "1-1" | "4-5" | "16-10" | "21-9";
 
-interface PhotoFrameProps extends Omit<ImageProps, "fill" | "style" | "onError"> {
+interface PhotoFrameProps extends Omit<ImageProps, "fill" | "style" | "onError" | "onLoad"> {
   ratio?: Ratio;
   className?: string;
 }
 
 export default function PhotoFrame({ ratio = "4-3", className, alt, ...imageProps }: PhotoFrameProps) {
   const [failed, setFailed] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   return (
     <div className={`photo-frame r-${ratio}${className ? ` ${className}` : ""}`}>
@@ -36,6 +28,8 @@ export default function PhotoFrame({ ratio = "4-3", className, alt, ...imageProp
           alt={alt}
           fill
           sizes={imageProps.sizes ?? "100vw"}
+          className={imageProps.priority ? undefined : `fade-img${loaded ? " is-loaded" : ""}`}
+          onLoad={() => setLoaded(true)}
           onError={() => setFailed(true)}
         />
       )}

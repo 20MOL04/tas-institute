@@ -9,6 +9,7 @@ import RoomCard from "../components/RoomCard";
 import { IconInfo } from "../components/icons";
 import { TAS_RESIDENCES, TAS_ROOMS } from "../lib/rooms";
 import { TAS_WHATSAPP_URL } from "../lib/contact";
+import CtaBackdrop from "../components/CtaBackdrop";
 
 export default function AccommodationContent() {
   const { t, lang } = useLang();
@@ -105,7 +106,8 @@ export default function AccommodationContent() {
       </section>
 
       {/* CTA */}
-      <section className="section section-navy">
+      <section className="section section-navy cta-photo">
+        <CtaBackdrop src="/images/tas/graduation-caps-group.jpg" />
         <div className="container">
           <div className="section-head-center reveal" style={{ marginBottom: 0 }}>
             <span className="sec-kicker">{a.heroEyebrow}</span>
