@@ -22,7 +22,7 @@ import {
   formatMoney,
 } from "../lib/fees";
 import { ROOM_INSTALLATION_CFA, ROOM_INSTALLATION_SLUGS, ROOM_AMENITY_PHOTOS, TAS_RESIDENCES, TAS_ROOMS } from "../lib/rooms";
-import { GRADUATION_PHOTOS, TESTIMONIALS } from "../lib/testimonials";
+import { GRADUATION_PHOTOS, PUBLISHED_TESTIMONIALS } from "../lib/testimonials";
 import { TEACHER_PHOTOS } from "../lib/teachers";
 import {
   TAS_EMAIL,
@@ -371,7 +371,7 @@ export default function FlyerPage() {
         <div className="fl-copy">
           <Head kicker="Ils en parlent" title="Nos" accent="diplômés" />
           <div className="quotes">
-            {TESTIMONIALS.map((q) => (
+            {PUBLISHED_TESTIMONIALS.map((q) => (
               <figure key={q.id} className="quote">
                 <img src={q.photo} alt="" style={{ objectPosition: q.photoPosition }} />
                 <div>

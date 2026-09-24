@@ -15,7 +15,7 @@ import OutingCard from "./components/OutingCard";
 import TestimonialCard from "./components/TestimonialCard";
 import OutingReel from "./components/OutingReel";
 import { OUTING_CLIPS } from "./lib/outingMedia";
-import { HOME_GRADUATES, TESTIMONIALS } from "./lib/testimonials";
+import { HOME_GRADUATES, PUBLISHED_TESTIMONIALS } from "./lib/testimonials";
 import { TAS_ROOMS } from "./lib/rooms";
 import { TAS_OUTINGS } from "./lib/excursions";
 import { ARTICLES_BY_DATE } from "./lib/articles";
@@ -299,7 +299,7 @@ export default function HomeContent() {
             <p className="lede">{t.home.storyText}</p>
           </div>
           <div className="testimonial-grid reveal reveal-stagger">
-            {TESTIMONIALS.map((item) => (
+            {PUBLISHED_TESTIMONIALS.map((item) => (
               <TestimonialCard key={item.id} item={item} />
             ))}
           </div>

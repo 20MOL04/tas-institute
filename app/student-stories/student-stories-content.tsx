@@ -5,7 +5,7 @@ import { useLang } from "../LangProvider";
 import PageHero from "../components/PageHero";
 import PhotoFrame from "../components/PhotoFrame";
 import TestimonialCard from "../components/TestimonialCard";
-import { GRADUATION_PHOTOS, TESTIMONIALS } from "../lib/testimonials";
+import { GRADUATION_PHOTOS, PUBLISHED_TESTIMONIALS } from "../lib/testimonials";
 
 // Uniquement des témoignages et photos réels, fournis par l'école (lib/testimonials.ts).
 export default function StudentStoriesContent() {
@@ -29,7 +29,7 @@ export default function StudentStoriesContent() {
             <p className="lede">{t.stories.testimonialsText}</p>
           </div>
           <div className="testimonial-grid">
-            {TESTIMONIALS.map((item) => (
+            {PUBLISHED_TESTIMONIALS.map((item) => (
               <TestimonialCard key={item.id} item={item} />
             ))}
           </div>

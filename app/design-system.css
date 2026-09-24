@@ -4338,3 +4338,8 @@ a.card {
     gap: 12px;
   }
 }
+
+.testimonial-badge.is-pending {
+  background: var(--c-warning-soft);
+  color: var(--c-warning-deep);
+}

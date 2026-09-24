@@ -7,7 +7,7 @@ import type { Testimonial } from "../lib/testimonials";
 export default function TestimonialCard({ item }: { item: Testimonial }) {
   const { lang } = useLang();
   const fr = lang === "fr";
-  const badge = fr ? item.badgeFr : item.badgeEn;
+  const badge = item.pending ? (fr ? "Exemple, avis à confirmer" : "Example, to be confirmed") : fr ? item.badgeFr : item.badgeEn;
 
   return (
     <article className="card testimonial-card">
@@ -19,7 +19,7 @@ export default function TestimonialCard({ item }: { item: Testimonial }) {
           sizes="(max-width: 767px) 92vw, 380px"
           style={{ objectFit: "cover", objectPosition: item.photoPosition ?? "50% 20%" }}
         />
-        {badge ? <span className="testimonial-badge">{badge}</span> : null}
+        {badge ? <span className={`testimonial-badge${item.pending ? " is-pending" : ""}`}>{badge}</span> : null}
       </div>
       <div className="card-body">
         {item.rating ? (

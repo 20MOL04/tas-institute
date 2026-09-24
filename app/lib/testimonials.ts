@@ -16,6 +16,8 @@ export interface Testimonial {
   badgeEn?: string;
   /** Note sur 5, seulement si l'étudiant l'a donnée. */
   rating?: number;
+  /** Brouillon rédigé par l'école, pas encore validé par l'étudiant : affiché avec l'étiquette « Exemple ». Retirer ce champ une fois l'avis confirmé. */
+  pending?: boolean;
   quoteFr: string;
   quoteEn: string;
 }
@@ -30,6 +32,7 @@ export const TESTIMONIALS: Testimonial[] = [
     programEn: "Intensive English, 3 months",
     badgeFr: "Diplômée",
     badgeEn: "Graduate",
+    rating: 4,
     quoteFr:
       "La formation intensive de 3 mois à TAS English Institute m'a donné l'opportunité de poursuivre mes études en France.",
     quoteEn:
@@ -50,7 +53,43 @@ export const TESTIMONIALS: Testimonial[] = [
     quoteEn:
       "One of the highlights of my time at TAS English Institute was gaining skills in English I did not expect to gain: speaking, reading and writing.",
   },
+  {
+    id: "draft-duo-man",
+    pending: true,
+    name: "Nom à confirmer",
+    photo: "/images/tas/graduate-duo.jpg",
+    photoPosition: "22% 25%",
+    programFr: "Formation à confirmer",
+    programEn: "Course to be confirmed",
+    quoteFr: "Je suis arrivé avec un anglais scolaire. Après ma formation à TAS, je peux tenir une vraie conversation et présenter un projet en anglais sans stress.",
+    quoteEn: "I arrived with school English. After my course at TAS, I can hold a real conversation and present a project in English without stress.",
+  },
+  {
+    id: "draft-duo-woman",
+    pending: true,
+    name: "Nom à confirmer",
+    photo: "/images/tas/graduate-duo.jpg",
+    photoPosition: "72% 25%",
+    programFr: "Formation à confirmer",
+    programEn: "Course to be confirmed",
+    quoteFr: "Les cours sont vivants et les professeurs patients. Vivre à Accra m'a obligée à parler anglais tous les jours, et c'est ce qui m'a fait progresser le plus vite.",
+    quoteEn: "The classes are lively and the teachers patient. Living in Accra made me speak English every day, and that is what helped me improve fastest.",
+  },
+  {
+    id: "draft-hijab",
+    pending: true,
+    name: "Nom à confirmer",
+    photo: "/images/tas/graduate-portrait-hijab.jpg",
+    photoPosition: "50% 22%",
+    programFr: "Formation à confirmer",
+    programEn: "Course to be confirmed",
+    quoteFr: "À TAS, j'ai trouvé un cadre sérieux et une vraie équipe. Aujourd'hui, l'anglais n'est plus un obstacle pour mes études.",
+    quoteEn: "At TAS I found a serious setting and a real team. Today, English is no longer an obstacle for my studies.",
+  },
 ];
+
+/** Avis affichés sur le site : les brouillons (pending) restent cachés tant que l'étudiant n'a pas validé son texte. */
+export const PUBLISHED_TESTIMONIALS = TESTIMONIALS.filter((t) => !t.pending);
 
 /** Photos réelles des remises de diplômes (sans témoignage écrit). */
 export const GRADUATION_PHOTOS = [
