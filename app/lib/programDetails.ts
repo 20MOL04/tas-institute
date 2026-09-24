@@ -21,8 +21,8 @@ interface Copy {
 export interface ProgramDetail {
   slug: ProgramSlug;
   image: string;
-  /** Photos réelles montrées sur la page. */
-  photos: string[];
+  /** Photos réelles montrées sur la page, avec leur taille d'origine (affichées sans recadrage). */
+  photos: { src: string; width: number; height: number }[];
   fr: Copy;
   en: Copy;
 }
@@ -59,7 +59,7 @@ export const PROGRAM_DETAILS: ProgramDetail[] = [
   {
     slug: "intensive-english",
     image: "/images/programs/english-intensive.jpg",
-    photos: ["/images/tas/class-red.jpg", "/images/tas/class-poster.jpg", "/images/tas/graduation-diploma-1.jpg"],
+    photos: [{ src: "/images/tas/class-red.jpg", width: 1536, height: 1024 }, { src: "/images/tas/class-poster.jpg", width: 1448, height: 1086 }, { src: "/images/tas/graduation-diploma-1.jpg", width: 1331, height: 1182 }],
     fr: {
       title: "Anglais intensif",
       tagline: "Toute la journée en anglais, pour progresser vite.",
@@ -120,7 +120,7 @@ export const PROGRAM_DETAILS: ProgramDetail[] = [
   {
     slug: "long-english",
     image: "/images/programs/english-long.jpg",
-    photos: ["/images/tas/class-white.jpg", "/images/tas/advising-office.jpg", "/images/tas/graduation-caps-group.jpg"],
+    photos: [{ src: "/images/tas/class-white.jpg", width: 1536, height: 1024 }, { src: "/images/tas/advising-office.jpg", width: 1386, height: 1135 }, { src: "/images/tas/graduation-caps-group.jpg", width: 1254, height: 1254 }],
     fr: {
       title: "Anglais longue durée",
       tagline: "Le même programme, à un rythme qui laisse de la place au reste.",
@@ -181,7 +181,7 @@ export const PROGRAM_DETAILS: ProgramDetail[] = [
   {
     slug: "computer-course",
     image: "/images/programs/computer.jpg",
-    photos: ["/images/tas/computer-lab.jpg", "/images/programs/computer.jpg", "/images/tas/graduation-diploma-3.jpg"],
+    photos: [{ src: "/images/tas/computer-lab.jpg", width: 1448, height: 1086 }, { src: "/images/programs/computer.jpg", width: 1200, height: 1200 }, { src: "/images/tas/graduation-diploma-3.jpg", width: 1381, height: 1140 }],
     fr: {
       title: "Formations en informatique",
       tagline: "Des compétences concrètes, demandées par les employeurs.",

@@ -178,7 +178,7 @@ export default function HomeContent() {
           <div className="home-cards-3 reveal reveal-stagger">
             {PROGRAMS.map((p) => (
               <Link key={p.src} href={p.href} className="card card-hover">
-                <PhotoFrame src={p.src} alt="" ratio="16-10" sizes="(max-width: 1023px) 78vw, 33vw" />
+                <PhotoFrame src={p.src} alt="" ratio="1-1" sizes="(max-width: 1023px) 78vw, 33vw" />
                 <div className="card-body">
                   <h3>{fr ? p.titleFr : p.titleEn}</h3>
                   <p className="small muted">{fr ? p.textFr : p.textEn}</p>

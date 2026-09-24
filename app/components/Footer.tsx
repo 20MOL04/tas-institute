@@ -62,7 +62,7 @@ export default function Footer() {
 
           <div>
             <div className="footer-title">{t.footer.instituteTitle}</div>
-            <ul className="footer-link-cols">
+            <ul>
               {INSTITUTE_LINKS.map((item) => (
                 <li key={item.href}>
                   <Link href={item.href}>{t.nav[item.key]}</Link>

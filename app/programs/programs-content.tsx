@@ -64,7 +64,7 @@ export default function ProgramsContent() {
           <div className="home-cards-3 reveal reveal-stagger">
             {p.programs.map((program) => (
               <Link key={program.slug} href={`/programs/${program.slug}`} className="card card-hover">
-                <PhotoFrame src={program.image} alt="" ratio="16-10" sizes="(max-width: 1023px) 78vw, 33vw" />
+                <PhotoFrame src={program.image} alt="" ratio="1-1" sizes="(max-width: 1023px) 78vw, 33vw" />
                 <div className="card-body">
                   <h3>{program.title}</h3>
                   <p className="small muted">{program.description}</p>

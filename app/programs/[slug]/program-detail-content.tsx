@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useLang } from "../../LangProvider";
 import PhotoFrame from "../../components/PhotoFrame";
+import FadeImage from "../../components/FadeImage";
 import Faq from "../../components/Faq";
 import CtaBackdrop from "../../components/CtaBackdrop";
 import { IconCheck } from "../../components/icons";
@@ -156,7 +157,7 @@ export default function ProgramDetailContent({ slug }: { slug: ProgramSlug }) {
                 </a>
               </div>
             </div>
-            <PhotoFrame src={program.image} alt={c.title} ratio="4-3" priority sizes="(max-width: 1023px) 92vw, 46vw" />
+            <PhotoFrame src={program.image} alt={c.title} ratio="1-1" priority sizes="(max-width: 1023px) 92vw, 46vw" />
           </div>
           <div className="program-facts">
             {facts(slug, fr).map((f) => (
@@ -187,8 +188,8 @@ export default function ProgramDetailContent({ slug }: { slug: ProgramSlug }) {
             </ul>
           </div>
           <div className="program-photos">
-            {program.photos.map((src) => (
-              <PhotoFrame key={src} src={src} alt="" ratio="4-3" sizes="(max-width: 1023px) 46vw, 22vw" />
+            {program.photos.map((p) => (
+              <FadeImage key={p.src} src={p.src} alt="" width={p.width} height={p.height} sizes="(max-width: 1023px) 92vw, 44vw" />
             ))}
           </div>
         </div>
@@ -288,7 +289,7 @@ export default function ProgramDetailContent({ slug }: { slug: ProgramSlug }) {
           <div className="program-others">
             {others.map((o) => (
               <Link key={o.slug} href={`/programs/${o.slug}`} className="card card-hover">
-                <PhotoFrame src={o.image} alt="" ratio="16-10" sizes="(max-width: 767px) 92vw, 40vw" />
+                <PhotoFrame src={o.image} alt="" ratio="1-1" sizes="(max-width: 767px) 92vw, 40vw" />
                 <div className="card-body">
                   <h3>{o[lang].title}</h3>
                   <p className="small muted">{o[lang].tagline}</p>
