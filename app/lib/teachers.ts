@@ -11,4 +11,5 @@ export const TEACHER_PHOTOS = [
   "/images/teachers/tas-teacher-5.jpg",
   "/images/teachers/tas-teacher-6.jpg",
   "/images/teachers/tas-teacher-7.jpg",
+  "/images/teachers/tas-teacher-8.jpg",
 ];

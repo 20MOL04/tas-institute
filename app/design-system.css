@@ -4910,3 +4910,29 @@ a.card {
     align-self: center;
   }
 }
+
+/* Mobile : le haut de l'accueil prend la hauteur de son contenu, comme les autres pages.
+   Moins de hauteur = moins de zoom sur les photos paysage (plus d'image visible). */
+@media (max-width: 900px) {
+  .home-hero {
+    min-height: 0;
+  }
+
+  .home-hero-body {
+    padding-top: var(--space-6);
+    padding-bottom: var(--space-4);
+  }
+
+  .home-hero-body .lede {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .home-hero-actions {
+    margin-top: var(--space-3);
+  }
+
+  .home-proof {
+    margin-top: var(--space-3);
+  }
+}
