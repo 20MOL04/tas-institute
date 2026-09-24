@@ -3,6 +3,7 @@
 import { GROUPS, TEACHERS } from "../../_data";
 import { OsCard, PageHead } from "../../_components/ui";
 import { useOsT } from "../../_components/useOsT";
+import BrandIcon from "../../../components/BrandIcon";
 
 export default function PrintTeachersPage() {
   const { t } = useOsT();
@@ -21,7 +22,10 @@ export default function PrintTeachersPage() {
           return (
             <article key={teacher.id} className="os-print-sheet">
               <header>
-                <strong>TAS English Institute</strong>
+                <span className="os-doc-brand">
+                  <BrandIcon size={24} />
+                  <strong>TAS English Institute</strong>
+                </span>
                 <span>{teacher.campusId}</span>
               </header>
               <h2>{teacher.name}</h2>

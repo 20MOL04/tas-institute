@@ -14,7 +14,8 @@ import OsDrawer from "./OsDrawer";
 import AccountMenu from "./AccountMenu";
 import { useLiveLeads } from "./useLiveLeads";
 import { useStoreTick } from "./useStoreTick";
-import { IcBell, IcChevronLeft, IcChevronRight, IcClose, IcHome, IcMenu } from "./icons";
+import BrandIcon from "../../components/BrandIcon";
+import { IcBell, IcChevronLeft, IcChevronRight, IcClose, IcMenu } from "./icons";
 
 function isActive(href: string, pathname: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
@@ -113,9 +114,7 @@ export default function Shell({ children }: { children: ReactNode }) {
         <aside className={`os-sidebar${collapsed ? " collapsed" : ""}${mobileOpen ? " open" : ""}`}>
           <div className="os-brand">
             <Link href="/os" className="os-brand" style={{ flex: 1, minWidth: 0, padding: 0, height: "auto" }} onClick={closeMobile}>
-              <span className="os-brand-mark">
-                <IcHome />
-              </span>
+              <BrandIcon size={30} className="os-brand-mark" />
               <span className="os-brand-text">
                 <strong>TAS App</strong>
                 <span>{session?.name ?? "TAS App"}</span>

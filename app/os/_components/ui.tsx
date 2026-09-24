@@ -10,6 +10,7 @@ import type {
   StudentStatus,
   Teacher,
 } from "../_data";
+import { CHART_COLORS } from "../../lib/theme";
 
 export function DemoBanner() {
   return null;
@@ -324,7 +325,7 @@ export function LineChart({
   const max = Math.max(...all, 1);
   const x = (i: number, count = labels.length) => pad.l + (i / Math.max(count - 1, 1)) * innerW;
   const y = (v: number) => pad.t + innerH - (v / max) * innerH;
-  const colors = ["#1d4ed8", "#10b981", "#f59e0b", "#6366f1"];
+  const colors = CHART_COLORS;
   const chartKey = `${labels.join("|")}|${series.map((s) => s.values.join(",")).join(";")}`;
 
   if (labels.length === 0) {

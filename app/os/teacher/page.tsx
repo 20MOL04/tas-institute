@@ -9,6 +9,7 @@ import { useOs } from "../_components/OsProvider";
 import { useOsT } from "../_components/useOsT";
 import PeriodSelector, { usePeriodState } from "../_components/PeriodSelector";
 import { monthOverlaps } from "../_lib/period";
+import { palette } from "../../lib/theme";
 
 export default function TeacherHome() {
   const { t } = useOsT();
@@ -92,7 +93,7 @@ export default function TeacherHome() {
       <OsCard title={t.nav.attendance}>
         <LineChart
           labels={chart.labels}
-          series={[{ label: t.nav.attendance, values: chart.values, color: "#1d4ed8" }]}
+          series={[{ label: t.nav.attendance, values: chart.values, color: palette.blue }]}
           height={280}
           filled
         />

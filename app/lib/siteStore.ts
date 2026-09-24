@@ -4,6 +4,8 @@
  */
 
 import { readJson, writeJson } from "./persist";
+import { OUTING_CLIPS } from "./outingMedia";
+import { GRADUATION_PHOTOS } from "./testimonials";
 import {
   TAS_ADDRESS,
   TAS_EMAIL,
@@ -39,7 +41,23 @@ export type SiteContent = {
   gallery: GalleryPhoto[];
 };
 
+// Nouvelles vidéos des sorties d'abord (lib/outingMedia.ts), sans répéter celles déjà listées plus bas.
+const OUTING_VIDEOS: GalleryPhoto[] = OUTING_CLIPS.filter((c) => c.id !== "kakum-canopy").map((c) => ({
+  id: `v-${c.id}`,
+  kind: "video",
+  src: c.src,
+  poster: c.poster,
+  alt: "",
+  titleFr: c.titleFr,
+  titleEn: c.titleEn,
+}));
+
 export const SITE_GALLERY_BASE: GalleryPhoto[] = [
+  ...OUTING_VIDEOS,
+  { id: "out-beach-student", src: "/images/outings/beach-student.jpg", alt: "" },
+  { id: "out-beach-fort", src: "/images/outings/beach-fort.jpg", alt: "" },
+  { id: "out-cape-steps", src: "/images/outings/cape-coast-steps.jpg", alt: "" },
+  ...GRADUATION_PHOTOS.map((p, i) => ({ id: `tas-grad-${i}`, src: p.src, alt: p.altFr })),
   {
     id: "v-kakum-walk",
     kind: "video",
@@ -80,9 +98,25 @@ export const SITE_GALLERY_BASE: GalleryPhoto[] = [
   { id: "out-cape-group", src: "/images/outings/cape-coast-group.jpg", alt: "" },
   { id: "out-cape-castle", src: "/images/outings/cape-coast-castle.jpg", alt: "" },
   { id: "out-cape-court", src: "/images/outings/cape-coast-court.jpg", alt: "" },
-  { id: "base-class", src: "/images/classroom-1.jpg", alt: "" },
-  { id: "base-lab", src: "/images/computer-lab.jpg", alt: "" },
-  { id: "base-campus", src: "/images/about-campus.jpg", alt: "" },
+  { id: "prog-intensive", src: "/images/programs/english-intensive.jpg", alt: "" },
+  { id: "prog-long", src: "/images/programs/english-long.jpg", alt: "" },
+  { id: "prog-computer", src: "/images/programs/computer.jpg", alt: "" },
+  { id: "tas-class-red", src: "/images/tas/class-red.jpg", alt: "" },
+  { id: "tas-class-white", src: "/images/tas/class-white.jpg", alt: "" },
+  { id: "tas-class-poster", src: "/images/tas/class-poster.jpg", alt: "" },
+  { id: "tas-computer-lab", src: "/images/tas/computer-lab.jpg", alt: "" },
+  { id: "tas-graduate-woman", src: "/images/tas/graduate-woman.webp", alt: "" },
+  { id: "tas-graduate-man", src: "/images/tas/graduate-man.webp", alt: "" },
+  { id: "tas-advising", src: "/images/tas/advising-office.jpg", alt: "" },
+  { id: "room-ac", src: "/images/rooms/room-ac.jpg", alt: "" },
+  { id: "room-living", src: "/images/rooms/living-room.jpg", alt: "" },
+  { id: "room-shared", src: "/images/rooms/room-shared.jpg", alt: "" },
+  { id: "room-standard", src: "/images/rooms/room-standard.jpg", alt: "" },
+  { id: "room-kitchen", src: "/images/rooms/kitchen.jpg", alt: "" },
+  { id: "room-bathroom", src: "/images/rooms/bathroom.jpg", alt: "" },
+  { id: "tas-hostel", src: "/images/tas/hostel.webp", alt: "" },
+  { id: "tas-building-yellow", src: "/images/tas/building-yellow.webp", alt: "" },
+  { id: "tas-building-grey", src: "/images/tas/building-grey.webp", alt: "" },
 ];
 
 export const SITE_DEFAULTS: SiteContent = {

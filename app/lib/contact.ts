@@ -1,4 +1,13 @@
-export const TAS_PHONE_DISPLAY = "+233 256 272 220";
+/** Numéro principal de l'école, affiché partout (aussi le WhatsApp). */
+export const TAS_PHONE_DISPLAY = "+233 570 259 279";
+/** Autres lignes : le fondateur, puis les deux numéros du flyer 2024. */
+export const TAS_SCHOOL_PHONES = ["+233 256 272 220", "+233 573 295 477", "+233 533 454 418"] as const;
+
+/** Lien tel: pour un numéro affiché. */
+export function telLink(display: string) {
+  return `tel:${display.replace(/\s/g, "")}`;
+}
+
 export const TAS_WHATSAPP_DISPLAY = "+233 570 259 279";
 export const TAS_WHATSAPP_URL = "https://wa.me/233570259279";
 
@@ -6,6 +15,8 @@ export const TAS_WHATSAPP_URL = "https://wa.me/233570259279";
 export function whatsappLink(message: string) {
   return `${TAS_WHATSAPP_URL}?text=${encodeURIComponent(message)}`;
 }
+/** Adresse du site imprimée sur le flyer. */
+export const TAS_WEBSITE = "www.tasenglishinstitut.com";
 export const TAS_EMAIL = "tasghana@gmail.com";
 export const TAS_ADDRESS = "Accra, Alajo, Kotobabi, Ghana";
 

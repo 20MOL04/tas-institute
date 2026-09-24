@@ -1,13 +1,13 @@
 .tas-menu {
-  --menu-bg: var(--color-card, var(--tas-white, #fff));
-  --menu-bg-soft: var(--color-card-muted, var(--tas-blue-soft, #f3f6fb));
-  --menu-panel: var(--color-card, var(--tas-white, #fff));
-  --menu-border: var(--color-border-strong, var(--tas-border, #d5deea));
-  --menu-text: var(--color-foreground, var(--tas-navy, #0b2a5b));
-  --menu-muted: var(--color-muted, var(--tas-muted, #5b6b82));
-  --menu-accent: var(--color-accent-blue, var(--tas-blue, #1d4ed8));
+  --menu-bg: var(--color-card, var(--tas-white, var(--c-white)));
+  --menu-bg-soft: var(--color-card-muted, var(--tas-blue-soft, var(--c-bg)));
+  --menu-panel: var(--color-card, var(--tas-white, var(--c-white)));
+  --menu-border: var(--color-border-strong, var(--tas-border, var(--c-border-strong)));
+  --menu-text: var(--color-foreground, var(--tas-navy, var(--c-navy)));
+  --menu-muted: var(--color-muted, var(--tas-muted, var(--c-muted)));
+  --menu-accent: var(--color-accent-blue, var(--tas-blue, var(--c-blue)));
   --menu-radius: var(--radius-input, var(--radius-sm, 10px));
-  --menu-shadow: 0 18px 48px rgb(11 42 91 / 0.16);
+  --menu-shadow: 0 18px 48px rgb(var(--c-navy-rgb) / 0.16);
   position: relative;
   width: 100%;
   min-width: 0;
@@ -15,8 +15,8 @@
 
 .os[data-theme="dark"] .tas-menu,
 .os-sheet-host[data-theme="dark"] .tas-menu {
-  --menu-panel: color-mix(in srgb, var(--color-card-muted) 82%, #0b1220);
-  --menu-shadow: 0 16px 40px rgb(0 0 0 / 0.5);
+  --menu-panel: color-mix(in srgb, var(--color-card-muted) 82%, var(--c-dark-bg));
+  --menu-shadow: 0 16px 40px rgb(var(--c-ink-rgb) / 0.5);
 }
 
 .tas-menu-trigger {
@@ -206,7 +206,7 @@ button.tas-menu-option {
   background: var(--color-card-muted);
   border: 1px solid var(--color-border-strong);
   font-size: var(--text-body);
-  box-shadow: inset 0 1px 1px rgb(15 23 42 / 0.04);
+  box-shadow: inset 0 1px 1px rgb(var(--c-text-rgb) / 0.04);
 }
 
 .os-drawer .os-field .tas-menu-trigger {
@@ -223,8 +223,8 @@ button.tas-menu-option {
 
 .field .tas-menu-trigger {
   min-height: 44px;
-  background: var(--tas-white, #fff);
-  border: 1px solid var(--tas-border, #d5deea);
+  background: var(--tas-white, var(--c-white));
+  border: 1px solid var(--tas-border, var(--c-border-strong));
   border-radius: var(--radius-sm, 10px);
   font-size: 0.95rem;
 }

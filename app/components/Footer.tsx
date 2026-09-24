@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { useLang } from "../LangProvider";
 import { useSiteContent } from "../lib/useSiteContent";
-import { TAS_SOCIAL } from "../lib/contact";
+import { TAS_SCHOOL_PHONES, TAS_SOCIAL } from "../lib/contact";
 import { whatsappUrlFromDisplay } from "../lib/siteStore";
 import { IconFacebook, IconInstagram, IconYoutube } from "./icons";
+import Logo from "./Logo";
 
 const STUDY_LINKS = [
   { href: "/programs", key: "programs" as const },
@@ -33,6 +34,9 @@ export default function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div className="footer-brand">
+            <Link href="/" className="footer-logo" aria-label="TAS English Institute">
+              <Logo tone="white" height={56} />
+            </Link>
             <div className="footer-title">TAS English Institute</div>
             <p className="small" style={{ maxWidth: "36ch", color: "var(--tas-on-navy-muted)" }}>
               {t.footer.blurb}
@@ -69,6 +73,9 @@ export default function Footer() {
             <ul>
               <li className="small">{site.address}</li>
               <li className="small">{site.phone}</li>
+              {TAS_SCHOOL_PHONES.map((n) => (
+                <li key={n} className="small">{n}</li>
+              ))}
               <li className="small">{site.email}</li>
               <li>
                 <a href={wa} className="btn btn-whatsapp btn-sm" style={{ marginTop: 8 }} target="_blank" rel="noopener noreferrer">

@@ -13,10 +13,10 @@ import { FOUNDER_PHOTO } from "../lib/founder";
 const VALUE_ICONS = [IconBook, IconPeople, IconGlobe, IconPin];
 
 const CAMPUS = [
-  "/images/campus-video-thumbnail.png",
-  "/images/classroom-1.jpg",
-  "/images/computer-lab.jpg",
-  "/images/library-study.jpg",
+  "/images/tas/class-red.jpg",
+  "/images/tas/class-poster.jpg",
+  "/images/tas/computer-lab.jpg",
+  "/images/tas/class-white.jpg",
 ];
 
 export default function AboutContent() {
@@ -107,7 +107,7 @@ export default function AboutContent() {
       <section className="section section-glow">
         <div className="container">
           <div className="mv-split reveal">
-            <PhotoFrame src="/images/gallery-campus.png" alt="" ratio="4-3" sizes="(max-width: 1023px) 92vw, 44vw" />
+            <PhotoFrame src="/images/tas/graduation-handshake.jpg" alt="" ratio="4-3" sizes="(max-width: 1023px) 92vw, 44vw" />
             <div className="mv-stack">
               <article className="card card-pad">
                 <h3>{a.missionTitle}</h3>

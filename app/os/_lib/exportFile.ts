@@ -1,3 +1,4 @@
+import { palette } from "../../lib/theme";
 /** Téléchargement tableau (Excel ouvre le CSV) et impression / PDF via le dialogue du navigateur. */
 
 export function downloadCsv(filename: string, headers: string[], rows: (string | number)[][]) {
@@ -34,11 +35,11 @@ export function printSheet(title: string, html: string) {
   doc.open();
   doc.write(`<!doctype html><html><head><title>${title}</title>
 <style>
-  body { font-family: Segoe UI, sans-serif; color: #16202e; padding: 24px; }
+  body { font-family: Segoe UI, sans-serif; color: ${palette.text}; padding: 24px; }
   h1 { font-size: 18px; margin: 0 0 16px; }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #e2e5ea; }
-  th { color: #64748b; font-weight: 600; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid ${palette.border}; }
+  th { color: ${palette.muted}; font-weight: 600; }
 </style></head><body><h1>${title}</h1>${html}</body></html>`);
   doc.close();
   frame.contentWindow?.focus();

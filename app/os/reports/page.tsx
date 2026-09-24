@@ -20,8 +20,9 @@ import {
 import { BarList, KpiCard, LineChart, OsCard, PageHead } from "../_components/ui";
 import PeriodSelector, { usePeriodState } from "../_components/PeriodSelector";
 import { inRange, monthOverlaps } from "../_lib/period";
+import { palette } from "../../lib/theme";
 
-const METRIC_COLOR = "#1d4ed8";
+const METRIC_COLOR = palette.blue;
 
 export default function ReportsPage() {
   const { period, customStart, customEnd, range, onApply } = usePeriodState();

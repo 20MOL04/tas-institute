@@ -15,10 +15,11 @@ import { KpiCard, LineChart, OsCard, PageHead, QueueCard, type QueueItem } from 
 import { useOs, type OsPanel } from "./OsProvider";
 import PeriodSelector, { usePeriodState } from "./PeriodSelector";
 import { monthOverlaps } from "../_lib/period";
+import { palette } from "../../lib/theme";
 
 export type HomeAction = { label: string; href?: string; panel?: Exclude<OsPanel, null> };
 
-const METRIC_COLOR = "#1d4ed8";
+const METRIC_COLOR = palette.blue;
 
 export function HomeBoard({
   title,

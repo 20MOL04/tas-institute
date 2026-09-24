@@ -7,8 +7,9 @@ import PeriodSelector, { usePeriodState } from "../_components/PeriodSelector";
 import { useLiveLeads } from "../_components/useLiveLeads";
 import { inRange, monthOverlaps } from "../_lib/period";
 import { PanelButton } from "../_components/EnrollPanels";
+import { palette } from "../../lib/theme";
 
-const METRIC_COLOR = "#1d4ed8";
+const METRIC_COLOR = palette.blue;
 
 export default function CrmPage() {
   const { period, customStart, customEnd, range, onApply } = usePeriodState();

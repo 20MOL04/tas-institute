@@ -9,7 +9,6 @@ import { TAS_WHATSAPP_URL } from "../lib/contact";
 import {
   COMPUTER_CERTIFICATE_GHC,
   COMPUTER_COURSES,
-  COMPUTER_ENROLLMENT_GHC,
   COMPUTER_HOURS,
   EXAM_CLASS_CFA,
   EXAM_DAYS_EN,
@@ -20,7 +19,6 @@ import {
   INTENSIVE_FEES,
   INTENSIVE_HOURS,
   REGULAR_CERTIFICATE_GHC,
-  REGULAR_ENROLLMENT_CFA,
   REGULAR_FEES,
   REGULAR_HOURS,
   REGULAR_INCLUDED_EN,
@@ -145,7 +143,7 @@ export default function ProgramsContent() {
             </table>
           </div>
           <p className="section-note reveal">
-            {p.feesEnrollment} : {formatMoney(COMPUTER_ENROLLMENT_GHC, "GHC")}. {p.feesCertificate} :{" "}
+            {p.feesCertificate} :{" "}
             {formatMoney(COMPUTER_CERTIFICATE_GHC, "GHC")}.
           </p>
         </div>
@@ -246,7 +244,7 @@ export default function ProgramsContent() {
               </table>
             </div>
             <p className="section-note">
-              {p.feesEnrollment} : {formatMoney(REGULAR_ENROLLMENT_CFA, "CFA")}. {p.feesCertificate} :{" "}
+              {p.feesCertificate} :{" "}
               {formatMoney(REGULAR_CERTIFICATE_GHC, "GHC")}. {p.feesIncluded} : {(fr ? REGULAR_INCLUDED_FR : REGULAR_INCLUDED_EN).join(", ")}.
             </p>
           </div>

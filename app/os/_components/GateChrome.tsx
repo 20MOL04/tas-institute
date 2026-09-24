@@ -1,6 +1,7 @@
 "use client";
 
 import { useOsT } from "./useOsT";
+import BrandIcon from "../../components/BrandIcon";
 
 export function LangSwitch() {
   const { lang, setLang } = useOsT();
@@ -21,7 +22,10 @@ export function GateChrome({ children }: { children: React.ReactNode }) {
   return (
     <div className="os os-gate-wrap">
       <header className="os-gate-bar">
-        <span className="os-gate-kicker">{t.gate.kicker}</span>
+        <span className="os-gate-brand">
+          <BrandIcon size={32} />
+          <span className="os-gate-kicker">{t.gate.kicker}</span>
+        </span>
         <LangSwitch />
       </header>
       <main className="os-gate-main">{children}</main>

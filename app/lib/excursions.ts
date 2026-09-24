@@ -39,7 +39,7 @@ export const TAS_OUTINGS: Outing[] = [
   },
   {
     slug: "mer",
-    image: "/images/gallery-1.jpg",
+    image: "/images/outings/beach-tug-of-war-poster.jpg",
     titleFr: "La mer",
     titleEn: "The coast",
     textFr: "Une journée sur la côte, avec les autres étudiants.",

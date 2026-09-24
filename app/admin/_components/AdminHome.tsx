@@ -20,8 +20,9 @@ import { KpiCard, LineChart, OsCard, PageHead, QueueCard, type QueueItem } from 
 import PeriodSelector, { usePeriodState } from "../../os/_components/PeriodSelector";
 import { monthlySlice } from "../../os/_lib/monthlySlice";
 import { useStoreTick } from "../../os/_components/useStoreTick";
+import { palette } from "../../lib/theme";
 
-const METRIC_COLOR = "#1d4ed8";
+const METRIC_COLOR = palette.blue;
 
 const LINKS = [
   { href: "/admin/pages", label: "Pages du site" },

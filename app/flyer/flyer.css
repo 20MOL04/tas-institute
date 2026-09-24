@@ -1,0 +1,852 @@
+/* Flyer TAS : diapositives 1920 x 1080. Couleurs : uniquement la palette (lib/theme.ts). */
+
+@page {
+  size: 1920px 1080px;
+  margin: 0;
+}
+
+.flyer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 40px 0;
+  background: var(--c-border);
+  font-family: var(--font-jakarta), "Plus Jakarta Sans", sans-serif;
+  color: var(--c-text);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+@media print {
+  .flyer {
+    gap: 0;
+    padding: 0;
+    background: none;
+  }
+}
+
+.slide {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  flex: none;
+  overflow: hidden;
+  padding: 96px 120px 140px;
+  background: var(--c-white);
+  break-after: page;
+  box-sizing: border-box;
+}
+
+.slide img {
+  display: block;
+  object-fit: cover;
+}
+
+.slide em {
+  font-family: var(--font-display), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--c-blue);
+}
+
+/* ---------- En-tête de diapositive ---------- */
+
+.slide-head {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1100px;
+  margin-bottom: 48px;
+}
+
+.kicker {
+  align-self: flex-start;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: rgb(var(--c-blue-rgb) / 0.1);
+  color: var(--c-blue);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.slide h2 {
+  margin: 0;
+  font-size: 84px;
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  color: var(--c-navy);
+}
+
+.slide h2 em {
+  font-size: 1.08em;
+}
+
+.lead {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.45;
+  color: var(--c-text2);
+}
+
+/* ---------- Pied de diapositive ---------- */
+
+.slide-foot {
+  position: absolute;
+  left: 120px;
+  right: 120px;
+  bottom: 44px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding-top: 22px;
+  border-top: 2px solid var(--c-border);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--c-muted);
+}
+
+.slide-foot-logo {
+  height: 42px;
+  width: auto;
+}
+
+.slide-foot-n {
+  margin-left: auto;
+  color: var(--c-blue);
+  font-weight: 800;
+}
+
+/* ---------- Couverture et contact ---------- */
+
+.cover,
+.contact {
+  padding: 0;
+  background: var(--c-navy);
+  color: var(--c-white);
+}
+
+.cover-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.cover-veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(100deg, rgb(var(--c-ink-rgb) / 0.94) 0%, rgb(var(--c-navy-rgb) / 0.82) 42%, rgb(var(--c-navy-rgb) / 0.2) 78%),
+    linear-gradient(180deg, transparent 55%, rgb(var(--c-ink-rgb) / 0.7) 100%);
+}
+
+.cover-body,
+.contact-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  max-width: 1150px;
+  padding: 110px 120px 0;
+}
+
+.cover-logo {
+  width: 300px;
+  height: auto;
+}
+
+.cover h1 {
+  margin: 0;
+  font-size: 104px;
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+}
+
+.cover h1 em,
+.contact h2 em {
+  color: var(--c-blue-light);
+}
+
+.cover .lead {
+  color: rgb(var(--c-white-rgb) / 0.86);
+  font-size: 36px;
+  font-weight: 600;
+}
+
+.cover-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.cover-chips span {
+  padding: 12px 22px;
+  border: 2px solid rgb(var(--c-white-rgb) / 0.35);
+  border-radius: 999px;
+  background: rgb(var(--c-white-rgb) / 0.1);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.cover-contact {
+  position: absolute;
+  left: 120px;
+  bottom: 70px;
+  z-index: 1;
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  font-size: 28px;
+}
+
+.cover-contact strong {
+  padding: 16px 28px;
+  border-radius: 14px;
+  background: var(--c-whatsapp);
+  color: var(--c-white);
+}
+
+.contact h2 {
+  color: var(--c-white);
+  font-size: 96px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px 64px;
+  margin-top: 8px;
+}
+
+.contact-grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contact-grid span {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c-blue-light);
+}
+
+.contact-grid b {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.contact-main b {
+  font-size: 56px;
+  color: var(--c-white);
+}
+
+/* ---------- Mise en page deux colonnes ---------- */
+
+.fl-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.fl-copy {
+  display: flex;
+  flex-direction: column;
+}
+
+.fl-split .slide-head {
+  margin-bottom: 40px;
+}
+
+.fl-split h2 {
+  font-size: 76px;
+}
+
+.pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pillars li {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 24px 26px;
+  border-left: 6px solid var(--c-blue);
+  border-radius: 14px;
+  background: var(--c-surface);
+}
+
+.pillars strong {
+  font-size: 28px;
+  color: var(--c-navy);
+}
+
+.pillars span {
+  font-size: 22px;
+  line-height: 1.4;
+  color: var(--c-text2);
+}
+
+.mosaic {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 470px 330px;
+  gap: 18px;
+}
+
+.mosaic img {
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+}
+
+.mosaic .m-a {
+  grid-column: span 2;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.facts div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 26px;
+  border-radius: 18px;
+  background: var(--c-navy);
+  color: var(--c-white);
+}
+
+.facts b {
+  font-size: 44px;
+  font-weight: 800;
+  color: var(--c-blue-light);
+}
+
+.facts span {
+  font-size: 22px;
+}
+
+/* ---------- Tableaux de prix ---------- */
+
+.price-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border-radius: 24px;
+  box-shadow: 0 30px 60px -30px rgb(var(--c-navy-rgb) / 0.45);
+  font-size: 30px;
+}
+
+.price-table th {
+  padding: 24px 32px;
+  background: var(--c-navy);
+  color: var(--c-white);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.price-table td {
+  padding: 18px 32px;
+  border-bottom: 2px solid var(--c-border);
+  background: var(--c-white);
+  font-weight: 600;
+}
+
+.price-table tr:nth-child(even) td {
+  background: var(--c-bg);
+}
+
+.price-table td:not(:first-child),
+.price-table th:not(:first-child) {
+  text-align: right;
+}
+
+.price-table td:last-child {
+  color: var(--c-blue);
+  font-weight: 800;
+}
+
+.price-table.is-compact {
+  font-size: 25px;
+}
+
+.price-table.is-compact td {
+  padding: 14px 28px;
+}
+
+.note-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.note-box div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 24px 26px;
+  border-radius: 18px;
+  background: var(--c-surface);
+}
+
+.note-box .note-wide {
+  grid-column: span 2;
+}
+
+.note-box span {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+
+.note-box b {
+  font-size: 32px;
+  color: var(--c-navy);
+}
+
+.side-photo {
+  width: 100%;
+  height: 300px;
+  margin-top: 24px;
+  border-radius: 24px;
+}
+
+/* ---------- Examens ---------- */
+
+.exam-row {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr 1fr;
+  gap: 22px;
+}
+
+.exam-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 32px;
+  border: 2px solid var(--c-border);
+  border-radius: 22px;
+  background: var(--c-white);
+}
+
+.exam-card span {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--c-muted);
+}
+
+.exam-card b {
+  font-size: 50px;
+  font-weight: 800;
+  color: var(--c-navy);
+}
+
+.exam-card small {
+  font-size: 20px;
+  color: var(--c-faint);
+}
+
+.exam-card.is-main {
+  border-color: var(--c-blue);
+  background: var(--c-blue);
+}
+
+.exam-card.is-main span,
+.exam-card.is-main small {
+  color: rgb(var(--c-white-rgb) / 0.8);
+}
+
+.exam-card.is-main b {
+  color: var(--c-white);
+}
+
+.photo-band {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 18px;
+  height: 330px;
+  margin-top: 36px;
+}
+
+.photo-band img {
+  width: 100%;
+  height: 100%;
+  border-radius: 22px;
+}
+
+/* ---------- Logement ---------- */
+
+.fl-rooms {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.fl-room {
+  overflow: hidden;
+  border: 2px solid var(--c-border);
+  border-radius: 22px;
+  background: var(--c-white);
+}
+
+.fl-room img {
+  width: 100%;
+  height: 250px;
+}
+
+.fl-room-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px;
+}
+
+.fl-price {
+  font-size: 38px;
+  font-weight: 800;
+  color: var(--c-blue);
+}
+
+.fl-price small {
+  font-size: 20px;
+  color: var(--c-muted);
+}
+
+.fl-room strong {
+  font-size: 25px;
+  line-height: 1.25;
+  color: var(--c-navy);
+}
+
+.fl-room span {
+  font-size: 19px;
+  line-height: 1.45;
+  color: var(--c-text2);
+}
+
+.band-note {
+  margin: 28px 0 0;
+  padding: 22px 30px;
+  border-left: 6px solid var(--c-gold);
+  border-radius: 14px;
+  background: rgb(var(--c-gold-rgb) / 0.12);
+  font-size: 24px;
+  color: var(--c-text);
+}
+
+/* ---------- La vie à TAS ---------- */
+
+.life {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  grid-template-rows: 280px 280px;
+  gap: 18px;
+}
+
+.life img {
+  width: 100%;
+  height: 100%;
+  border-radius: 22px;
+}
+
+.life .l-a {
+  grid-row: span 2;
+}
+
+/* ---------- Étapes ---------- */
+
+.fl-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fl-steps li {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.fl-steps li > span {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--c-blue);
+  color: var(--c-white);
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.fl-steps strong {
+  font-size: 32px;
+  color: var(--c-navy);
+}
+
+.fl-steps p {
+  margin: 6px 0 0;
+  font-size: 24px;
+  line-height: 1.4;
+  color: var(--c-text2);
+}
+
+.tall-photo {
+  width: 100%;
+  height: 840px;
+  border-radius: 28px;
+  object-position: 50% 20%;
+}
+
+/* ---------- Correctifs de mise en page ---------- */
+
+.cover h1 {
+  color: var(--c-white);
+}
+
+.price-table td:first-child {
+  white-space: nowrap;
+}
+
+.photo-band {
+  height: 290px;
+}
+
+.life {
+  grid-template-rows: 250px 250px;
+}
+
+.fl-steps {
+  gap: 14px;
+}
+
+.fl-steps p {
+  font-size: 21px;
+}
+
+.contact-body {
+  gap: 26px;
+  padding-top: 80px;
+  max-width: 1300px;
+}
+
+.contact h2 {
+  font-size: 80px;
+}
+
+.contact-grid {
+  gap: 28px 64px;
+}
+
+.contact-grid b {
+  font-size: 28px;
+}
+
+.contact-main b {
+  font-size: 48px;
+  white-space: nowrap;
+}
+
+/* ---------- Résidences ---------- */
+
+.residences {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.residences figure,
+.amenities figure {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 24px;
+}
+
+.residences img {
+  width: 100%;
+  height: 300px;
+}
+
+.residences figcaption {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 16px 22px;
+  background: var(--c-navy);
+  color: var(--c-white);
+  font-size: 24px;
+}
+
+.residences figcaption span {
+  color: var(--c-blue-light);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.amenities {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 22px;
+}
+
+.amenities img {
+  width: 100%;
+  height: 150px;
+}
+
+.amenities figcaption {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgb(var(--c-white-rgb) / 0.92);
+  color: var(--c-navy);
+  font-size: 20px;
+  font-weight: 800;
+}
+
+/* ---------- Équipe ---------- */
+
+.team {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 18px;
+}
+
+.team img {
+  width: 100%;
+  height: 440px;
+  border-radius: 24px;
+  object-position: 50% 18%;
+}
+
+/* ---------- Témoignages ---------- */
+
+.quotes {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.quote {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 26px;
+  align-items: center;
+  margin: 0;
+  padding: 24px;
+  border-radius: 24px;
+  background: var(--c-surface);
+}
+
+.quote img {
+  width: 150px;
+  height: 150px;
+  border-radius: 20px;
+}
+
+.quote blockquote {
+  margin: 0 0 10px;
+  font-size: 24px;
+  line-height: 1.45;
+  font-style: italic;
+  color: var(--c-text);
+}
+
+.quote figcaption {
+  font-size: 20px;
+  color: var(--c-muted);
+}
+
+.quote figcaption strong {
+  color: var(--c-navy);
+}
+
+.grads {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 400px 400px;
+  gap: 18px;
+}
+
+.grads img {
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+  object-position: 50% 25%;
+}
+
+/* Hauteurs ajustées pour que rien ne touche le pied de page. */
+.photo-band {
+  height: 250px;
+}
+
+.fl-room img {
+  height: 200px;
+}
+
+.fl-room-body {
+  gap: 6px;
+  padding: 18px 20px;
+}
+
+.band-note {
+  margin-top: 20px;
+  padding: 16px 26px;
+  font-size: 22px;
+}
+
+.residences img {
+  height: 250px;
+}
+
+.amenities img {
+  height: 120px;
+}
+
+.contact .slide-foot {
+  display: none;
+}
+
+.photo-band {
+  height: 210px;
+  margin-top: 28px;
+}
+
+.photo-band img {
+  height: 210px;
+}
+
+.side-photo.is-short {
+  height: 200px;
+}

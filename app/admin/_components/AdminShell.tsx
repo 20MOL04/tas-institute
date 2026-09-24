@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
-import { IcAlert, IcClose, IcFile, IcGrid, IcHome, IcMenu, IcSettings, IcTrend, IcVideo } from "../../os/_components/icons";
+import BrandIcon from "../../components/BrandIcon";
+import { IcAlert, IcClose, IcFile, IcGrid, IcHome, IcMenu, IcTrend, IcVideo } from "../../os/_components/icons";
 
 const ADMIN_NAV = [
   { href: "/admin", label: "Back office", icon: IcGrid },
@@ -28,9 +29,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
         <aside className={`os-sidebar${open ? " open" : ""}`}>
           <div className="os-brand">
             <Link href="/admin" className="os-brand" style={{ flex: 1, minWidth: 0, padding: 0, height: "auto" }} onClick={() => setOpen(false)}>
-              <span className="os-brand-mark">
-                <IcSettings />
-              </span>
+              <BrandIcon size={30} className="os-brand-mark" />
               <span className="os-brand-text">
                 <strong>TAS</strong>
                 <span>Back office</span>

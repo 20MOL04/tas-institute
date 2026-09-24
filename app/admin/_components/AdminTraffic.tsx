@@ -5,8 +5,9 @@ import { MONTHLY, SOURCES, fmtCompactMoney, fmtInt, type Kpi } from "../../os/_d
 import { KpiCard, LineChart, OsCard, PageHead } from "../../os/_components/ui";
 import PeriodSelector, { usePeriodState } from "../../os/_components/PeriodSelector";
 import { monthlySlice } from "../../os/_lib/monthlySlice";
+import { palette } from "../../lib/theme";
 
-const METRIC_COLOR = "#1d4ed8";
+const METRIC_COLOR = palette.blue;
 
 function sourceName(source: string) {
   if (source === "Direct") return "Formulaire";

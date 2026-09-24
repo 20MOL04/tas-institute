@@ -7,12 +7,13 @@ import PhotoFrame from "../components/PhotoFrame";
 import LocationCard from "../components/LocationCard";
 import RoomCard from "../components/RoomCard";
 import { IconInfo } from "../components/icons";
-import { TAS_ROOMS } from "../lib/rooms";
+import { TAS_RESIDENCES, TAS_ROOMS } from "../lib/rooms";
 import { TAS_WHATSAPP_URL } from "../lib/contact";
 
 export default function AccommodationContent() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const a = t.accommodation;
+  const fr = lang === "fr";
 
   return (
     <>
@@ -45,6 +46,27 @@ export default function AccommodationContent() {
         </div>
       </section>
 
+      {/* RESIDENCES */}
+      <section className="section" style={{ paddingTop: 0 }}>
+        <div className="container">
+          <div className="section-head-center reveal">
+            <h2>{a.residencesTitle}</h2>
+            <p className="lede">{a.residencesText}</p>
+          </div>
+          <div className="graduation-grid reveal reveal-stagger">
+            {TAS_RESIDENCES.map((r) => (
+              <figure key={r.image} className="card residence-card">
+                <PhotoFrame src={r.image} alt={fr ? r.labelFr : r.labelEn} ratio="1-1" sizes="(max-width: 767px) 50vw, 33vw" />
+                <figcaption className="card-body">
+                  <strong>{fr ? r.labelFr : r.labelEn}</strong>
+                  <span className="small muted">{fr ? r.areaFr : r.areaEn}, Accra</span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* HOW TO BOOK */}
       <section className="section section-alt">
         <div className="container">
@@ -54,7 +76,7 @@ export default function AccommodationContent() {
             <p className="lede">{a.stepsText}</p>
           </div>
           <div className="module-split reveal">
-            <PhotoFrame src="/images/gallery-campus.png" alt="" ratio="4-3" sizes="(max-width: 1023px) 92vw, 44vw" />
+            <PhotoFrame src="/images/tas/hostel.webp" alt="" ratio="4-3" sizes="(max-width: 1023px) 92vw, 44vw" />
             <ol className="skill-grid skill-grid-1 reveal-stagger">
               {a.steps.map((step, i) => (
                 <li key={step.title}>

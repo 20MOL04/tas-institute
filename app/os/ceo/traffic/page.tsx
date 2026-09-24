@@ -6,8 +6,9 @@ import { KpiCard, LineChart, OsCard, PageHead } from "../../_components/ui";
 import PeriodSelector, { usePeriodState } from "../../_components/PeriodSelector";
 import { monthlySlice } from "../../_lib/monthlySlice";
 import { useOsT } from "../../_components/useOsT";
+import { palette } from "../../../lib/theme";
 
-const METRIC_COLOR = "#1d4ed8";
+const METRIC_COLOR = palette.blue;
 
 function sourceName(source: string) {
   if (source === "Direct") return "Formulaire";

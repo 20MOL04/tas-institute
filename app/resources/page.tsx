@@ -1,11 +1,20 @@
-import type { Metadata } from "next";
+import JsonLd from "../components/JsonLd";
+import { breadcrumbJsonLd, pageMetadata } from "../lib/seo";
 import ResourcesContent from "./resources-content";
 
-export const metadata: Metadata = {
-  title: "Resources",
-  description: "Guides and tips for English learners at TAS English Institute.",
-};
+export const metadata = pageMetadata({
+  title: "Ressources : guides pour apprendre l'anglais",
+  description:
+    "Conseils gratuits pour les francophones : progresser en anglais, préparer l'IELTS ou le TOEFL, éviter les erreurs courantes et réussir son séjour à Accra, au Ghana.",
+  path: "/resources",
+  og: "resources",
+});
 
 export default function ResourcesPage() {
-  return <ResourcesContent />;
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd([{ name: "Accueil", path: "" }, { name: "Ressources", path: "/resources" }])} />
+      <ResourcesContent />
+    </>
+  );
 }

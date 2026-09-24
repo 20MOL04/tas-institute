@@ -56,10 +56,10 @@ export default function Header() {
     <>
       <header className="site-header">
         <div className="container">
-          <Link href="/" className="brand" onClick={() => setOpen(false)}>
+          <Link href="/" className="brand" aria-label="TAS English Institute" onClick={() => setOpen(false)}>
             <Logo />
-            <span className="brand-name">
-              TAS English
+            <span className="brand-name" aria-hidden="true">
+              English
               <span className="brand-suffix">INSTITUTE</span>
             </span>
           </Link>

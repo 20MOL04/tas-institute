@@ -15,7 +15,7 @@ export type Room = {
 export const TAS_ROOMS: Room[] = [
   {
     slug: "apartment",
-    image: "/images/accommodation-living.jpg",
+    image: "/images/rooms/living-room.jpg",
     price: "260 000",
     titleFr: "Appartement deux chambres, Alajo",
     titleEn: "Two bedroom apartment, Alajo",
@@ -24,7 +24,7 @@ export const TAS_ROOMS: Room[] = [
   },
   {
     slug: "air-conditioned",
-    image: "/images/accommodation-air-conditioned.png",
+    image: "/images/rooms/room-ac.jpg",
     price: "130 000",
     titleFr: "Chambre climatisée, Kotobabi",
     titleEn: "Air conditioned room, Kotobabi",
@@ -33,7 +33,7 @@ export const TAS_ROOMS: Room[] = [
   },
   {
     slug: "standard",
-    image: "/images/accommodation-standard.png",
+    image: "/images/rooms/room-standard.jpg",
     price: "100 000",
     titleFr: "Chambre sans climatisation, Kotobabi",
     titleEn: "Room without air conditioning, Kotobabi",
@@ -42,7 +42,7 @@ export const TAS_ROOMS: Room[] = [
   },
   {
     slug: "shared",
-    image: "/images/accommodation-shared.png",
+    image: "/images/rooms/room-shared.jpg",
     price: "60 000",
     titleFr: "Deux personnes par chambre, Kotobabi",
     titleEn: "Two people per room, Kotobabi",
@@ -50,3 +50,24 @@ export const TAS_ROOMS: Room[] = [
     includesEn: ["Water", "Waste collection", "Fan", "Kitchen", "Toilet"],
   },
 ];
+
+/** Photos réelles des résidences, par quartier. */
+export const TAS_RESIDENCES = [
+  { image: "/images/tas/hostel.webp", areaFr: "Alajo", areaEn: "Alajo", labelFr: "Hostel TAS Institute", labelEn: "TAS Institute Hostel" },
+  { image: "/images/tas/building-grey.webp", areaFr: "Alajo", areaEn: "Alajo", labelFr: "Résidence TAS", labelEn: "TAS residence" },
+  { image: "/images/tas/building-yellow.webp", areaFr: "Kotobabi", areaEn: "Kotobabi", labelFr: "Résidence TAS", labelEn: "TAS residence" },
+] as const;
+
+/**
+ * Frais d'installation, payés une fois par étudiant (flyer 2024).
+ * Affichés sur le flyer seulement. Le flyer 2024 ne les indique pas pour la chambre partagée.
+ */
+export const ROOM_INSTALLATION_CFA = 30_000;
+export const ROOM_INSTALLATION_SLUGS = ["apartment", "air-conditioned", "standard"] as const;
+
+/** Équipements communs des logements (photos réelles). */
+export const ROOM_AMENITY_PHOTOS = [
+  { src: "/images/rooms/kitchen.jpg", labelFr: "Cuisine équipée", labelEn: "Equipped kitchen" },
+  { src: "/images/rooms/bathroom.jpg", labelFr: "Douche et toilette", labelEn: "Shower and toilet" },
+  { src: "/images/rooms/living-room.jpg", labelFr: "Salon", labelEn: "Living room" },
+] as const;

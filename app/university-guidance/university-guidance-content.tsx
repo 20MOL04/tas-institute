@@ -45,7 +45,7 @@ export default function UniversityGuidanceContent() {
           className="container split"
           style={{ "--split-ratio": "1fr 1fr", alignItems: "center", gap: "var(--space-6)" } as CSSProperties}
         >
-          <PhotoFrame src="/images/library-study.jpg" alt="" ratio="4-3" />
+          <PhotoFrame src="/images/tas/advising-office.jpg" alt="" ratio="4-3" />
           <div className="stack">
             <h2>{t.universityGuidance.ctaTitle}</h2>
             <p className="lede">{t.home.heroSubtitle}</p>

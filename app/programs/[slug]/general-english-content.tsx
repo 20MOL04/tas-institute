@@ -40,7 +40,7 @@ export default function GeneralEnglishContent() {
                 {t.common.applyNowCta}
               </Link>
             </div>
-            <PhotoFrame src="/images/program-english-short.png" alt={p.heroImageAlt} ratio="4-3" priority />
+            <PhotoFrame src="/images/programs/english-long.jpg" alt={p.heroImageAlt} ratio="4-3" priority />
           </div>
         </div>
       </section>

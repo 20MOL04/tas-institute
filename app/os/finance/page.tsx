@@ -19,6 +19,7 @@ import PaymentsTable from "./PaymentsTable";
 import { useLivePayments } from "../_components/useLivePayments";
 import { useStoreTick } from "../_components/useStoreTick";
 import { downloadCsv, printTable } from "../_lib/exportFile";
+import { palette } from "../../lib/theme";
 
 export default function FinancePage() {
   const { period, customStart, customEnd, range, onApply } = usePeriodState();
@@ -118,7 +119,7 @@ export default function FinancePage() {
           ) : (
             <LineChart
               labels={view.monthly.map((r) => r.label)}
-              series={[{ label: active.label, values: chartValues, color: "#10b981" }]}
+              series={[{ label: active.label, values: chartValues, color: palette.success }]}
               height={280}
               filled
             />

@@ -12,20 +12,30 @@ import TeacherMarquee, { TEACHER_PHOTOS } from "./components/TeacherMarquee";
 import { IconBook, IconPeople, IconPin, IconGlobe, IconInfo } from "./components/icons";
 import RoomCard from "./components/RoomCard";
 import OutingCard from "./components/OutingCard";
-import OutingVideo from "./components/OutingVideo";
+import TestimonialCard from "./components/TestimonialCard";
+import OutingReel from "./components/OutingReel";
+import { OUTING_CLIPS } from "./lib/outingMedia";
+import { HOME_GRADUATES, TESTIMONIALS } from "./lib/testimonials";
 import { TAS_ROOMS } from "./lib/rooms";
 import { TAS_OUTINGS } from "./lib/excursions";
+import { ARTICLES_BY_DATE } from "./lib/articles";
 import { useSiteContent } from "./lib/useSiteContent";
 import { whatsappLinkFromDisplay, whatsappUrlFromDisplay } from "./lib/siteStore";
 
 const TRUST_ICONS = [IconBook, IconPeople, IconGlobe, IconPin];
 
-const AVATARS = ["/images/hero-stories.png", "/images/hero-teachers.png", "/images/cta-student.png", "/images/hero-about.png"];
+// Vrais visages TAS : deux diplômés et deux professeurs.
+const AVATARS = [
+  "/images/tas/graduate-woman.webp",
+  "/images/teachers/tas-teacher-1.jpg",
+  "/images/tas/graduate-man.webp",
+  "/images/teachers/tas-teacher-7.jpg",
+];
 
 const PROGRAMS = [
   {
     href: "/programs",
-    src: "/images/program-english-short.png",
+    src: "/images/programs/english-intensive.jpg",
     titleFr: "Cours intensif d'anglais",
     titleEn: "Short-duration English course",
     textFr: "Grammaire, vocabulaire, lecture, écriture, écoute, oral et débat. 8 heures par jour.",
@@ -33,7 +43,7 @@ const PROGRAMS = [
   },
   {
     href: "/programs",
-    src: "/images/program-english-long.png",
+    src: "/images/programs/english-long.jpg",
     titleFr: "Cours d'anglais (durée longue)",
     titleEn: "Long-duration English course",
     textFr: "Le même socle linguistique, à un rythme de 5 heures par jour.",
@@ -41,7 +51,7 @@ const PROGRAMS = [
   },
   {
     href: "/programs",
-    src: "/images/program-computer.png",
+    src: "/images/programs/computer.jpg",
     titleFr: "Cours d'informatique",
     titleEn: "Computer courses",
     textFr: "Office, infographie, réparation, Excel, bases de données, réseaux, sites web. 3 heures par jour.",
@@ -70,68 +80,22 @@ const ROOM_FEATURES = [
   },
 ];
 
-const STORIES = [
-  {
-    src: "/images/student-story-1.jpg",
-    quoteFr:
-      "La formation intensive de 3 mois à TAS English Institute m'a donné une opportunité de poursuivre mes études en France.",
-    quoteEn:
-      "The 3-month intensive training at TAS English Institute gave me the opportunity to continue my studies in France.",
-    nameFr: "Témoignage publié",
-    nameEn: "Published testimonial",
-    metaFr: "Site TAS",
-    metaEn: "TAS website",
-  },
-  {
-    src: "/images/student-1.jpg",
-    quoteFr: "Les cours sont structurés, l'ambiance est internationale et on progresse vraiment à l'oral.",
-    quoteEn: "The classes are structured, the atmosphere is international and speaking really improves.",
-    nameFr: "Étudiant TAS",
-    nameEn: "TAS student",
-    metaFr: "Accra",
-    metaEn: "Accra",
-  },
-  {
-    src: "/images/student-2.jpg",
-    quoteFr: "Les enseignants sont disponibles et le campus est un vrai cadre pour apprendre.",
-    quoteEn: "The teachers are available and campus is a real place to learn.",
-    nameFr: "Étudiant TAS",
-    nameEn: "TAS student",
-    metaFr: "Accra",
-    metaEn: "Accra",
-  },
-];
+// Les avis viennent de lib/testimonials.ts (vrais anciens étudiants uniquement).
 
+// 8 photos : 1 grande, 6 petites, 1 large en bas (la grille de 4 colonnes reste pleine).
 const GALLERY = [
+  "/images/tas/class-red.jpg",
   "/images/outings/kakum-selfie.jpg",
+  "/images/tas/graduation-handshake.jpg",
+  "/images/outings/beach-tug-of-war-poster.jpg",
+  "/images/tas/class-white.jpg",
+  "/images/outings/beach-student.jpg",
   "/images/outings/cape-coast-group.jpg",
-  "/images/outings/kakum-bridge.jpg",
-  "/images/outings/kakum-welcome.jpg",
+  "/images/outings/beach-volleyball-poster.jpg",
 ];
 
-const BLOG = [
-  {
-    src: "/images/blog-speaking.png",
-    titleFr: "Comment améliorer votre oral chaque jour",
-    titleEn: "How to Improve Your English Speaking Skills Every Day",
-    excerptFr: "Des habitudes simples pour pratiquer l'anglais en dehors des cours.",
-    excerptEn: "Simple habits to keep practising English outside class.",
-  },
-  {
-    src: "/images/hero-resources.png",
-    titleFr: "À quoi s'attendre en étudiant l'anglais au Ghana",
-    titleEn: "What to Expect When Studying English in Ghana",
-    excerptFr: "Vie quotidienne, logement, démarches.",
-    excerptEn: "Daily life, housing, paperwork.",
-  },
-  {
-    src: "/images/hero-university.png",
-    titleFr: "Choisir le bon programme d'anglais",
-    titleEn: "How to Choose the Right English Program for Your Goals",
-    excerptFr: "Intensif, durée longue ou informatique : comment décider.",
-    excerptEn: "Intensive, long-duration or computer courses: how to decide.",
-  },
-];
+// Les 3 articles les plus récents de la page Ressources.
+const BLOG = ARTICLES_BY_DATE.slice(0, 3);
 
 export default function HomeContent() {
   const { t, lang } = useLang();
@@ -177,7 +141,7 @@ export default function HomeContent() {
                 </span>
               ))}
             </span>
-            <span className="small" style={{ color: "rgba(255,255,255,0.9)" }}>
+            <span className="small" style={{ color: "rgb(var(--c-white-rgb) / 0.9)" }}>
               {t.home.communityNote}
             </span>
           </div>
@@ -260,12 +224,7 @@ export default function HomeContent() {
               </Link>
             </div>
             <div className="hp-video">
-              <OutingVideo
-                src="/videos/kakum-canopy.mp4"
-                poster="/images/outings/kakum-canopy-poster.jpg"
-                title={fr ? "Sortie à Kakum" : "Kakum outing"}
-                caption={fr ? "La canopée" : "The canopy"}
-              />
+              <OutingReel clips={OUTING_CLIPS.filter((c) => !c.vertical)} />
             </div>
           </div>
           <StatsBand />
@@ -339,31 +298,18 @@ export default function HomeContent() {
             <h2>{t.home.storyTitle}</h2>
             <p className="lede">{t.home.storyText}</p>
           </div>
-          <div className="stories-board reveal">
-            <article className="card story-card is-lead">
-              <PhotoFrame src={STORIES[0].src} alt="" ratio="16-10" sizes="(max-width: 1023px) 92vw, 50vw" />
-              <div className="card-body">
-                <p className="story-quote">« {fr ? STORIES[0].quoteFr : STORIES[0].quoteEn} »</p>
-                <div>
-                  <span className="story-name">{fr ? STORIES[0].nameFr : STORIES[0].nameEn}</span>
-                  <span className="story-meta">{fr ? STORIES[0].metaFr : STORIES[0].metaEn}</span>
-                </div>
+          <div className="testimonial-grid reveal reveal-stagger">
+            {TESTIMONIALS.map((item) => (
+              <TestimonialCard key={item.id} item={item} />
+            ))}
+          </div>
+          <h3 className="graduates-title reveal">{fr ? "Nos diplômés" : "Our graduates"}</h3>
+          <div className="graduates-row reveal reveal-stagger">
+            {HOME_GRADUATES.map((photo) => (
+              <div key={photo.src} className="card card-hover">
+                <PhotoFrame src={photo.src} alt={fr ? photo.altFr : photo.altEn} ratio="1-1" sizes="(max-width: 767px) 46vw, 24vw" />
               </div>
-            </article>
-            <div className="stories-board-side">
-              {STORIES.slice(1).map((story) => (
-                <article key={story.src} className="card story-card">
-                  <PhotoFrame src={story.src} alt="" ratio="3-2" sizes="120px" />
-                  <div className="card-body">
-                    <p className="story-quote">« {fr ? story.quoteFr : story.quoteEn} »</p>
-                    <div>
-                      <span className="story-name">{fr ? story.nameFr : story.nameEn}</span>
-                      <span className="story-meta">{fr ? story.metaFr : story.metaEn}</span>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
+            ))}
           </div>
           <div className="section-foot reveal">
             <Link href="/student-stories" className="btn btn-secondary">
@@ -430,21 +376,21 @@ export default function HomeContent() {
             <p className="lede">{t.resources.heroSubtitle}</p>
           </div>
           <div className="blog-grid reveal reveal-stagger">
-            <Link href="/resources" className="card card-hover blog-lead">
-              <PhotoFrame src={BLOG[0].src} alt="" ratio="16-10" sizes="(max-width: 1023px) 100vw, 50vw" />
+            <Link href={`/resources/${BLOG[0].slug}`} className="card card-hover blog-lead">
+              <PhotoFrame src={BLOG[0].image} alt="" ratio="16-10" sizes="(max-width: 1023px) 100vw, 50vw" />
               <div className="card-body">
                 <span className="blog-kicker">{fr ? "À la une" : "Featured"}</span>
-                <h3>{fr ? BLOG[0].titleFr : BLOG[0].titleEn}</h3>
-                <p className="small muted">{fr ? BLOG[0].excerptFr : BLOG[0].excerptEn}</p>
+                <h3>{BLOG[0][lang].title}</h3>
+                <p className="small muted">{BLOG[0][lang].excerpt}</p>
               </div>
             </Link>
             <div className="blog-list">
               {BLOG.slice(1).map((post) => (
-                <Link key={post.titleEn} href="/resources" className="card card-hover blog-row">
-                  <PhotoFrame src={post.src} alt="" ratio="1-1" sizes="120px" />
+                <Link key={post.slug} href={`/resources/${post.slug}`} className="card card-hover blog-row">
+                  <PhotoFrame src={post.image} alt="" ratio="1-1" sizes="120px" />
                   <div className="card-body">
-                    <h3>{fr ? post.titleFr : post.titleEn}</h3>
-                    <p className="small muted">{fr ? post.excerptFr : post.excerptEn}</p>
+                    <h3>{post[lang].title}</h3>
+                    <p className="small muted">{post[lang].tag} · {post.readMinutes} {t.resources.minRead}</p>
                   </div>
                 </Link>
               ))}
@@ -484,7 +430,7 @@ export default function HomeContent() {
 
       <section className="section hp-cta">
         <div className="hp-cta-media" aria-hidden="true">
-          <Image src="/images/cta-student.png" alt="" fill sizes="100vw" style={{ objectFit: "cover" }} />
+          <Image src="/images/tas/class-poster.jpg" alt="" fill sizes="100vw" style={{ objectFit: "cover" }} />
         </div>
         <div className="container">
           <div className="section-head-center reveal">

@@ -20,6 +20,7 @@ import {
 } from "../../../../_data";
 import { useOs } from "../../../../_components/OsProvider";
 import { shareReceiptImage } from "../../../../_lib/shareReceiptImage";
+import BrandIcon from "../../../../../components/BrandIcon";
 
 export default function ReceiptPage({ params }: { params: { id: string; paymentId: string } }) {
   const pathname = usePathname() || "";
@@ -89,9 +90,12 @@ export default function ReceiptPage({ params }: { params: { id: string; paymentI
       </div>
       <article className="os-receipt">
         <header className="os-receipt-brand">
-          <div>
-            <strong>{school?.name ?? "TAS English Institute"}</strong>
-            <span className="os-muted">{campus}</span>
+          <div className="os-doc-brand">
+            <BrandIcon size={48} />
+            <div>
+              <strong>{school?.name ?? "TAS English Institute"}</strong>
+              <span className="os-muted">{campus}</span>
+            </div>
           </div>
           <div>
             <strong>{payment.receipt}</strong>

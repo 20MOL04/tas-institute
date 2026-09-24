@@ -4,14 +4,12 @@ import Link from "next/link";
 import { useLang } from "../LangProvider";
 import PageHero from "../components/PageHero";
 import PhotoFrame from "../components/PhotoFrame";
+import TestimonialCard from "../components/TestimonialCard";
+import { GRADUATION_PHOTOS, TESTIMONIALS } from "../lib/testimonials";
 
-// Brief rule 9 / spec rule 9: never invent testimonials or results. This
-// page shows the intended layout fully styled, but every piece of story
-// copy is a visible, labeled placeholder ("Example — replace with a real
-// student story") rather than a fabricated testimonial presented as real.
+// Uniquement des témoignages et photos réels, fournis par l'école (lib/testimonials.ts).
 export default function StudentStoriesContent() {
-  const { t } = useLang();
-  const f = t.stories.featured;
+  const { t, lang } = useLang();
 
   return (
     <>
@@ -26,75 +24,33 @@ export default function StudentStoriesContent() {
 
       <section className="section">
         <div className="container">
-          <div className="stack" style={{ gap: "var(--space-2)", marginBottom: "var(--space-3)" }}>
-            <span className="eyebrow">{t.stories.featuredTitle}</span>
-            <span className="placeholder-note">{t.stories.placeholderLabel}</span>
+          <div className="section-head-center">
+            <h2>{t.stories.testimonialsTitle}</h2>
+            <p className="lede">{t.stories.testimonialsText}</p>
           </div>
-
-          <div className="card">
-            <PhotoFrame src="/images/student-story-1.jpg" alt={f.imageAlt} ratio="21-9" />
-            <div className="card-body">
-              <div className="grid grid-2 small muted">
-                <span>
-                  {f.studentLabel}: {f.studentPlaceholder}
-                </span>
-                <span>
-                  {f.countryLabel}: {f.countryPlaceholder}
-                </span>
-                <span>
-                  {f.programLabel}: {f.programPlaceholder}
-                </span>
-                <span>
-                  {f.durationLabel}: {f.durationPlaceholder}
-                </span>
-              </div>
-
-              <hr className="divider" />
-
-              <div>
-                <h3>{f.challengeTitle}</h3>
-                <p className="small muted">{f.challengeText}</p>
-              </div>
-              <div>
-                <h3>{f.experienceTitle}</h3>
-                <p className="small muted">{f.experienceText}</p>
-              </div>
-              <div>
-                <h3>{f.transformationTitle}</h3>
-                <p className="small muted">{f.transformationText}</p>
-              </div>
-
-              <blockquote
-                className="small"
-                style={{
-                  borderLeft: "2px solid var(--tas-accent-2)",
-                  paddingLeft: "var(--space-2)",
-                  color: "#455061",
-                  fontStyle: "italic",
-                  margin: 0,
-                }}
-              >
-                {f.quotePlaceholder}
-              </blockquote>
-            </div>
+          <div className="testimonial-grid">
+            {TESTIMONIALS.map((item) => (
+              <TestimonialCard key={item.id} item={item} />
+            ))}
           </div>
         </div>
       </section>
 
       <section className="section section-alt">
         <div className="container">
-          <div className="section-head">
-            <span className="eyebrow">{t.stories.otherTitle}</span>
+          <div className="section-head-center">
+            <h2>{t.stories.graduationTitle}</h2>
+            <p className="lede">{t.stories.graduationText}</p>
           </div>
-          <div className="grid grid-3">
-            {t.stories.other.map((story, i) => (
-              <div key={story.studentPlaceholder + i} className="card card-hover">
-                <PhotoFrame src="/images/student-story-2.jpg" alt={story.imageAlt} ratio="4-3" />
-                <div className="card-body">
-                  <span className="placeholder-note">{t.stories.placeholderLabel}</span>
-                  <h3 style={{ fontSize: "1rem" }}>{story.studentPlaceholder}</h3>
-                  <p className="small muted">{story.programPlaceholder}</p>
-                </div>
+          <div className="graduation-grid">
+            {GRADUATION_PHOTOS.map((photo) => (
+              <div key={photo.src} className="card">
+                <PhotoFrame
+                  src={photo.src}
+                  alt={lang === "fr" ? photo.altFr : photo.altEn}
+                  ratio="1-1"
+                  sizes="(max-width: 767px) 46vw, 33vw"
+                />
               </div>
             ))}
           </div>

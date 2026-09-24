@@ -11,8 +11,9 @@ import { useOs } from "../_components/OsProvider";
 import { useOsT } from "../_components/useOsT";
 import PeriodSelector, { usePeriodState } from "../_components/PeriodSelector";
 import { monthOverlaps } from "../_lib/period";
+import { palette } from "../../lib/theme";
 
-const METRIC_COLOR = "#1d4ed8";
+const METRIC_COLOR = palette.blue;
 
 export default function DeskHome() {
   const { t } = useOsT();

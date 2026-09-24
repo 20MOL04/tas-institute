@@ -1,4 +1,7 @@
-const WHATSAPP_URL = "https://wa.me/233570259279";
+"use client";
+
+import { useSiteContent } from "../lib/useSiteContent";
+import { whatsappUrlFromDisplay } from "../lib/siteStore";
 
 function WhatsAppGlyph() {
   return (
@@ -9,10 +12,12 @@ function WhatsAppGlyph() {
 }
 
 export default function WhatsAppFloat() {
+  // Même numéro que le reste du site (modifiable dans le Back office).
+  const site = useSiteContent();
   return (
     <a
       className="wa-float"
-      href={WHATSAPP_URL}
+      href={whatsappUrlFromDisplay(site.whatsapp)}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="WhatsApp TAS English Institute"
