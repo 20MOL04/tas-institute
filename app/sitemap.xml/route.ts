@@ -10,7 +10,9 @@ type Entry = { path: string; priority: number; freq: string; image: string; imag
 const PAGES: Omit<Entry, "lastmod">[] = [
   { path: "", priority: 1, freq: "weekly", image: "/images/og/home.jpg", imageTitle: "TAS English Institute, Accra" },
   { path: "/programs", priority: 0.9, freq: "monthly", image: "/images/og/programs.jpg", imageTitle: "Programmes d'anglais et d'informatique" },
-  { path: "/programs/general-english", priority: 0.8, freq: "monthly", image: "/images/og/programs.jpg", imageTitle: "Cours d'anglais général" },
+  { path: "/programs/intensive-english", priority: 0.8, freq: "monthly", image: "/images/programs/english-intensive.jpg", imageTitle: "Anglais intensif à Accra" },
+  { path: "/programs/long-english", priority: 0.8, freq: "monthly", image: "/images/programs/english-long.jpg", imageTitle: "Anglais longue durée à Accra" },
+  { path: "/programs/computer-course", priority: 0.8, freq: "monthly", image: "/images/programs/computer.jpg", imageTitle: "Formations en informatique à Accra" },
   { path: "/apply", priority: 0.9, freq: "monthly", image: "/images/og/apply.jpg", imageTitle: "Candidater à TAS" },
   { path: "/accommodation", priority: 0.8, freq: "monthly", image: "/images/og/accommodation.jpg", imageTitle: "Logement étudiant à Accra" },
   { path: "/resources", priority: 0.8, freq: "weekly", image: "/images/og/resources.jpg", imageTitle: "Guides pour apprendre l'anglais" },

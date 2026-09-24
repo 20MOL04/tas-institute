@@ -82,7 +82,9 @@ ${TAS_ROOMS.map((r) => `- ${r.titleFr} : ${r.price} CFA par mois (${r.includesFr
 - [Accueil](${u("")}) : présentation de l'école
 - [À propos](${u("/about")}) : mission, fondateur, méthode
 - [Programmes](${u("/programs")}) : tous les cours et tarifs
-- [General English](${u("/programs/general-english")}) : fiche détaillée du cours d'anglais général
+- [Anglais intensif](${u("/programs/intensive-english")}) : 8 h par jour, de 2 semaines à 6 mois
+- [Anglais longue durée](${u("/programs/long-english")}) : 5 h par jour, de 3 mois à 1 an, avec ou sans informatique
+- [Informatique](${u("/programs/computer-course")}) : 9 formations de 2 à 6 mois, 3 h par jour
 - [Logement](${u("/accommodation")}) : chambres près de l'école
 - [Orientation universitaire](${u("/university-guidance")}) : préparer les études en anglais
 - [Enseignants](${u("/teachers")}) : l'équipe pédagogique

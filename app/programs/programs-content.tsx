@@ -63,7 +63,7 @@ export default function ProgramsContent() {
           </div>
           <div className="home-cards-3 reveal reveal-stagger">
             {p.programs.map((program) => (
-              <article key={program.slug} className="card card-hover">
+              <Link key={program.slug} href={`/programs/${program.slug}`} className="card card-hover">
                 <PhotoFrame src={program.image} alt="" ratio="16-10" sizes="(max-width: 1023px) 78vw, 33vw" />
                 <div className="card-body">
                   <h3>{program.title}</h3>
@@ -79,8 +79,9 @@ export default function ProgramsContent() {
                     </div>
                   </dl>
                   <p className="small muted">{program.content}</p>
+                  <span className="btn btn-secondary btn-sm program-more">{fr ? "Découvrir le programme" : "Explore the programme"}</span>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
           <div className="section-foot reveal">

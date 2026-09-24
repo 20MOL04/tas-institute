@@ -35,7 +35,7 @@ const AVATARS = [
 
 const PROGRAMS = [
   {
-    href: "/programs",
+    href: "/programs/intensive-english",
     src: "/images/programs/english-intensive.jpg",
     titleFr: "Cours intensif d'anglais",
     titleEn: "Short-duration English course",
@@ -43,7 +43,7 @@ const PROGRAMS = [
     textEn: "Grammar, vocabulary, reading, writing, listening, speaking and debate. 8 hours per day.",
   },
   {
-    href: "/programs",
+    href: "/programs/long-english",
     src: "/images/programs/english-long.jpg",
     titleFr: "Cours d'anglais (durée longue)",
     titleEn: "Long-duration English course",
@@ -51,7 +51,7 @@ const PROGRAMS = [
     textEn: "The same language core, at a pace of 5 hours per day.",
   },
   {
-    href: "/programs",
+    href: "/programs/computer-course",
     src: "/images/programs/computer.jpg",
     titleFr: "Cours d'informatique",
     titleEn: "Computer courses",
