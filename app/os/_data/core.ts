@@ -254,7 +254,7 @@ export const OS_USERS: OsUser[] = [
 
 /* ----- formatting helpers ------------------------------------------------- */
 
-const NBSP = "\u202f";
+const NBSP = "\u00a0";
 const NBSP_WORD = "\u00a0";
 
 export function fmtInt(n: number) {

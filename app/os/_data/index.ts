@@ -43,6 +43,8 @@ export type Kpi = {
   sub?: string;
   /** Label of the comparison ("vs période précédente"). */
   compareLabel?: string;
+  /** "pts" when the delta is a difference in percentage points (rates). */
+  deltaUnit?: "%" | "pts";
 };
 
 /* ----- distributions ------------------------------------------------------ */

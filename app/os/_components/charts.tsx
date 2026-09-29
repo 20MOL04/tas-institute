@@ -349,7 +349,7 @@ export function Donut({ parts, centerLabel }: { parts: DonutPart[]; centerLabel:
               cy="70"
               r={r}
               fill="none"
-              stroke={p.color}
+              style={{ stroke: p.color }}
               strokeWidth="18"
               strokeDasharray={`${Math.max(len - 1.5, 0)} ${c - Math.max(len - 1.5, 0)}`}
               strokeDashoffset={-offset}

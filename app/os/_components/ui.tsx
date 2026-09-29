@@ -153,21 +153,21 @@ export function QueueCard({
 }
 
 /** "↑ 12 %" / "↓ 3,4 %" ; null quand la période précédente vaut 0. */
-export function fmtDelta(delta: number | null): string {
+export function fmtDelta(delta: number | null, unit: "%" | "pts" = "%"): string {
   if (delta === null || !Number.isFinite(delta)) return "—";
   const abs = Math.abs(delta);
-  if (abs < 0.05) return "0 %";
+  if (abs < 0.05) return `0\u00a0${unit === "pts" ? "pt" : "%"}`;
   const text = abs >= 1000 ? ">999" : abs >= 10 ? String(Math.round(abs)) : abs.toFixed(1).replace(".", ",");
-  return `${delta > 0 ? "↑" : "↓"}\u00a0${text}\u00a0%`;
+  return `${delta > 0 ? "↑" : "↓"}\u00a0${text}\u00a0${unit === "pts" ? "pts" : "%"}`;
 }
 
-export function DeltaLine({ delta, invert, label }: { delta: number | null; invert?: boolean; label?: string }) {
+export function DeltaLine({ delta, invert, label, unit }: { delta: number | null; invert?: boolean; label?: string; unit?: "%" | "pts" }) {
   const flat = delta === null || Math.abs(delta) < 0.05;
   const good = flat ? null : invert ? delta! < 0 : delta! > 0;
   const tone = flat ? "flat" : good ? "up" : "down";
   return (
     <div className={`fx-delta fx-delta-${tone}`}>
-      <strong>{fmtDelta(delta)}</strong>
+      <strong>{fmtDelta(delta, unit)}</strong>
       <span>{label ?? "vs période précédente"}</span>
     </div>
   );
@@ -206,7 +206,7 @@ export function KpiCard({
         {unit ? <small className="fx-kpi-unit">{unit}</small> : null}
       </div>
       {kpi.sub ? <div className="fx-kpi-sub">{kpi.sub}</div> : null}
-      {kpi.compare ? <DeltaLine delta={kpi.delta} invert={kpi.invert} label={kpi.compareLabel} /> : null}
+      {kpi.compare ? <DeltaLine delta={kpi.delta} invert={kpi.invert} label={kpi.compareLabel} unit={kpi.deltaUnit} /> : null}
       {kpi.spark && kpi.spark.length > 1 ? <SparkLine values={kpi.spark} active={Boolean(active)} /> : null}
     </>
   );
