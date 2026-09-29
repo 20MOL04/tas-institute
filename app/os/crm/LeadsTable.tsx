@@ -195,7 +195,7 @@ export default function LeadsTable() {
               </tr>
             </thead>
             <tbody>
-              {rows.map((lead) => (
+              {rows.slice(0, 200).map((lead) => (
                 <tr key={lead.id}>
                   <td>
                     <PersonCell initials={lead.initials} name={lead.name} meta={lead.country} />
@@ -214,6 +214,7 @@ export default function LeadsTable() {
               ))}
             </tbody>
           </table>
+          {rows.length > 200 ? <p className="os-muted os-small">200 premières lignes sur {rows.length}, affinez avec les filtres.</p> : null}
         </div>
       )}
     </OsCard>

@@ -52,7 +52,8 @@ export const STUDENT_STATUS_FR: Record<StudentStatus, string> = {
   active: "Actif",
   applicant: "Candidat",
   completed: "Terminé",
-  dropped: "Abandon",
+  dropped: "Parti",
+  paused: "En pause",
 };
 
 export const PAYMENT_STATUS_FR: Record<PaymentStatus, string> = {
@@ -93,7 +94,7 @@ export const DOCUMENT_STATUS_FR: Record<DocumentRow["status"], string> = {
 export function statusTone(status: string): "neutral" | "blue" | "green" | "amber" | "red" | "violet" {
   const s = status.toLowerCase();
   if (["active", "paid", "approved", "accepted", "accepté", "enrolled", "published", "online", "ok", "closed", "à jour", "présent", "present", "generated", "généré"].includes(s)) return "green";
-  if (["filling", "partial", "review", "reviewing", "visit", "qualified", "draft", "investigating", "partiel", "leave", "congé", "late", "retard"].includes(s)) return "amber";
+  if (["filling", "partial", "paused", "en pause", "review", "reviewing", "visit", "qualified", "draft", "investigating", "partiel", "leave", "congé", "late", "retard"].includes(s)) return "amber";
   if (["full", "unpaid", "rejected", "refused", "refusé", "lost", "dropped", "offline", "denied", "open", "missing", "impayé", "absent", "abandon"].includes(s)) return "red";
   if (["new", "contacted", "documents", "pending", "paused", "scheduled", "applicant", "candidat"].includes(s)) return "blue";
   if (["completed", "terminé"].includes(s)) return "violet";

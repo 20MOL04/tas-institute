@@ -5,6 +5,7 @@ export type Period =
   | "30d"
   | "thisMonth"
   | "lastMonth"
+  | "thisQuarter"
   | "thisYear"
   | "lastYear"
   | "all"
@@ -17,6 +18,7 @@ export const PERIOD_PRESETS: Exclude<Period, "custom">[] = [
   "30d",
   "thisMonth",
   "lastMonth",
+  "thisQuarter",
   "thisYear",
   "lastYear",
   "all",
@@ -79,6 +81,10 @@ export function getPeriodRange(period: Period, cStart?: string, cEnd?: string): 
       const e = new Date(now.getFullYear(), now.getMonth(), 0, 23, 59, 59, 999);
       return { start: s, end: e };
     }
+    case "thisQuarter": {
+      const s = new Date(now.getFullYear(), Math.floor(now.getMonth() / 3) * 3, 1, 0, 0, 0, 0);
+      return { start: s, end: todayEnd };
+    }
     case "thisYear": {
       const s = new Date(now.getFullYear(), 0, 1, 0, 0, 0, 0);
       return { start: s, end: todayEnd };
@@ -93,7 +99,11 @@ export function getPeriodRange(period: Period, cStart?: string, cEnd?: string): 
       return { start: s, end: todayEnd };
     }
     case "custom": {
-      if (cStart && cEnd) return { start: new Date(cStart + "T00:00:00"), end: new Date(cEnd + "T23:59:59") };
+      if (cStart && cEnd) {
+        const [a, b] = cStart <= cEnd ? [cStart, cEnd] : [cEnd, cStart];
+        return { start: new Date(a + "T00:00:00"), end: new Date(b + "T23:59:59") };
+      }
+      if (cStart) return { start: new Date(cStart + "T00:00:00"), end: new Date(cStart + "T23:59:59") };
       return { start: today0, end: todayEnd };
     }
     default:
@@ -124,4 +134,16 @@ export function monthOverlaps(key: string, start: Date, end: Date): boolean {
   const a = localIsoDate(start);
   const b = localIsoDate(end);
   return monthStart <= b && monthEnd >= a;
+}
+
+
+/**
+ * Valide une plage personnalisée saisie par l'utilisateur.
+ * Retourne un message d'erreur en français, ou null si la plage est correcte.
+ */
+export function validateCustomRange(start?: string, end?: string): string | null {
+  if (!start) return "Choisissez une date de début.";
+  if (end && end < start) return "La date de fin doit être après la date de début.";
+  if (start > localIsoDate() || (end && end > localIsoDate())) return "Les dates futures ne sont pas disponibles.";
+  return null;
 }

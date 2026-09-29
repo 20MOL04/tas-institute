@@ -6,11 +6,11 @@ import {
   CAMPUSES,
   DOCUMENTS,
   GROUPS,
-  PAYMENTS,
   PROGRAMS,
   SCHOOLS,
   TEACHERS,
-  readExtraStudents,
+  livePayments,
+  liveStudents,
   type Student,
 } from "../../_data";
 import { Badge, PageHead, PAYMENT_STATUS_FR, STUDENT_STATUS_FR, statusTone } from "../../_components/ui";
@@ -20,7 +20,7 @@ export default function LiveStudentProfile({ id }: { id: string }) {
   const [student, setStudent] = useState<Student | null | undefined>(undefined);
 
   useEffect(() => {
-    setStudent(readExtraStudents().find((s) => s.id === id) ?? null);
+    setStudent(liveStudents().find((s) => s.id === id) ?? null);
   }, [id]);
 
   if (student === undefined) return <p className="os-muted">Chargement du dossier.</p>;
@@ -31,7 +31,7 @@ export default function LiveStudentProfile({ id }: { id: string }) {
   const teacher = group ? TEACHERS.find((t) => t.id === group.teacherId) : undefined;
   const campus = CAMPUSES.find((c) => c.id === student.campusId);
   const school = SCHOOLS.find((s) => s.id === student.schoolId);
-  const payments = PAYMENTS.filter((p) => p.studentId === student.id);
+  const payments = livePayments().filter((p) => p.studentId === student.id && !p.id.startsWith("p-live"));
   const documents = DOCUMENTS.filter((d) => d.matricule === student.matricule);
   const attendance = ATTENDANCE.filter((row) => row.groupId === student.groupId);
 

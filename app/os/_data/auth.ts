@@ -7,6 +7,7 @@ import type { Role } from "./core";
 import { OS_USERS } from "./core";
 import { STUDENTS, TEACHERS } from "./people";
 import { readJson, writeJson } from "./persist";
+import { appendAudit } from "./audit";
 
 export type Space = "ceo" | "admin" | "teacher" | "student";
 
@@ -26,6 +27,7 @@ const STAFF: Account[] = [
   { matricule: "CEO-26-0001", name: "Fondateur TAS", space: "ceo", role: "founder", personId: "u-ceo", firstLoginDefault: false },
   { matricule: "ADM-26-0001", name: "Administration Alajo", space: "admin", role: "admin", personId: "u-adm", firstLoginDefault: false },
   { matricule: "ADM-26-0002", name: "Admissions", space: "admin", role: "admin", personId: "u-adm", firstLoginDefault: true },
+  { matricule: "ADM-26-0003", name: "Kadidia Sylla", space: "admin", role: "admin", personId: "u-adm", firstLoginDefault: true },
   { matricule: "FIN-26-0001", name: "Comptabilité", space: "admin", role: "finance", personId: "u-fin", firstLoginDefault: false },
 ];
 
@@ -105,7 +107,7 @@ export function osUserForAccount(account: { role: Role }) {
 const EXTRA_ADMINS_KEY = "tas-os-extra-admins";
 const ADMINS_EVENT = "tas-os-admins";
 
-export type ExtraAdmin = { name: string; matricule: string };
+export type ExtraAdmin = { name: string; matricule: string; campusId?: string };
 
 function readExtraAdmins(): ExtraAdmin[] {
   return readJson<ExtraAdmin[]>(EXTRA_ADMINS_KEY, []);
@@ -134,6 +136,82 @@ export function addExtraAdmin(row: ExtraAdmin) {
   if (extra.some((a) => a.matricule === row.matricule)) return;
   extra.unshift(row);
   writeJson(EXTRA_ADMINS_KEY, extra, ADMINS_EVENT);
+  if (row.campusId) setAdminMeta(row.matricule, { campusId: row.campusId });
+}
+
+/* ----- admin accounts: status, campus, temporary password ------------------ */
+
+export type AdminStatus = "active" | "suspended";
+export type AdminMeta = { status?: AdminStatus; campusId?: string };
+
+const ADMIN_META_KEY = "tas-os-admin-meta";
+export const ADMIN_META_CHANGED = "tas-admin-meta-changed";
+
+/** Campus d'origine des comptes du bureau (vide = toute l'école). */
+const SEED_ADMIN_CAMPUS: Record<string, string> = {
+  "ADM-26-0001": "tas-alajo",
+  "ADM-26-0002": "tas-alajo",
+  "ADM-26-0003": "tas-kotobabi",
+  "FIN-26-0001": "",
+};
+
+export function readAdminMeta(): Record<string, AdminMeta> {
+  return readJson<Record<string, AdminMeta>>(ADMIN_META_KEY, {});
+}
+
+export function setAdminMeta(matricule: string, patch: AdminMeta) {
+  const all = readAdminMeta();
+  all[matricule] = { ...all[matricule], ...patch };
+  writeJson(ADMIN_META_KEY, all, ADMIN_META_CHANGED);
+}
+
+export function adminStatus(matricule: string): AdminStatus {
+  return readAdminMeta()[matricule.trim().toUpperCase()]?.status ?? "active";
+}
+
+export function adminCampus(matricule: string): string {
+  const key = matricule.trim().toUpperCase();
+  return readAdminMeta()[key]?.campusId ?? SEED_ADMIN_CAMPUS[key] ?? "tas-alajo";
+}
+
+/** Un compte suspendu ne peut plus se connecter. */
+export function isSuspended(matricule: string): boolean {
+  return adminStatus(matricule) === "suspended";
+}
+
+export function setAdminSuspended(matricule: string, suspended: boolean, actor: string, name: string) {
+  setAdminMeta(matricule, { status: suspended ? "suspended" : "active" });
+  appendAudit({
+    actor,
+    type: "admin",
+    action: suspended ? "Administrateur suspendu" : "Administrateur réactivé",
+    detail: `${name} · ${matricule}`,
+  });
+}
+
+export function setAdminCampus(matricule: string, campusId: string, actor: string, name: string, campusName: string) {
+  setAdminMeta(matricule, { campusId });
+  appendAudit({ actor, type: "admin", action: "Campus modifié", detail: `${name} · ${matricule} · ${campusName}` });
+}
+
+const PASS_KEY = "tas-os-passwords";
+
+/** Génère un mot de passe provisoire (à communiquer une seule fois) et l'enregistre. */
+export function resetAdminPassword(matricule: string, actor: string, name: string): string {
+  const alphabet = "abcdefghjkmnpqrstuvwxyz23456789";
+  let temp = "";
+  const bytes = new Uint32Array(8);
+  if (typeof crypto !== "undefined") crypto.getRandomValues(bytes);
+  for (let i = 0; i < 8; i++) temp += alphabet[(bytes[i] || Math.floor(Math.random() * 1000)) % alphabet.length];
+  try {
+    const map = JSON.parse(window.localStorage.getItem(PASS_KEY) || "{}") as Record<string, string>;
+    map[matricule] = temp;
+    window.localStorage.setItem(PASS_KEY, JSON.stringify(map));
+  } catch {
+    /* stockage indisponible */
+  }
+  appendAudit({ actor, type: "admin", action: "Mot de passe réinitialisé", detail: `${name} · ${matricule}` });
+  return temp;
 }
 
 const EXTRA_STU_ACC_KEY = "tas-os-extra-student-accounts";

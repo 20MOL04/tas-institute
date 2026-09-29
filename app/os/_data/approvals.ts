@@ -1,15 +1,21 @@
 /**
  * File unique des décisions réservées au fondateur.
  * L'administration prépare ; elle n'accepte pas, ne refuse pas.
+ *
+ * Chaque décision a un effet réel sur les données (élève activé, transfert appliqué,
+ * compte créé...) et laisse une trace dans le journal d'activité.
  */
 
 import type { Role } from "./core";
-import { GROUPS, PROGRAMS } from "./core";
-import { APPLICATIONS, patchApplication } from "./growth";
-import { PENDING_TRANSFERS, TRANSFERS } from "./ops";
-import { STUDENTS, liveStudents, patchStudent } from "./people";
-import { addExtraAdmin } from "./auth";
+import { CAMPUSES, PROGRAMS } from "./core";
+import { GROUPS } from "./groups";
+import { liveApplications, liveLeads, patchApplication, updateLead } from "./growth";
+import { addExtraTeacher, addStudent, patchStudent } from "./people";
+import { addExtraAdmin, addExtraStudentAccount } from "./auth";
+import { appendAudit } from "./audit";
+import { WORLD } from "./world";
 import { overlayById, readJson, writeJson } from "./persist";
+import { localIso } from "../_lib/dates";
 
 export type ApprovalKind = "transfer" | "enroll" | "reject" | "exclude" | "unblock" | "admin" | "teacher";
 
@@ -25,109 +31,15 @@ export type Approval = {
   requestedBy: string;
   date: string;
   relatedId: string;
+  /** Élève concerné, quand il existe déjà. */
+  studentId?: string;
+  decidedAt?: string;
+  decidedBy?: string;
+  /** Motif (obligatoire pour un refus). */
+  reason?: string;
 };
 
-function programName(programId: string) {
-  return PROGRAMS.find((p) => p.id === programId)?.name ?? programId;
-}
-
-function groupName(groupId: string) {
-  return GROUPS.find((g) => g.id === groupId)?.name ?? groupId;
-}
-
-function studentOf(id: string) {
-  return liveStudents().find((s) => s.id === id) ?? STUDENTS.find((s) => s.id === id);
-}
-
-const approvedApps = APPLICATIONS.filter((a) => a.status === "approved");
-
-function fromApplication(app: (typeof APPLICATIONS)[number], kind: "enroll" | "reject", id: string): Approval {
-  return {
-    id,
-    kind,
-    status: "pending",
-    subjectName: app.name,
-    subjectRef: app.ref,
-    summary: programName(app.programId),
-    requestedBy: app.assignee,
-    date: app.submittedAt,
-    relatedId: app.id,
-  };
-}
-
-const excludeStudent = studentOf("s-008");
-const unblockStudent = studentOf("s-015");
-
-export const APPROVALS: Approval[] = [
-  ...PENDING_TRANSFERS.map((t) => ({
-    id: `ap-${t.id}`,
-    kind: "transfer" as const,
-    status: "pending" as const,
-    subjectName: t.studentName,
-    subjectRef: t.matricule,
-    summary: `${groupName(t.fromGroupId)} vers ${groupName(t.toGroupId)}`,
-    requestedBy: t.requestedBy,
-    date: t.date,
-    relatedId: t.id,
-  })),
-  ...approvedApps.slice(0, 2).map((app, i) => fromApplication(app, "enroll", `ap-enroll-${i + 1}`)),
-  ...(approvedApps[2] ? [fromApplication(approvedApps[2], "reject", "ap-reject-01")] : []),
-  {
-    id: "ap-ex-01",
-    kind: "exclude",
-    status: "pending",
-    subjectName: excludeStudent?.name ?? "Kwame Boateng",
-    subjectRef: excludeStudent?.matricule ?? "TAS-26-0008",
-    summary: "Absences répétées, demande de l'administration",
-    requestedBy: "Administration",
-    date: "2026-09-18",
-    relatedId: excludeStudent?.id ?? "s-008",
-  },
-  {
-    id: "ap-ub-01",
-    kind: "unblock",
-    status: "pending",
-    subjectName: unblockStudent?.name ?? "Mariam Sow",
-    subjectRef: unblockStudent?.matricule ?? "TAS-26-0015",
-    summary: "Dossier réglé, demande de réouverture",
-    requestedBy: "Administration",
-    date: "2026-09-17",
-    relatedId: unblockStudent?.id ?? "s-015",
-  },
-  {
-    id: "ap-ad-01",
-    kind: "admin",
-    status: "pending",
-    subjectName: "Abena Owusu",
-    subjectRef: "ADM-26-0003",
-    summary: "Campus Alajo",
-    requestedBy: "Directrice TAS",
-    date: "2026-09-16",
-    relatedId: "",
-  },
-  {
-    id: "ap-th-01",
-    kind: "teacher",
-    status: "pending",
-    subjectName: "Kodjo Mensah",
-    subjectRef: "ENS-26-0019",
-    summary: "Anglais, campus Alajo",
-    requestedBy: "Directrice TAS",
-    date: "2026-09-15",
-    relatedId: "",
-  },
-  {
-    id: "ap-th-02",
-    kind: "teacher",
-    status: "pending",
-    subjectName: "Salimata Cissé",
-    subjectRef: "ENS-26-0020",
-    summary: "Informatique, campus Kotobabi",
-    requestedBy: "Administration",
-    date: "2026-09-14",
-    relatedId: "",
-  },
-];
+export const APPROVALS: Approval[] = WORLD.approvals;
 
 export function pendingApprovals(list: readonly Approval[] = liveApprovals()) {
   return list.filter((row) => row.status === "pending");
@@ -164,32 +76,141 @@ function writeApproval(next: Approval) {
   writeJson(EXTRA_APPROVALS_KEY, extra, APPROVALS_CHANGED);
 }
 
-function applyDecision(row: Approval) {
-  if (row.status === "pending") return;
-  if (row.kind === "enroll" || row.kind === "reject") {
-    patchApplication(row.relatedId, { status: row.status === "accepted" ? "enrolled" : "rejected" });
-  }
-  if (row.kind === "transfer" && row.status === "accepted") {
-    const transfer = TRANSFERS.find((t) => t.id === row.relatedId);
-    if (transfer) patchStudent(transfer.studentId, { groupId: transfer.toGroupId });
-  }
-  if (row.kind === "exclude" && row.status === "accepted") {
-    patchStudent(row.relatedId, { status: "dropped" });
-  }
-  if (row.kind === "unblock" && row.status === "accepted") {
-    patchStudent(row.relatedId, { status: "active" });
-  }
-  if (row.kind === "admin" && row.status === "accepted") {
-    addExtraAdmin({ name: row.subjectName, matricule: row.subjectRef });
+function programName(id: string) {
+  return PROGRAMS.find((p) => p.id === id)?.name ?? id;
+}
+
+/** Classe d'entrée d'un nouvel élève : premier niveau de la formation, la moins remplie. */
+function entryGroupFor(programId: string, campusId: string) {
+  const pool = GROUPS.filter((g) => g.programId === programId && g.campusId === campusId);
+  const firstLevel = PROGRAMS.find((p) => p.id === programId)?.levels[0];
+  const level = pool.filter((g) => g.level === firstLevel);
+  const list = level.length ? level : pool;
+  return list.reduce<(typeof GROUPS)[number] | undefined>((a, b) => (!a || b.students < a.students ? b : a), undefined) ?? GROUPS[0];
+}
+
+function nowLocalStamp() {
+  const d = new Date();
+  return `${localIso(d)}T${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+}
+
+/** Applique l'effet d'une décision. Retourne une phrase décrivant ce qui a changé. */
+function applyDecision(row: Approval, actor: string): string {
+  if (row.status === "pending") return "";
+  const ok = row.status === "accepted";
+  const today = localIso();
+  switch (row.kind) {
+    case "enroll": {
+      if (row.studentId) {
+        if (ok) {
+          patchStudent(row.studentId, { status: "active", enrolledAt: today, exitedAt: undefined });
+          patchApplication(row.relatedId, { status: "enrolled" });
+          return "Élève activé";
+        }
+        patchStudent(row.studentId, { status: "dropped", exitedAt: today });
+        patchApplication(row.relatedId, { status: "rejected" });
+        return "Dossier refusé";
+      }
+      const app = liveApplications().find((a) => a.id === row.relatedId);
+      if (!app) return "";
+      if (!ok) {
+        patchApplication(app.id, { status: "rejected" });
+        return "Dossier refusé";
+      }
+      const group = entryGroupFor(app.programId, app.campusId);
+      const lead = app.leadId ? liveLeads().find((l) => l.id === app.leadId) : undefined;
+      const student = addStudent({
+        name: app.name,
+        phone: lead?.phone ?? "",
+        country: app.country,
+        countryCode: lead?.countryCode ?? "",
+        groupId: group.id,
+        source: app.source,
+        durationMonths: app.durationMonths,
+        actor,
+      });
+      patchStudent(student.id, { intakeId: app.intakeId, applicationId: app.id, leadId: app.leadId });
+      addExtraStudentAccount({
+        matricule: student.matricule,
+        name: student.name,
+        space: "student",
+        role: "student",
+        personId: student.id,
+        firstLoginDefault: true,
+      });
+      patchApplication(app.id, { status: "enrolled", studentId: student.id });
+      if (app.leadId) updateLead(app.leadId, { stage: "enrolled", studentId: student.id, overdue: false });
+      return `Élève créé (${student.matricule})`;
+    }
+    case "reject": {
+      patchApplication(row.relatedId, { status: ok ? "rejected" : "reviewing" });
+      return ok ? "Dossier rejeté" : "Dossier remis en revue";
+    }
+    case "transfer": {
+      if (!ok) return "Transfert refusé";
+      const transfer = WORLD.transfers.find((t) => t.id === row.relatedId);
+      const to = GROUPS.find((g) => g.id === transfer?.toGroupId);
+      if (transfer && to) {
+        patchStudent(transfer.studentId, {
+          groupId: to.id,
+          campusId: to.campusId,
+          schoolId: to.schoolId,
+          programId: to.programId,
+          level: to.level,
+        });
+        return `Élève déplacé vers ${to.name}`;
+      }
+      return "";
+    }
+    case "exclude": {
+      if (!ok) return "Exclusion refusée";
+      patchStudent(row.relatedId, { status: "dropped", exitedAt: today });
+      return "Élève exclu";
+    }
+    case "unblock": {
+      if (!ok) return "Réouverture refusée";
+      patchStudent(row.relatedId, { status: "active", exitedAt: undefined });
+      return "Élève réactivé";
+    }
+    case "admin": {
+      if (!ok) return "Compte refusé";
+      const campusId = CAMPUSES.find((c) => c.name === row.summary)?.id;
+      addExtraAdmin({ name: row.subjectName, matricule: row.subjectRef, campusId });
+      return "Compte administrateur activé";
+    }
+    case "teacher": {
+      if (!ok) return "Candidature refusée";
+      const campusId = CAMPUSES.find((c) => row.summary.includes(c.name.replace("Campus ", "")))?.id ?? "tas-alajo";
+      addExtraTeacher({ name: row.subjectName, staffId: row.subjectRef, specialty: row.summary.split(",")[0] ?? "Anglais", campusId });
+      return "Enseignant ajouté à l'équipe";
+    }
   }
 }
 
-export function setApprovalStatus(id: string, status: ApprovalStatus) {
+export type DecideOptions = { reason?: string; actor?: string };
+
+/** Décide d'une demande : effet sur les données + trace dans le journal. */
+export function setApprovalStatus(id: string, status: ApprovalStatus, options: DecideOptions = {}) {
   const row = liveApprovals().find((item) => item.id === id);
   if (!row) return;
-  const next = { ...row, status };
+  const actor = options.actor ?? "Fondateur TAS";
+  const next: Approval = {
+    ...row,
+    status,
+    decidedAt: status === "pending" ? undefined : nowLocalStamp(),
+    decidedBy: status === "pending" ? undefined : actor,
+    reason: options.reason?.trim() || row.reason,
+  };
   writeApproval(next);
-  applyDecision(next);
+  const effect = applyDecision(next, actor);
+  if (status !== "pending") {
+    appendAudit({
+      actor,
+      type: "approval",
+      action: status === "accepted" ? "Décision : accepté" : "Décision : refusé",
+      detail: `${row.subjectName} · ${row.summary}${effect ? ` · ${effect}` : ""}${options.reason ? ` · ${options.reason.trim()}` : ""}`,
+    });
+  }
   return next;
 }
 
@@ -209,9 +230,29 @@ export function addApproval(input: Omit<Approval, "id" | "status"> & { id?: stri
     requestedBy: input.requestedBy,
     date: input.date,
     relatedId: input.relatedId,
+    studentId: input.studentId,
   };
+  if (row.status !== "pending") {
+    row.decidedAt = nowLocalStamp();
+    row.decidedBy = input.requestedBy;
+  }
   writeApproval(row);
-  if (row.status !== "pending") applyDecision(row);
+  if (row.status !== "pending") {
+    const effect = applyDecision(row, input.requestedBy);
+    appendAudit({
+      actor: input.requestedBy,
+      type: row.kind === "admin" ? "admin" : "approval",
+      action: row.kind === "admin" ? "Administrateur créé" : "Décision enregistrée",
+      detail: `${row.subjectName} · ${row.summary}${effect ? ` · ${effect}` : ""}`,
+    });
+  } else {
+    appendAudit({
+      actor: input.requestedBy,
+      type: "approval",
+      action: "Demande envoyée au fondateur",
+      detail: `${row.subjectName} · ${row.summary}`,
+    });
+  }
   return row;
 }
 
@@ -226,8 +267,8 @@ export function approvalHref(row: Approval): string {
     case "unblock":
       return row.relatedId ? `/os/students/${row.relatedId}` : "/os/students";
     case "admin":
-      return "/os/ceo/admins";
+      return "/os/ceo/team";
     case "teacher":
-      return "/os/teachers";
+      return "/os/ceo/team";
   }
 }

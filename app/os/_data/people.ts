@@ -1,37 +1,16 @@
 /** FICTIONAL students and teachers for the prototype. No real person. */
 
-import { GROUPS, PROGRAMS, between, pick, rng, type Role } from "./core";
+import { CAMPUSES, PROGRAMS, type Role } from "./core";
+import { appendAudit } from "./audit";
+import { feeFor, readSettings } from "./settings";
 import { overlayById, readJson, writeJson } from "./persist";
-import { COURSE_DURATION_MONTHS, type CourseDurationMonths } from "../../lib/course-duration";
+import { type CourseDurationMonths } from "../../lib/course-duration";
+import { localIso } from "../_lib/dates";
+import { GROUPS } from "./groups";
 
-/* ----- name pools ---------------------------------------------------------- */
+import { WORLD, COUNTRY_LIST, LEAD_SOURCE_LIST } from "./world";
 
-const FIRST_F = ["Aminata", "Fatoumata", "Awa", "Mariam", "Rokhaya", "Adjoa", "Akosua", "Chantal", "Bintou", "Nafissatou", "Grâce", "Yasmine", "Salimata", "Abena", "Ama"];
-const FIRST_M = ["Ibrahim", "Moussa", "Kwame", "Amadou", "Souleymane", "Kofi", "Boubacar", "Yao", "Mamadou", "Cheikh", "Serge", "Ousmane", "Kojo", "Sékou", "Abdoul"];
-const LAST = ["Diallo", "Traoré", "Mensah", "Ouédraogo", "Koné", "Asante", "Bamba", "Sow", "Cissé", "Boateng", "Kouassi", "Ndiaye", "Sylla", "Owusu", "Dembélé", "Fofana", "Agyemang", "Barry"];
-
-export const COUNTRIES = [
-  { code: "CI", name: "Côte d'Ivoire", weight: 22 },
-  { code: "BF", name: "Burkina Faso", weight: 16 },
-  { code: "SN", name: "Sénégal", weight: 14 },
-  { code: "ML", name: "Mali", weight: 11 },
-  { code: "GH", name: "Ghana", weight: 10 },
-  { code: "GN", name: "Guinée", weight: 8 },
-  { code: "TG", name: "Togo", weight: 7 },
-  { code: "BJ", name: "Bénin", weight: 6 },
-  { code: "NE", name: "Niger", weight: 4 },
-  { code: "CM", name: "Cameroun", weight: 2 },
-] as const;
-
-function weightedCountry(r: () => number) {
-  const total = COUNTRIES.reduce((s, c) => s + c.weight, 0);
-  let x = r() * total;
-  for (const c of COUNTRIES) {
-    x -= c.weight;
-    if (x <= 0) return c;
-  }
-  return COUNTRIES[0];
-}
+export const COUNTRIES = COUNTRY_LIST.map((c) => ({ code: c.code, name: c.name, weight: c.weight }));
 
 /* ----- teachers ----------------------------------------------------------- */
 
@@ -51,49 +30,46 @@ export type Teacher = {
   since: string;
 };
 
-const SPECIALTIES = [
-  "Expression orale",
-  "Grammaire",
-  "Compréhension écrite",
-  "Écoute",
-  "Débat",
-  "Vocabulaire",
-  "MS Office",
-  "Graphisme",
-  "Bases de données",
-  "Marketing digital",
-  "Réseaux",
-];
-
 /** 18 teachers: the headcount the school itself gives. Names are fictional. */
-export const TEACHERS: Teacher[] = Array.from({ length: 18 }, (_, i) => {
-  const r = rng(700 + i);
-  const female = r() > 0.55;
-  const name = `${pick(female ? FIRST_F : FIRST_M, r)} ${pick(LAST, r)}`;
-  const id = `t-${String(i + 1).padStart(2, "0")}`;
-  const mine = GROUPS.filter((g) => g.teacherId === id);
-  const isAbla = i >= 13;
-  return {
-    id,
-    staffId: `ENS-26-${String(i + 1).padStart(4, "0")}`,
-    name,
-    initials: name.split(" ").map((w) => w[0]).join(""),
-    specialty: SPECIALTIES[i % SPECIALTIES.length],
-    schoolId: isAbla ? "abla" : "tas",
-    campusId: isAbla ? "abla-osu" : i % 3 === 2 ? "tas-kotobabi" : "tas-alajo",
-    phone: `+233 2${between(r, 10, 59)} ${between(r, 100, 999)} ${between(r, 100, 999)}`,
-    email: `${name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z]+/g, ".")}@demo.tas`,
-    groups: mine.map((g) => g.name),
-    students: mine.reduce((s, g) => s + g.students, 0),
-    status: i === 11 ? "leave" : "active",
-    since: `20${between(r, 18, 25)}-0${between(r, 1, 9)}-1${between(r, 0, 9)}`,
-  };
-});
+export const TEACHERS: Teacher[] = WORLD.teachers;
+
+const EXTRA_TEACHERS_KEY = "tas-os-extra-teachers";
+export const TEACHERS_CHANGED = "tas-teachers-changed";
+
+export function readExtraTeachers(): Teacher[] {
+  return readJson<Teacher[]>(EXTRA_TEACHERS_KEY, []);
+}
+
+export function liveTeachers(): Teacher[] {
+  return [...readExtraTeachers(), ...TEACHERS];
+}
+
+export function addExtraTeacher(input: { name: string; staffId: string; specialty: string; campusId: string }) {
+  const extra = readExtraTeachers();
+  if (extra.some((t) => t.staffId === input.staffId)) return;
+  const campus = CAMPUSES.find((c) => c.id === input.campusId);
+  extra.unshift({
+    id: `t-live-${Date.now()}`,
+    staffId: input.staffId,
+    name: input.name,
+    initials: input.name.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase(),
+    specialty: input.specialty,
+    schoolId: campus?.schoolId ?? "tas",
+    campusId: input.campusId,
+    phone: "",
+    email: "",
+    groups: [],
+    students: 0,
+    status: "active",
+    since: localIso(),
+  });
+  writeJson(EXTRA_TEACHERS_KEY, extra, TEACHERS_CHANGED);
+}
 
 /* ----- students ----------------------------------------------------------- */
 
 export type PaymentStatus = "paid" | "partial" | "unpaid";
-export type StudentStatus = "active" | "applicant" | "completed" | "dropped";
+export type StudentStatus = "active" | "applicant" | "completed" | "dropped" | "paused";
 
 export type Student = {
   id: string;
@@ -118,70 +94,22 @@ export type Student = {
   balance: number;
   source: string;
   durationMonths: CourseDurationMonths;
+  /** Total dû pour la formation (inscription + scolarité). */
+  feeTotal: number;
+  /** Nombre d'échéances de paiement (1 à 4). */
+  plan: number;
+  /** Session d'entrée. */
+  intakeId: string;
+  leadId?: string;
+  applicationId?: string;
+  /** Date de départ ou de mise en pause. */
+  exitedAt?: string;
 };
 
-export const LEAD_SOURCES = [
-  "Formulaire",
-  "WhatsApp",
-  "Facebook",
-  "Instagram",
-  "TikTok",
-  "Google",
-  "YouTube",
-  "Bouche-à-oreille",
-  "Ancien étudiant",
-  "Walk-in",
-  "Agent",
-] as const;
+export const LEAD_SOURCES = LEAD_SOURCE_LIST;
 
-/** 132 fictional student records: enough to make filters and pagination real. */
-export const STUDENTS: Student[] = Array.from({ length: 132 }, (_, i) => {
-  const r = rng(4000 + i * 7);
-  const female = r() > 0.52;
-  const first = pick(female ? FIRST_F : FIRST_M, r);
-  const last = pick(LAST, r);
-  const name = `${first} ${last}`;
-  const country = weightedCountry(r);
-  const group = GROUPS[Math.floor(r() * GROUPS.length)];
-  const program = PROGRAMS.find((p) => p.id === group.programId) ?? PROGRAMS[0];
-
-  const statusRoll = r();
-  const status: StudentStatus =
-    statusRoll > 0.93 ? "dropped" : statusRoll > 0.82 ? "completed" : statusRoll > 0.06 ? "active" : "applicant";
-
-  const payRoll = r();
-  const paymentStatus: PaymentStatus = payRoll > 0.72 ? "partial" : payRoll > 0.62 ? "unpaid" : "paid";
-  const balance =
-    paymentStatus === "paid" ? 0 : paymentStatus === "partial" ? between(r, 40, 220) * 1000 : program.mockFee;
-
-  const month = between(r, 0, 11);
-  const day = between(r, 1, 28);
-
-  return {
-    id: `s-${String(i + 1).padStart(3, "0")}`,
-    matricule: `TAS-26-${String(i + 1).padStart(4, "0")}`,
-    name,
-    initials: `${first[0]}${last[0]}`,
-    gender: female ? "F" : "M",
-    countryCode: country.code,
-    country: country.name,
-    phone: `+233 5${between(r, 10, 99)} ${between(r, 100, 999)} ${between(r, 100, 999)}`,
-    email: `${first.toLowerCase()}.${last.toLowerCase()}@demo.tas`.normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
-    schoolId: group.schoolId,
-    campusId: group.campusId,
-    programId: group.programId,
-    level: group.level,
-    groupId: group.id,
-    status,
-    paymentStatus,
-    enrolledAt: `2026-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`,
-    attendanceRate: between(r, 68, 99),
-    averageGrade: between(r, 92, 178) / 10,
-    balance,
-    source: pick(LEAD_SOURCES, r),
-    durationMonths: pick([...COURSE_DURATION_MONTHS], r),
-  };
-});
+/** ~1 200 fictional student records, generated from the seeded world. */
+export const STUDENTS: Student[] = WORLD.students;
 
 export const ACTIVE_STUDENTS = STUDENTS.filter((s) => s.status === "active");
 
@@ -192,15 +120,13 @@ export function readExtraStudents(): Student[] {
   return readJson<Student[]>(EXTRA_STUDENTS_KEY, []);
 }
 
-export function nextMatricule() {
-  const used = new Set([...STUDENTS, ...readExtraStudents()].map((s) => s.matricule));
-  let n = STUDENTS.length + 1;
-  let code = `TAS-26-${String(n).padStart(4, "0")}`;
-  while (used.has(code)) {
-    n += 1;
-    code = `TAS-26-${String(n).padStart(4, "0")}`;
+export function nextMatricule(year = localIso().slice(2, 4)) {
+  const prefix = `TAS-${year}-`;
+  let max = 0;
+  for (const st of [...STUDENTS, ...readExtraStudents()]) {
+    if (st.matricule.startsWith(prefix)) max = Math.max(max, Number(st.matricule.slice(prefix.length)) || 0);
   }
-  return code;
+  return `${prefix}${String(max + 1).padStart(4, "0")}`;
 }
 
 export function addStudent(input: {
@@ -212,8 +138,14 @@ export function addStudent(input: {
   groupId: string;
   source?: string;
   durationMonths?: CourseDurationMonths;
+  actor?: string;
 }): Student {
   const group = GROUPS.find((g) => g.id === input.groupId) ?? GROUPS[0];
+  const months = input.durationMonths ?? 3;
+  const settings = readSettings();
+  const feeTotal = feeFor(group.programId, months, settings.fees) + (group.schoolId === "tas" ? 25_000 : 20_000);
+  const now = new Date();
+  const stamp = `${localIso(now)}T${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
   const extra = readExtraStudents();
   const parts = input.name.trim().split(/\s+/);
   const first = parts[0] ?? "E";
@@ -235,16 +167,33 @@ export function addStudent(input: {
     groupId: group.id,
     status: "active",
     paymentStatus: "unpaid",
-    enrolledAt: new Date().toISOString(),
+    enrolledAt: stamp,
     attendanceRate: 100,
     averageGrade: 0,
-    balance: PROGRAMS.find((p) => p.id === group.programId)?.mockFee ?? 0,
+    balance: feeTotal,
     source: input.source ?? "Walk-in",
-    durationMonths: input.durationMonths ?? 3,
+    durationMonths: months,
+    feeTotal,
+    plan: 1,
+    intakeId: upcomingIntakeId(group.programId),
   };
   extra.unshift(student);
   writeJson(EXTRA_STUDENTS_KEY, extra, STUDENTS_EVENT);
+  appendAudit({
+    actor: input.actor ?? "Administration",
+    type: "enrollment",
+    action: "Élève inscrit",
+    detail: `${student.name} · ${PROGRAMS.find((p) => p.id === group.programId)?.name ?? group.programId}`,
+    href: `/os/students/${student.id}`,
+  });
   return student;
+}
+
+/** Prochaine session (ou session en cours) de la formation. */
+export function upcomingIntakeId(programId: string): string {
+  const today = localIso();
+  const list = WORLD.intakes.filter((i) => i.programId === programId && i.end >= today).sort((a, b) => (a.start < b.start ? -1 : 1));
+  return (list.find((i) => i.start >= today) ?? list[0] ?? WORLD.intakes[0])?.id ?? "";
 }
 
 export function liveStudents(): Student[] {
@@ -282,20 +231,7 @@ export function sessionAttendanceRate(row: Pick<AttendanceRow, "present" | "abse
   return denom === 0 ? 0 : (row.present / denom) * 100;
 }
 
-export const ATTENDANCE: AttendanceRow[] = GROUPS.flatMap((g) =>
-  Array.from({ length: 14 }, (_, d) => {
-    const r = rng(900 + d + g.id.length * 13);
-    const absent = between(r, 0, 4);
-    const late = between(r, 0, 3);
-    return {
-      date: `2026-09-${String(d + 1).padStart(2, "0")}`,
-      groupId: g.id,
-      present: g.students - absent,
-      absent,
-      late,
-    };
-  }),
-);
+export const ATTENDANCE: AttendanceRow[] = WORLD.attendance;
 
 const EXTRA_ATT_KEY = "tas-os-extra-attendance";
 const ATT_EVENT = "tas-os-attendance";
@@ -321,14 +257,20 @@ export function liveAttendance(): AttendanceRow[] {
 
 export const ATTENDANCE_CHANGED = ATT_EVENT;
 
-export const GRADE_DISTRIBUTION = [
-  { band: "0–8", label: "Insuffisant", count: 6 },
-  { band: "8–10", label: "Fragile", count: 14 },
-  { band: "10–12", label: "Correct", count: 31 },
-  { band: "12–14", label: "Bien", count: 38 },
-  { band: "14–16", label: "Très bien", count: 25 },
-  { band: "16–20", label: "Excellent", count: 11 },
+const BANDS: { band: string; label: string; min: number; max: number }[] = [
+  { band: "0–8", label: "Insuffisant", min: 0, max: 8 },
+  { band: "8–10", label: "Fragile", min: 8, max: 10 },
+  { band: "10–12", label: "Correct", min: 10, max: 12 },
+  { band: "12–14", label: "Bien", min: 12, max: 14 },
+  { band: "14–16", label: "Très bien", min: 14, max: 16 },
+  { band: "16–20", label: "Excellent", min: 16, max: 20.1 },
 ];
+
+export const GRADE_DISTRIBUTION = BANDS.map((b) => ({
+  band: b.band,
+  label: b.label,
+  count: STUDENTS.filter((s) => s.status === "active" && s.averageGrade > 0 && s.averageGrade >= b.min && s.averageGrade < b.max).length,
+}));
 
 /* ----- role-scoped helpers ------------------------------------------------ */
 

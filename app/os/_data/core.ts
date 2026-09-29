@@ -55,8 +55,8 @@ export const SCHOOLS: School[] = [
     country: "Ghana",
     isReal: true,
     campuses: [
-      { id: "tas-alajo", schoolId: "tas", name: "Campus Alajo", area: "Alajo Polo Junction", rooms: 8 },
-      { id: "tas-kotobabi", schoolId: "tas", name: "Campus Kotobabi", area: "Kotobabi New Town", rooms: 5 },
+      { id: "tas-alajo", schoolId: "tas", name: "Campus Alajo", area: "Alajo Polo Junction", rooms: 18 },
+      { id: "tas-kotobabi", schoolId: "tas", name: "Campus Kotobabi", area: "Kotobabi New Town", rooms: 6 },
     ],
   },
   {
@@ -180,76 +180,9 @@ export type Intake = {
   applications: number;
   enrolled: number;
   status: "open" | "filling" | "full" | "closed";
+  /** Fermée à la main par le fondateur. */
+  closedManually?: boolean;
 };
-
-/** The real number of intakes per year is unknown — these are prototype values. */
-export const INTAKES: Intake[] = [
-  {
-    id: "in-2026-10-eng-int",
-    schoolId: "tas",
-    campusId: "tas-alajo",
-    programId: "eng-intensive",
-    name: "Rentrée octobre 2026",
-    start: "2026-10-05",
-    end: "2027-01-23",
-    capacity: 60,
-    applications: 74,
-    enrolled: 48,
-    status: "filling",
-  },
-  {
-    id: "in-2026-10-eng-long",
-    schoolId: "tas",
-    campusId: "tas-alajo",
-    programId: "eng-long",
-    name: "Rentrée octobre 2026",
-    start: "2026-10-05",
-    end: "2027-04-30",
-    capacity: 45,
-    applications: 39,
-    enrolled: 27,
-    status: "open",
-  },
-  {
-    id: "in-2026-10-comp",
-    schoolId: "tas",
-    campusId: "tas-kotobabi",
-    programId: "computer",
-    name: "Rentrée octobre 2026",
-    start: "2026-10-12",
-    end: "2026-12-18",
-    capacity: 30,
-    applications: 33,
-    enrolled: 29,
-    status: "full",
-  },
-  {
-    id: "in-2027-01-eng-int",
-    schoolId: "tas",
-    campusId: "tas-alajo",
-    programId: "eng-intensive",
-    name: "Rentrée janvier 2027",
-    start: "2027-01-11",
-    end: "2027-04-30",
-    capacity: 60,
-    applications: 21,
-    enrolled: 6,
-    status: "open",
-  },
-  {
-    id: "in-2026-10-abla",
-    schoolId: "abla",
-    campusId: "abla-osu",
-    programId: "abla-business",
-    name: "Session octobre 2026",
-    start: "2026-10-05",
-    end: "2027-01-30",
-    capacity: 40,
-    applications: 31,
-    enrolled: 22,
-    status: "filling",
-  },
-];
 
 /* ----- rooms and groups --------------------------------------------------- */
 
@@ -260,64 +193,19 @@ export type Group = {
   programId: string;
   level: string;
   name: string;
+  /** Vide = classe sans enseignant. */
   teacherId: string;
   room: string;
   capacity: number;
   students: number;
   schedule: string;
+  /** Classe ouverte aux nouvelles affectations (défaut : oui). */
+  open?: boolean;
 };
 
 export const CLASS_CODES = ["B1", "B2", "B3", "I1", "I2", "I3", "P1", "P2", "P3"] as const;
 
 export type ClassCode = (typeof CLASS_CODES)[number];
-
-function englishClass(
-  id: string,
-  programId: "eng-intensive" | "eng-long",
-  code: ClassCode,
-  teacherId: string,
-  room: string,
-): Group {
-  const intensive = programId === "eng-intensive";
-  return {
-    id,
-    schoolId: "tas",
-    campusId: "tas-alajo",
-    programId,
-    level: code,
-    name: code,
-    teacherId,
-    room,
-    capacity: intensive ? 18 : 16,
-    students: intensive ? 15 : 13,
-    schedule: intensive ? "Lun–Ven 08:00–16:00" : "Lun–Ven 09:00–14:00",
-  };
-}
-
-export const GROUPS: Group[] = [
-  englishClass("g-01", "eng-intensive", "B1", "t-01", "Salle 1"),
-  englishClass("g-02", "eng-intensive", "B2", "t-02", "Salle 2"),
-  englishClass("g-03", "eng-intensive", "B3", "t-03", "Salle 3"),
-  englishClass("g-int-i1", "eng-intensive", "I1", "t-01", "Salle 6"),
-  englishClass("g-int-i2", "eng-intensive", "I2", "t-02", "Salle 7"),
-  englishClass("g-int-i3", "eng-intensive", "I3", "t-03", "Salle 8"),
-  englishClass("g-int-p1", "eng-intensive", "P1", "t-04", "Salle 9"),
-  englishClass("g-int-p2", "eng-intensive", "P2", "t-05", "Salle 10"),
-  englishClass("g-int-p3", "eng-intensive", "P3", "t-01", "Salle 11"),
-  englishClass("g-04", "eng-long", "B1", "t-04", "Salle 4"),
-  englishClass("g-05", "eng-long", "B2", "t-05", "Salle 5"),
-  englishClass("g-lng-b3", "eng-long", "B3", "t-04", "Salle 12"),
-  englishClass("g-lng-i1", "eng-long", "I1", "t-05", "Salle 13"),
-  englishClass("g-lng-i2", "eng-long", "I2", "t-04", "Salle 14"),
-  englishClass("g-lng-i3", "eng-long", "I3", "t-05", "Salle 15"),
-  englishClass("g-lng-p1", "eng-long", "P1", "t-02", "Salle 16"),
-  englishClass("g-lng-p2", "eng-long", "P2", "t-03", "Salle 17"),
-  englishClass("g-lng-p3", "eng-long", "P3", "t-04", "Salle 18"),
-  { id: "g-06", schoolId: "tas", campusId: "tas-kotobabi", programId: "computer", level: "Débutant", name: "INF-D-1", teacherId: "t-06", room: "Lab 1", capacity: 15, students: 15, schedule: "Lun–Ven 14:00–17:00" },
-  { id: "g-07", schoolId: "tas", campusId: "tas-kotobabi", programId: "computer", level: "Intermédiaire", name: "INF-I-1", teacherId: "t-07", room: "Lab 1", capacity: 15, students: 12, schedule: "Lun–Ven 09:00–12:00" },
-  { id: "g-comp-a", schoolId: "tas", campusId: "tas-kotobabi", programId: "computer", level: "Avancé", name: "INF-A-1", teacherId: "t-06", room: "Lab 1", capacity: 15, students: 9, schedule: "Lun–Ven 14:00–17:00" },
-  { id: "g-08", schoolId: "abla", campusId: "abla-osu", programId: "abla-business", level: "B2", name: "BUS-B2-1", teacherId: "t-14", room: "Room 2", capacity: 14, students: 11, schedule: "Lun–Jeu 17:00–21:00" },
-];
 
 export function groupMenuLabel(group: Group) {
   const program = PROGRAMS.find((p) => p.id === group.programId)?.name ?? group.programId;
@@ -367,6 +255,7 @@ export const OS_USERS: OsUser[] = [
 /* ----- formatting helpers ------------------------------------------------- */
 
 const NBSP = "\u202f";
+const NBSP_WORD = "\u00a0";
 
 export function fmtInt(n: number) {
   return Math.round(n).toLocaleString("fr-FR").replace(/\s/g, NBSP);
@@ -374,7 +263,7 @@ export function fmtInt(n: number) {
 
 /** Money in CFA, the currency the school quotes its housing in. */
 export function fmtMoney(n: number) {
-  return `${fmtInt(n)}${NBSP}CFA`;
+  return `${fmtInt(n)}${NBSP_WORD}CFA`;
 }
 
 export function fmtCompactMoney(n: number) {
@@ -418,7 +307,7 @@ export function fmtMonthLong(iso: string) {
 
 export function nowStamp() {
   const d = new Date();
-  const date = d.toISOString().slice(0, 10);
+  const date = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
   const time = d.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit", hour12: false });
   return { date, time, iso: d.toISOString() };
 }
@@ -427,10 +316,44 @@ export function nowStamp() {
 
 export const MONTHS_FR = ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin", "Juil", "Août", "Sep", "Oct", "Nov", "Déc"];
 
-/** Calendar year 2026, so monthly series line up with payment dates. */
+const CURRENT_YEAR = new Date().getFullYear();
+
+/** Current calendar year, so monthly series line up with payment dates. */
 export const TIMELINE = MONTHS_FR.map((label, month) => ({
-  key: `2026-${String(month + 1).padStart(2, "0")}`,
+  key: `${CURRENT_YEAR}-${String(month + 1).padStart(2, "0")}`,
   label,
-  year: 2026,
+  year: CURRENT_YEAR,
   month,
 }));
+
+/* ----- founder formatting -------------------------------------------------- */
+
+function trimDecimals(n: number, digits: number) {
+  return n.toFixed(digits).replace(/\.?0+$/, "").replace(".", ",");
+}
+
+/** Montant compact : "4,35 M CFA" (à réserver aux endroits où la place manque). */
+export function fmtMoneyCompact(n: number) {
+  const abs = Math.abs(n);
+  const sign = n < 0 ? "-" : "";
+  if (abs >= 1_000_000_000) return `${sign}${trimDecimals(abs / 1_000_000_000, 2)}${NBSP_WORD}Md${NBSP_WORD}CFA`;
+  if (abs >= 1_000_000) return `${sign}${trimDecimals(abs / 1_000_000, 2)}${NBSP_WORD}M${NBSP_WORD}CFA`;
+  if (abs >= 10_000) return `${sign}${trimDecimals(abs / 1000, 0)}${NBSP_WORD}k${NBSP_WORD}CFA`;
+  return fmtMoney(n);
+}
+
+/** Graduation d'axe : 0, 500 k, 1 M, 1,5 M... */
+export function fmtAxisMoney(n: number) {
+  const abs = Math.abs(n);
+  if (abs === 0) return "0";
+  if (abs >= 1_000_000_000) return `${trimDecimals(abs / 1_000_000_000, 2)}${NBSP_WORD}Md`;
+  if (abs >= 1_000_000) return `${trimDecimals(abs / 1_000_000, 2)}${NBSP_WORD}M`;
+  if (abs >= 1000) return `${trimDecimals(abs / 1000, 0)}${NBSP_WORD}k`;
+  return String(Math.round(abs));
+}
+
+/** Variation en pourcentage entre deux valeurs, null si la base est nulle. */
+export function pctChange(current: number, previous: number): number | null {
+  if (!previous) return null;
+  return ((current - previous) / Math.abs(previous)) * 100;
+}

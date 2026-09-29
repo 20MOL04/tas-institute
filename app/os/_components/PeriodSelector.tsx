@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import {
   PERIOD_PRESETS,
   getPeriodRange,
+  validateCustomRange,
   type Period,
 } from "../_lib/period";
 import { useOsT } from "./useOsT";
@@ -38,6 +39,8 @@ function periodLabel(period: Period, t: Copy): string {
       return t.period.thisMonth;
     case "lastMonth":
       return t.period.lastMonth;
+    case "thisQuarter":
+      return t.period.thisQuarter;
     case "thisYear":
       return t.period.thisYear;
     case "lastYear":
@@ -84,6 +87,7 @@ export default function PeriodSelector({ period, customStart, customEnd, onApply
   const [draftPeriod, setDraftPeriod] = useState<Period>(period);
   const [draftStart, setDraftStart] = useState<string>(customStart ?? "");
   const [draftEnd, setDraftEnd] = useState<string>(customEnd ?? "");
+  const [error, setError] = useState("");
 
   const initRange = getPeriodRange(period, customStart, customEnd);
   const [vy, setVy] = useState(initRange.end.getFullYear());
@@ -140,6 +144,7 @@ export default function PeriodSelector({ period, customStart, customEnd, onApply
   function pickDay(day: number) {
     const date = new Date(vy, vm, day);
     if (date > today) return;
+    setError("");
     const ds = `${vy}-${String(vm + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
     setDraftPeriod("custom");
     if (!draftStart || (draftStart && draftEnd)) {
@@ -154,6 +159,7 @@ export default function PeriodSelector({ period, customStart, customEnd, onApply
   }
 
   function selectPreset(p: Period) {
+    setError("");
     setDraftPeriod(p);
     setDraftStart("");
     setDraftEnd("");
@@ -164,6 +170,11 @@ export default function PeriodSelector({ period, customStart, customEnd, onApply
 
   function apply() {
     if (draftPeriod === "custom") {
+      const problem = validateCustomRange(draftStart || undefined, draftEnd || undefined);
+      if (problem) {
+        setError(problem);
+        return;
+      }
       if (draftStart && draftEnd) onApply("custom", draftStart, draftEnd);
       else if (draftStart) onApply("custom", draftStart, draftStart);
       else return;
@@ -278,6 +289,11 @@ export default function PeriodSelector({ period, customStart, customEnd, onApply
               })}
             </div>
 
+            {error ? (
+              <p className="os-field-error" role="alert" style={{ margin: "8px 0 0" }}>
+                {error}
+              </p>
+            ) : null}
             <div className="ps-panel__foot">
               <button type="button" className="ps-foot-cancel" onClick={() => setOpen(false)}>
                 {t.period.cancel}

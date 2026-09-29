@@ -59,6 +59,7 @@ export default function EnrollStudentForm() {
       groupId,
       source: enrollDraft?.source ?? "Walk-in",
       durationMonths,
+      actor: session?.name || "Administration",
     });
     addExtraStudentAccount({
       matricule: student.matricule,
@@ -68,7 +69,7 @@ export default function EnrollStudentForm() {
       personId: student.id,
       firstLoginDefault: true,
     });
-    if (enrollDraft?.leadId) updateLead(enrollDraft.leadId, { stage: "enrolled", overdue: false });
+    if (enrollDraft?.leadId) updateLead(enrollDraft.leadId, { stage: "enrolled", overdue: false, studentId: student.id });
     setCreated(student);
     setName("");
     setPhone("");

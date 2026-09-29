@@ -83,7 +83,7 @@ export default function ApplicationsPage() {
               </tr>
             </thead>
             <tbody>
-              {rows.map((row) => (
+              {rows.slice(0, 150).map((row) => (
                 <tr key={row.id}>
                   <td>
                     <PersonCell initials={row.initials} name={row.name} meta={row.ref} />
@@ -100,6 +100,7 @@ export default function ApplicationsPage() {
               ))}
             </tbody>
           </table>
+          {rows.length > 150 ? <p className="os-muted os-small">150 premiers dossiers sur {rows.length}, classés par priorité.</p> : null}
         </div>
       </OsCard>
     </>

@@ -3,6 +3,9 @@
  * readJson / writeJson par les lectures et écritures distantes.
  */
 
+/** Événement générique émis à chaque écriture locale : la couche repo s'y abonne. */
+export const DATA_EVENT = "tas-data-changed";
+
 export function readJson<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
   try {
@@ -15,8 +18,13 @@ export function readJson<T>(key: string, fallback: T): T {
 
 export function writeJson<T>(key: string, value: T, event: string) {
   if (typeof window === "undefined") return;
-  window.localStorage.setItem(key, JSON.stringify(value));
-  window.dispatchEvent(new Event(event));
+  try {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    /* quota ou navigation privée : l'écriture est ignorée */
+  }
+  if (event) window.dispatchEvent(new Event(event));
+  window.dispatchEvent(new Event(DATA_EVENT));
 }
 
 export function overlayById<T extends { id: string }>(base: readonly T[], extra: T[]): T[] {
