@@ -154,15 +154,16 @@ export function QueueCard({
 
 /** "↑ 12 %" / "↓ 3,4 %" ; null quand la période précédente vaut 0. */
 export function fmtDelta(delta: number | null, unit: "%" | "pts" = "%"): string {
-  if (delta === null || !Number.isFinite(delta)) return "—";
+  // Au-delà de ±1 000 %, la base de comparaison est trop petite pour dire quelque chose.
+  if (delta === null || !Number.isFinite(delta) || Math.abs(delta) >= 1000) return "—";
   const abs = Math.abs(delta);
   if (abs < 0.05) return `0\u00a0${unit === "pts" ? "pt" : "%"}`;
-  const text = abs >= 1000 ? ">999" : abs >= 10 ? String(Math.round(abs)) : abs.toFixed(1).replace(".", ",");
+  const text = abs >= 10 ? String(Math.round(abs)) : abs.toFixed(1).replace(".", ",");
   return `${delta > 0 ? "↑" : "↓"}\u00a0${text}\u00a0${unit === "pts" ? "pts" : "%"}`;
 }
 
 export function DeltaLine({ delta, invert, label, unit }: { delta: number | null; invert?: boolean; label?: string; unit?: "%" | "pts" }) {
-  const flat = delta === null || Math.abs(delta) < 0.05;
+  const flat = delta === null || !Number.isFinite(delta) || Math.abs(delta) < 0.05 || Math.abs(delta) >= 1000;
   const good = flat ? null : invert ? delta! < 0 : delta! > 0;
   const tone = flat ? "flat" : good ? "up" : "down";
   return (
