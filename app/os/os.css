@@ -625,7 +625,8 @@
   gap: 8px;
   min-width: 0;
   flex-shrink: 0;
-  overflow: hidden;
+  /* visible: the account menu (language, theme, sign out) hangs below the topbar */
+  overflow: visible;
 }
 
 @media (max-width: 640px) {

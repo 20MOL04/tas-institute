@@ -1,8 +1,10 @@
 import type { ReactNode } from "react";
 import "./os.css";
+import "./founder.css";
 import "../components/ui/select-menu.css";
 import { OsProvider } from "./_components/OsProvider";
 import Shell from "./_components/Shell";
+import { ToastProvider } from "./_components/Toast";
 
 export const metadata = {
   title: "TAS App",
@@ -12,7 +14,9 @@ export const metadata = {
 export default function OsLayout({ children }: { children: ReactNode }) {
   return (
     <OsProvider>
-      <Shell>{children}</Shell>
+      <ToastProvider>
+        <Shell>{children}</Shell>
+      </ToastProvider>
     </OsProvider>
   );
 }

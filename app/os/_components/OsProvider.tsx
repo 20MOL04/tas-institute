@@ -5,6 +5,8 @@ import { OS_USERS, type OsUser } from "../_data";
 import {
   DEMO_PASSWORD,
   SPACE_HOME,
+  adminCampus,
+  isSuspended,
   lookupAccount,
   osUserForAccount,
   type Account,
@@ -69,7 +71,7 @@ type OsCtx = {
   hasPassword: (matricule: string, firstLoginDefault: boolean) => boolean;
   setPassword: (matricule: string, password: string) => void;
   checkPassword: (matricule: string, password: string, firstLoginDefault: boolean) => boolean;
-  signIn: (account: Account) => void;
+  signIn: (account: Account) => boolean;
   signOut: () => void;
 };
 
@@ -98,7 +100,13 @@ export function OsProvider({ children }: { children: ReactNode }) {
 
   const user = useMemo(() => {
     if (!session) return OS_USERS[0];
-    return osUserForAccount(session) ?? OS_USERS[0];
+    const base = osUserForAccount(session) ?? OS_USERS[0];
+    // Each administrator works on the campus the founder assigned to the account.
+    if (session.role === "admin") {
+      const campusId = adminCampus(session.matricule);
+      return campusId ? { ...base, campusId } : base;
+    }
+    return base;
   }, [session]);
 
   const toggleCollapsed = useCallback(() => setCollapsed((v) => !v), []);
@@ -130,6 +138,7 @@ export function OsProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const checkPassword = useCallback((matricule: string, password: string, firstLoginDefault: boolean) => {
+    if (isSuspended(matricule)) return false;
     const map = readPasses();
     if (map[matricule]) return map[matricule] === password;
     if (!firstLoginDefault) return password === DEMO_PASSWORD;
@@ -137,6 +146,8 @@ export function OsProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signIn = useCallback((account: Account) => {
+    // A suspended account can no longer open a session.
+    if (isSuspended(account.matricule)) return false;
     const next: Session = {
       matricule: account.matricule,
       space: account.space,
@@ -146,6 +157,7 @@ export function OsProvider({ children }: { children: ReactNode }) {
     };
     setSession(next);
     window.localStorage.setItem(SESSION_KEY, JSON.stringify(next));
+    return true;
   }, []);
 
   const signOut = useCallback(() => {

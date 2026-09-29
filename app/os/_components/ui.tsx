@@ -152,39 +152,73 @@ export function QueueCard({
   );
 }
 
+/** "↑ 12 %" / "↓ 3,4 %" ; null quand la période précédente vaut 0. */
+export function fmtDelta(delta: number | null): string {
+  if (delta === null || !Number.isFinite(delta)) return "—";
+  const abs = Math.abs(delta);
+  if (abs < 0.05) return "0 %";
+  const text = abs >= 1000 ? ">999" : abs >= 10 ? String(Math.round(abs)) : abs.toFixed(1).replace(".", ",");
+  return `${delta > 0 ? "↑" : "↓"}\u00a0${text}\u00a0%`;
+}
+
+export function DeltaLine({ delta, invert, label }: { delta: number | null; invert?: boolean; label?: string }) {
+  const flat = delta === null || Math.abs(delta) < 0.05;
+  const good = flat ? null : invert ? delta! < 0 : delta! > 0;
+  const tone = flat ? "flat" : good ? "up" : "down";
+  return (
+    <div className={`fx-delta fx-delta-${tone}`}>
+      <strong>{fmtDelta(delta)}</strong>
+      <span>{label ?? "vs période précédente"}</span>
+    </div>
+  );
+}
+
+function splitUnit(value: string): { main: string; unit: string } {
+  const m = /^(.*?)([\u00a0 ](?:CFA|Md CFA|M CFA|k CFA|élèves|%))$/.exec(value);
+  if (!m) return { main: value, unit: "" };
+  return { main: m[1], unit: m[2].replace(/^[\u00a0 ]/, "\u00a0") };
+}
+
 export function KpiCard({
   kpi,
   active,
   onSelect,
+  icon,
+  size,
 }: {
   kpi: Kpi;
   active?: boolean;
   onSelect?: () => void;
+  icon?: ReactNode;
+  size?: "hero" | "mini";
 }) {
   const chars = Math.max(kpi.value.replace(/\s/g, "").length, 4);
   const valueStyle = { "--kpi-chars": String(chars) } as CSSProperties;
+  const { main, unit } = size ? splitUnit(kpi.value) : { main: kpi.value, unit: "" };
   const inner = (
     <>
-      <div className="os-kpi-label">{kpi.label}</div>
-      <div className="os-kpi-value" style={valueStyle}>
-        {kpi.value}
+      <div className="os-kpi-label">
+        <span>{kpi.label}</span>
+        {icon ? <span className="fx-kpi-icon">{icon}</span> : null}
       </div>
+      <div className="os-kpi-value" style={valueStyle}>
+        {main}
+        {unit ? <small className="fx-kpi-unit">{unit}</small> : null}
+      </div>
+      {kpi.sub ? <div className="fx-kpi-sub">{kpi.sub}</div> : null}
+      {kpi.compare ? <DeltaLine delta={kpi.delta} invert={kpi.invert} label={kpi.compareLabel} /> : null}
       {kpi.spark && kpi.spark.length > 1 ? <SparkLine values={kpi.spark} active={Boolean(active)} /> : null}
     </>
   );
+  const cls = `os-kpi${size ? ` fx-kpi fx-kpi-${size}` : ""}`;
   if (onSelect) {
     return (
-      <button
-        type="button"
-        className={`os-kpi os-kpi-btn${active ? " is-active" : ""}`}
-        onClick={onSelect}
-        aria-pressed={active}
-      >
+      <button type="button" className={`${cls} os-kpi-btn${active ? " is-active" : ""}`} onClick={onSelect} aria-pressed={active}>
         {inner}
       </button>
     );
   }
-  return <article className="os-kpi">{inner}</article>;
+  return <article className={cls}>{inner}</article>;
 }
 
 function SparkLine({ values, active }: { values: number[]; active: boolean }) {

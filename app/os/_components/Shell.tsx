@@ -3,8 +3,10 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
-import { APPROVALS_CHANGED, NOTIFICATIONS, PENDING_TRANSFERS, countPending } from "../_data";
-import { SPACE_HOME } from "../_data/auth";
+import { NOTIFICATIONS, PENDING_TRANSFERS, countPending } from "../_data";
+import { SPACE_HOME, isSuspended } from "../_data/auth";
+import { computeAlerts, pendingCount } from "../_data/metrics";
+import { markAlertsRead, readAlertSignatures, useRepo } from "../_data/repo";
 import { ALL_ITEMS, NAV, canAccess, canOpenPath } from "./nav";
 import { useOs } from "./OsProvider";
 import { useOsT } from "./useOsT";
@@ -16,12 +18,16 @@ import { useLiveLeads } from "./useLiveLeads";
 import { useStoreTick } from "./useStoreTick";
 import BrandIcon from "../../components/BrandIcon";
 import { IcBell, IcChevronLeft, IcChevronRight, IcClose, IcMenu } from "./icons";
+import { APPROVALS_CHANGED } from "../_data";
 
 function isActive(href: string, pathname: string) {
+  if (href === "/os/ceo") return pathname === href;
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
 const BARE = ["/os", "/os/login", "/os/forgot"];
+
+const FOUNDER_ROLES = ["founder", "director", "superadmin"];
 
 export default function Shell({ children }: { children: ReactNode }) {
   const pathname = usePathname() || "/os";
@@ -31,6 +37,8 @@ export default function Shell({ children }: { children: ReactNode }) {
   const [notifs, setNotifs] = useState(false);
   const liveLeads = useLiveLeads();
   useStoreTick(APPROVALS_CHANGED);
+  const snap = useRepo();
+  const founder = !!session && FOUNDER_ROLES.includes(session.role);
   useEffect(() => {
     if (panel) setNotifs(false);
   }, [panel]);
@@ -61,6 +69,15 @@ export default function Shell({ children }: { children: ReactNode }) {
     if (!allowed) router.replace(SPACE_HOME[session.space]);
   }, [pathname, session, router, bare, ready]);
 
+  // A suspended administrator is signed out as soon as the suspension is recorded.
+  useEffect(() => {
+    if (!ready || !session || session.space !== "admin") return;
+    if (isSuspended(session.matricule)) {
+      signOut();
+      router.replace("/os");
+    }
+  }, [ready, session, snap.version, signOut, router]);
+
   const groups = useMemo(
     () =>
       NAV.map((g) => ({
@@ -70,22 +87,39 @@ export default function Shell({ children }: { children: ReactNode }) {
     [session],
   );
 
+  /* ----- bell: real alerts for the founder, static notifications for the others ----- */
+  const pending = pendingCount(snap);
+  const founderItems = useMemo(() => {
+    if (!founder) return [];
+    const items: { id: string; title: string; detail: string; href: string; signature: string; level: string }[] = [];
+    if (pending > 0) {
+      items.push({
+        id: "approvals",
+        title: `${pending} décision${pending > 1 ? "s" : ""} à valider`,
+        detail: "Inscriptions, transferts, comptes, exclusions",
+        href: "/os/ceo/validations",
+        signature: `approvals:${pending}`,
+        level: "high",
+      });
+    }
+    for (const a of computeAlerts(snap, "all")) {
+      items.push({ id: a.id, title: a.title, detail: a.detail, href: a.href, signature: a.signature, level: a.level });
+    }
+    return items;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [founder, snap, pending]);
+  const readSigs = new Set(readAlertSignatures());
+  const founderUnread = founderItems.filter((i) => !readSigs.has(i.signature));
+
   const unreadNotifs = NOTIFICATIONS.filter((n) => {
     if (n.read) return false;
     if (session?.role === "teacher" || session?.role === "student") return n.category === "Académique";
     if (session?.role === "admin") return n.category === "Admissions" || n.category === "Opérations";
     if (session?.role === "finance") return n.category === "Finance";
-    if (session?.role === "founder" || session?.role === "director") return n.category === "Admissions" || n.category === "Opérations";
     return false;
   });
-  const reviewCount = countPending();
-  const unread =
-    unreadNotifs.length +
-    (session?.role === "founder" || session?.role === "director" || session?.role === "superadmin"
-      ? reviewCount
-      : session?.role === "admin"
-        ? PENDING_TRANSFERS.length
-        : 0);
+  const unread = founder ? founderUnread.length : unreadNotifs.length + (session?.role === "admin" ? PENDING_TRANSFERS.length : 0);
+  const reviewCount = founder ? pending : countPending();
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -130,8 +164,9 @@ export default function Shell({ children }: { children: ReactNode }) {
                 <div className="os-nav-group">{g.label}</div>
                 {g.items.map((item) => {
                   const Icon = item.icon;
-                  const badge =
-                    item.href === "/os/crm"
+                  const badge = !ready
+                    ? undefined
+                    : item.href === "/os/crm"
                       ? String(liveLeads.filter((l) => l.stage === "new").length)
                       : item.href === "/os/ceo/validations"
                         ? String(reviewCount)
@@ -141,6 +176,7 @@ export default function Shell({ children }: { children: ReactNode }) {
                       key={item.href}
                       href={item.href}
                       className={isActive(item.href, pathname) ? "active" : ""}
+                      aria-current={isActive(item.href, pathname) ? "page" : undefined}
                       title={collapsed ? item.label : undefined}
                       onClick={closeMobile}
                     >
@@ -179,9 +215,9 @@ export default function Shell({ children }: { children: ReactNode }) {
                   {t.nav.kitchen}
                 </Link>
               ) : null}
-              <button type="button" className="os-bell" aria-label="Notifications" onClick={() => setNotifs(true)}>
+              <button type="button" className="os-bell" aria-label={`Notifications${ready && unread > 0 ? `, ${unread} non lues` : ""}`} onClick={() => setNotifs(true)}>
                 <IcBell />
-                {unread > 0 ? <span className="os-bell-dot">{unread > 99 ? "99" : unread}</span> : null}
+                {ready && unread > 0 ? <span className="os-bell-dot">{unread > 99 ? "99" : unread}</span> : null}
               </button>
               <AccountMenu />
             </div>
@@ -196,44 +232,72 @@ export default function Shell({ children }: { children: ReactNode }) {
                   Retour
                 </Link>
               ) : null}
-              {children}
+              {/* The app reads live browser data: pages are rendered once mounted, never from the build. */}
+              {ready ? children : <p className="os-muted" role="status">Chargement…</p>}
             </div>
           </div>
         </div>
       </div>
 
       <OsDrawer open={notifs} title="Notifications" onClose={() => setNotifs(false)} badge={<span className="os-nav-badge">{unread}</span>}>
-        {reviewCount > 0 && (session?.role === "founder" || session?.role === "director" || session?.role === "superadmin") ? (
-          <Link href="/os/ceo/validations" className="os-list-item" onClick={() => setNotifs(false)}>
-            <div>
-              <strong>
-                {reviewCount} {t.nav.validations}
-              </strong>
-              <span>{t.ceo.pendingReview}</span>
-            </div>
-          </Link>
-        ) : null}
-        {PENDING_TRANSFERS.length > 0 && session?.role === "admin" ? (
-          <Link href="/os/transfers" className="os-list-item" onClick={() => setNotifs(false)}>
-            <div>
-              <strong>
-                {PENDING_TRANSFERS.length} {t.transfers.pending}
-              </strong>
-              <span>{t.nav.transfers}</span>
-            </div>
-          </Link>
-        ) : null}
-        {unreadNotifs.map((n) => (
-          <div key={n.id} className="os-list-item">
-            <div>
-              <strong>{n.title}</strong>
-              <span>
-                {n.category} {n.detail}
-              </span>
-            </div>
-            <span className="os-list-time">{n.at}</span>
-          </div>
-        ))}
+        {founder ? (
+          founderItems.length === 0 ? (
+            <p className="os-muted">Rien à signaler. Tout est à jour.</p>
+          ) : (
+            <>
+              {founderUnread.length > 0 ? (
+                <button type="button" className="os-btn os-btn-sm" style={{ marginBottom: 8 }} onClick={() => markAlertsRead(founderItems.map((i) => i.signature))}>
+                  Tout marquer comme lu
+                </button>
+              ) : null}
+              {founderItems.map((i) => {
+                const isRead = readSigs.has(i.signature);
+                return (
+                  <Link
+                    key={i.id}
+                    href={i.href}
+                    className={`os-list-item fx-bell-item${isRead ? " is-read" : ""}`}
+                    onClick={() => {
+                      markAlertsRead([i.signature]);
+                      setNotifs(false);
+                    }}
+                  >
+                    <span className={`fx-bell-dot fx-lvl-${i.level}`} aria-hidden="true" />
+                    <div>
+                      <strong>{i.title}</strong>
+                      <span>{i.detail}</span>
+                    </div>
+                    {isRead ? <span className="os-list-time">lu</span> : <span className="os-list-time">nouveau</span>}
+                  </Link>
+                );
+              })}
+            </>
+          )
+        ) : (
+          <>
+            {PENDING_TRANSFERS.length > 0 && session?.role === "admin" ? (
+              <Link href="/os/transfers" className="os-list-item" onClick={() => setNotifs(false)}>
+                <div>
+                  <strong>
+                    {PENDING_TRANSFERS.length} {t.transfers.pending}
+                  </strong>
+                  <span>{t.nav.transfers}</span>
+                </div>
+              </Link>
+            ) : null}
+            {unreadNotifs.map((n) => (
+              <div key={n.id} className="os-list-item">
+                <div>
+                  <strong>{n.title}</strong>
+                  <span>
+                    {n.category} {n.detail}
+                  </span>
+                </div>
+                <span className="os-list-time">{n.at}</span>
+              </div>
+            ))}
+          </>
+        )}
       </OsDrawer>
       <EnrollPanels />
     </div>

@@ -6,7 +6,7 @@ import { Suspense, useMemo, useState } from "react";
 import { GateChrome } from "../_components/GateChrome";
 import { useOs } from "../_components/OsProvider";
 import { useOsT } from "../_components/useOsT";
-import { SPACE_HOME, lookupAccount, type Space } from "../_data/auth";
+import { SPACE_HOME, isSuspended, lookupAccount, type Space } from "../_data/auth";
 
 const SPACES: Space[] = ["ceo", "admin", "teacher", "student"];
 
@@ -42,6 +42,10 @@ function LoginForm() {
     setError("");
     if (!account) {
       setError(t.login.unknown);
+      return;
+    }
+    if (isSuspended(account.matricule)) {
+      setError("Ce compte est suspendu. Contactez la direction.");
       return;
     }
     if (first) {

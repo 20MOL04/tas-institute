@@ -113,6 +113,7 @@ export default function GlobalSearch() {
   const root = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
+  const input = useRef<HTMLInputElement>(null);
   const hits = useMemo(() => collect(query), [query, open]);
 
   useEffect(() => {
@@ -121,6 +122,24 @@ export default function GlobalSearch() {
     }
     document.addEventListener("mousedown", onDoc);
     return () => document.removeEventListener("mousedown", onDoc);
+  }, []);
+
+  // Ctrl+K (or Cmd+K) and "/" jump to the search field.
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      const target = e.target as HTMLElement | null;
+      const typing = !!target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.tagName === "SELECT" || target.isContentEditable);
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        input.current?.focus();
+        input.current?.select();
+      } else if (e.key === "/" && !typing && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        e.preventDefault();
+        input.current?.focus();
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, []);
 
   function go(href: string) {
@@ -142,6 +161,7 @@ export default function GlobalSearch() {
         <IcSearch />
         <span className="os-sr-only">Rechercher</span>
         <input
+          ref={input}
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);
@@ -157,7 +177,11 @@ export default function GlobalSearch() {
           }}
           placeholder="Élève, matricule, reçu, téléphone"
           autoComplete="off"
+          aria-keyshortcuts="Control+K /"
         />
+        <kbd className="fx-kbd" aria-hidden="true">
+          Ctrl K
+        </kbd>
       </label>
       {open && query.trim() ? (
         <div className="os-omni-panel" role="listbox">
