@@ -1,133 +1,100 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { MONTHLY, SOURCES, fmtInt, fmtMoney, type Kpi } from "../../_data";
-import { KpiCard, LineChart, OsCard, PageHead } from "../../_components/ui";
-import PeriodSelector, { usePeriodState } from "../../_components/PeriodSelector";
-import { monthlySlice } from "../../_lib/monthlySlice";
-import { useOsT } from "../../_components/useOsT";
-import { palette } from "../../../lib/theme";
+import { useMemo } from "react";
+import { KpiCard } from "../../_components/ui";
+import { ComboChart, EmptyState, Funnel } from "../../_components/charts";
+import { IcFunnel, IcClipboard, IcGraduation, IcTrend } from "../../_components/icons";
+import { fmtInt } from "../../_data/core";
+import { bySource, delta, funnelIn, seriesFor } from "../../_data/metrics";
+import type { Kpi } from "../../_data";
+import { FounderHeader, FiltersBar, Panel } from "../_components/Bits";
+import { useFounderFilters } from "../_lib/useFilters";
 
-const METRIC_COLOR = palette.blue;
+export default function RecruitmentPage() {
+  const f = useFounderFilters("thisYear");
+  const { snap, campus, range, prev } = f;
+  const cur = useMemo(() => funnelIn(snap, campus, range), [snap, campus, range]);
+  const old = useMemo(() => (prev ? funnelIn(snap, campus, prev) : null), [snap, campus, prev]);
+  const rows = useMemo(() => bySource(snap, campus, range), [snap, campus, range]);
+  const series = useMemo(() => seriesFor(snap, campus, "demandes", range, prev), [snap, campus, range, prev]);
 
-function sourceName(source: string) {
-  if (source === "Direct") return "Formulaire";
-  return source;
-}
-
-export default function CeoTrafficPage() {
-  const { t } = useOsT();
-  const { period, customStart, customEnd, range, onApply } = usePeriodState("thisYear");
-  const [metric, setMetric] = useState("visits");
-
-  const view = useMemo(() => {
-    const sliced = monthlySlice(range.start, range.end);
-    const yearVisits = MONTHLY.visitors.reduce((a, b) => a + b, 0);
-    const q = yearVisits === 0 ? 0 : sliced.totals.visitors / yearVisits;
-
-    const kpis: Kpi[] = [
-      {
-        id: "visits",
-        label: "Visites",
-        value: fmtInt(sliced.totals.visitors),
-        raw: sliced.totals.visitors,
-        delta: null,
-        hint: "",
-        spark: sliced.visitors,
-      },
-      {
-        id: "enroll",
-        label: "Inscriptions",
-        value: fmtInt(sliced.totals.enrollments),
-        raw: sliced.totals.enrollments,
-        delta: null,
-        hint: "",
-        spark: sliced.enrollments,
-      },
-      {
-        id: "leads",
-        label: "Inscriptions en ligne",
-        value: fmtInt(sliced.totals.leads),
-        raw: sliced.totals.leads,
-        delta: null,
-        hint: "",
-        spark: sliced.leads,
-      },
-      {
-        id: "rev",
-        label: "Ça rapporte",
-        value: fmtMoney(sliced.totals.revenue),
-        raw: sliced.totals.revenue,
-        delta: null,
-        hint: "",
-        spark: sliced.revenue,
-      },
-    ];
-
-    const series: Record<string, number[]> = {
-      visits: sliced.visitors,
-      enroll: sliced.enrollments,
-      leads: sliced.leads,
-      rev: sliced.revenue,
-    };
-
-    const rows = [...SOURCES]
-      .map((row) => ({
-        ...row,
-        visits: Math.round(row.visits * q),
-        enrollments: Math.round(row.enrollments * q),
-        revenue: Math.round(row.revenue * q),
-      }))
-      .sort((a, b) => b.enrollments - a.enrollments || b.revenue - a.revenue);
-
-    return { labels: sliced.labels, kpis, series, rows };
-  }, [range]);
-
-  const active = view.kpis.find((k) => k.id === metric) ?? view.kpis[0];
-  const values = view.series[active.id] ?? view.series.visits;
+  const b = { compare: true, compareLabel: f.compareLabel, hint: "" } as const;
+  const kpis: Kpi[] = [
+    { ...b, id: "d", label: "Demandes", value: fmtInt(cur.demandes), raw: cur.demandes, delta: delta(cur.demandes, old?.demandes) },
+    { ...b, id: "o", label: "Dossiers", value: fmtInt(cur.dossiers), raw: cur.dossiers, delta: delta(cur.dossiers, old?.dossiers) },
+    { ...b, id: "i", label: "Inscrits", value: fmtInt(cur.inscrits), raw: cur.inscrits, delta: delta(cur.inscrits, old?.inscrits) },
+    {
+      ...b,
+      id: "c",
+      label: "Taux de conversion",
+      value: cur.conversion === null ? "—" : `${cur.conversion.toFixed(1).replace(".", ",")} %`,
+      raw: cur.conversion ?? 0,
+      delta: cur.conversion !== null && old?.conversion != null ? cur.conversion - old.conversion : null,
+      deltaUnit: "pts",
+      sub: `${fmtInt(cur.inscrits)} inscrits / ${fmtInt(cur.demandes)} demandes`,
+    },
+  ];
+  const icons = [<IcFunnel key="a" />, <IcClipboard key="b" />, <IcGraduation key="c" />, <IcTrend key="d" />];
 
   return (
     <>
-      <PageHead title={t.nav.traffic}>
-        <PeriodSelector period={period} customStart={customStart} customEnd={customEnd} onApply={onApply} />
-      </PageHead>
-      <div className="os-kpi-grid">
-        {view.kpis.map((k) => (
-          <KpiCard key={k.id} kpi={k} active={k.id === active.id} onSelect={() => setMetric(k.id)} />
+      <FounderHeader title="Recrutement" subtitle={`Demandes, dossiers et inscriptions · ${f.phrase}`} />
+      <FiltersBar filters={f} />
+      <section className="fx-kpis" aria-label="Recrutement en chiffres">
+        {kpis.map((k, i) => (
+          <KpiCard key={k.id} kpi={k} size="hero" icon={icons[i]} />
         ))}
+      </section>
+      <div className="fx-main">
+        <Panel title="Demandes reçues" hint="Nombre de demandes par période">
+          <ComboChart
+            labels={series.buckets.map((x) => x.label)}
+            longLabels={series.buckets.map((x) => x.long)}
+            values={series.values}
+            previousValues={series.previousValues}
+            name="Demandes"
+            previousName={f.compareLabel.replace("vs ", "").replace(/^./, (c) => c.toUpperCase())}
+            format={fmtInt}
+            unit="count"
+            ariaLabel={`Demandes reçues, ${f.phrase}`}
+            empty={series.empty}
+          />
+        </Panel>
+        <Panel title="Entonnoir" hint="Sur les demandes de la période">
+          <Funnel
+            steps={[
+              { label: "Demandes", value: cur.demandes },
+              { label: "Dossiers", value: cur.dossiers },
+              { label: "Inscrits", value: cur.inscrits },
+              { label: "Ont payé", value: cur.payes },
+            ]}
+          />
+        </Panel>
       </div>
-      <OsCard title={active.label}>
-        <LineChart
-          labels={view.labels}
-          series={[{ label: active.label, values, color: METRIC_COLOR }]}
-          height={280}
-          filled
-        />
-      </OsCard>
-      <OsCard title="Sources">
-        <div className="os-table-wrap">
-          <table className="os-table">
-            <thead>
-              <tr>
-                <th>Source</th>
-                <th className="num">Visites</th>
-                <th className="num">Inscriptions</th>
-                <th className="num">Ça rapporte</th>
-              </tr>
-            </thead>
-            <tbody>
-              {view.rows.map((row) => (
-                <tr key={row.source}>
-                  <td className="os-table-strong">{sourceName(row.source)}</td>
-                  <td className="num">{fmtInt(row.visits)}</td>
-                  <td className="num">{fmtInt(row.enrollments)}</td>
-                  <td className="num">{fmtMoney(row.revenue)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </OsCard>
+      <Panel title="Par source" hint="Quelle source amène des élèves, pas seulement des demandes">
+        {rows.length === 0 ? (
+          <EmptyState text="Aucune demande sur la période." />
+        ) : (
+          <div className="fx-table-wrap">
+            <table className="fx-table">
+              <thead>
+                <tr><th>Source</th><th className="num">Demandes</th><th className="num">Dossiers</th><th className="num">Inscrits</th><th className="num">Taux</th></tr>
+              </thead>
+              <tbody>
+                {rows.map((r) => (
+                  <tr key={r.source}>
+                    <td><strong>{r.source}</strong></td>
+                    <td className="num">{fmtInt(r.demandes)}</td>
+                    <td className="num">{fmtInt(r.dossiers)}</td>
+                    <td className="num">{fmtInt(r.inscrits)}</td>
+                    <td className="num">{r.taux === null ? "—" : `${r.taux.toFixed(1).replace(".", ",")} %`}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </Panel>
     </>
   );
 }
