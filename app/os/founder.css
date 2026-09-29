@@ -290,8 +290,14 @@ button.fx-kpi-hero.os-kpi-btn {
 @container os-page (min-width: 64rem) {
   .fx-main {
     grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-    align-items: start;
+    align-items: stretch;
   }
+}
+
+.fx-main > .os-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
 .fx-tri {
@@ -679,9 +685,15 @@ button.fx-kpi-hero.os-kpi-btn {
 
 .fx-actions {
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 8px;
   padding: 14px;
+}
+
+.fx-actions .fx-action {
+  flex: 1 1 auto;
+  max-height: 64px;
 }
 
 .fx-action {
@@ -1587,5 +1599,224 @@ a.fx-alert:hover {
   .fx-pager {
     justify-content: center;
     text-align: center;
+  }
+}
+
+
+/* ----- dashboard header: greeting, filters and buttons on one line ------------------------ */
+
+.fx-dash-header {
+  align-items: stretch;
+}
+
+.fx-dash-tools {
+  align-items: center;
+}
+
+.fx-dash-tools .fx-toolbar {
+  display: contents;
+}
+
+.fx-dash-tools .os-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+@container os-page (min-width: 40rem) {
+  .fx-dash-header {
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .fx-dash-tools {
+    justify-content: flex-end;
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 639px) {
+  .fx-dash-tools {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fx-dash-tools > * {
+    min-width: 0;
+  }
+
+  .fx-dash-tools > div {
+    display: block;
+  }
+
+  .fx-dash-tools .ps-trigger,
+  .fx-dash-tools .fx-select {
+    width: 100%;
+  }
+}
+
+/* ----- trend chart ------------------------------------------------------------------------ */
+
+.fx-chart-card .fx-chart {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 12px 16px 14px 8px;
+}
+
+.fx-chart-card .fx-empty {
+  flex: 1;
+}
+
+.fx-chart-card .fx-legend {
+  padding-left: 12px;
+}
+
+.fx-chart-card .fx-card-head {
+  align-items: center;
+}
+
+.fx-sw-cur {
+  display: inline-block;
+  flex: none;
+  width: 14px;
+  height: 0;
+  border-top: 2px solid var(--color-accent-blue);
+  border-radius: 2px;
+}
+
+.fx-sw-prev {
+  display: inline-block;
+  flex: none;
+  width: 14px;
+  height: 0;
+  border-top: 2px dashed var(--color-muted);
+  opacity: 0.8;
+}
+
+.fx-line {
+  fill: none;
+  stroke: var(--color-accent-blue);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.fx-area-top {
+  stop-color: var(--color-accent-blue);
+  stop-opacity: 0.16;
+}
+
+.fx-area-bottom {
+  stop-color: var(--color-accent-blue);
+  stop-opacity: 0;
+}
+
+.fx-prev-dash {
+  fill: none;
+  stroke: var(--color-muted);
+  stroke-opacity: 0.6;
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+  stroke-linecap: round;
+}
+
+.fx-guide {
+  stroke: var(--color-muted);
+  stroke-opacity: 0.5;
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.fx-dot {
+  fill: var(--color-card);
+  stroke: var(--color-accent-blue);
+  stroke-width: 1.75;
+}
+
+.fx-dot.is-on {
+  fill: var(--color-accent-blue);
+  stroke: var(--color-card);
+  stroke-width: 2;
+}
+
+.fx-dot-prev {
+  fill: var(--color-card);
+  stroke: var(--color-muted);
+  stroke-width: 1.75;
+}
+
+.fx-tip-card {
+  min-width: 210px;
+  max-width: 280px;
+  padding: 10px 12px;
+  gap: 5px;
+}
+
+.fx-tip-card .fx-tip-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.fx-tip-card .fx-tip-row em {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--text-caption);
+}
+
+.fx-tip-card .fx-tip-row b {
+  font-variant-numeric: tabular-nums;
+  color: var(--color-foreground);
+}
+
+.fx-tip-card .fx-tip-change {
+  font-size: var(--text-caption);
+  font-weight: 700;
+}
+
+.fx-tip-card .fx-tip-change.up {
+  color: var(--color-success);
+}
+
+.fx-tip-card .fx-tip-change.down {
+  color: var(--color-danger);
+}
+
+@media (max-width: 639px) {
+  .fx-chart-card .fx-chart {
+    padding: 10px 8px 12px 0;
+  }
+
+  .fx-seg button {
+    min-height: 44px;
+  }
+
+  .fx-action {
+    min-height: 48px;
+  }
+}
+
+.fx-chart-card .fx-seg {
+  margin-left: auto;
+}
+
+/* Dark theme: the accent is light, so text on it must be dark (contrast). */
+.os[data-theme="dark"] .fx-dash-tools .os-btn-primary,
+.os[data-theme="dark"] .fx-dash-tools .os-btn-primary svg,
+.os[data-theme="dark"] .fx-seg button.is-on,
+.os[data-theme="dark"] .fx-action-count {
+  color: #0a1428;
+}
+
+.fx-tip-card .fx-tip-row em {
+  white-space: nowrap;
+}
+
+@media (max-width: 639px) {
+  .fx-tip-card {
+    min-width: 190px;
+    padding: 8px 10px;
   }
 }

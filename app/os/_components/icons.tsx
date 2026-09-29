@@ -304,3 +304,23 @@ export const IcHome = (p: Props) => (
     <path d="M9.5 20.5V14h5v6.5" />
   </I>
 );
+
+export const IcArrowUpRight = (p: Props) => (
+  <I {...p}>
+    <path d="M7 17 17 7M8.5 7H17v8.5" />
+  </I>
+);
+
+export const IcGlobe = (p: Props) => (
+  <I {...p}>
+    <circle cx="12" cy="12" r="8.5" />
+    <path d="M3.5 12h17M12 3.5c2.4 2.4 3.6 5.2 3.6 8.5s-1.2 6.1-3.6 8.5c-2.4-2.4-3.6-5.2-3.6-8.5S9.6 5.9 12 3.5Z" />
+  </I>
+);
+
+export const IcInbox = (p: Props) => (
+  <I {...p}>
+    <path d="M4 13.5 6.5 5.5h11L20 13.5V18a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18v-4.5Z" />
+    <path d="M4 13.5h4.5l1 2h5l1-2H20" />
+  </I>
+);

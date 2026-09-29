@@ -5,6 +5,8 @@ import { useOs } from "../../_components/OsProvider";
 import { useToast } from "../../_components/Toast";
 import { CAMPUSES, PROGRAMS, fmtMoney } from "../../_data/core";
 import { saveSettings } from "../../_data/repo";
+import { saveDisplayName } from "../../_data/profile";
+import { useDisplayName } from "../_lib/useDisplayName";
 import type { Settings } from "../../_data/settings";
 import { FounderHeader, Panel } from "../_components/Bits";
 import { useFounderFilters } from "../_lib/useFilters";
@@ -15,6 +17,9 @@ export default function SettingsPage() {
   const toast = useToast();
   const [draft, setDraft] = useState<Settings>(snap.settings);
   const [errors, setErrors] = useState<string[]>([]);
+  const shownName = useDisplayName();
+  const [nameDraft, setNameDraft] = useState("");
+  useEffect(() => setNameDraft(shownName), [shownName]);
   useEffect(() => setDraft(snap.settings), [snap.settings]);
 
   const num = (v: string) => (v === "" ? 0 : Number(v.replace(/\s/g, "")));
@@ -34,6 +39,7 @@ export default function SettingsPage() {
       return;
     }
     saveSettings(draft, session?.name || "Fondateur TAS");
+    if (session?.matricule) saveDisplayName(session.matricule, nameDraft);
     toast.success("Paramètres enregistrés ✓");
   }
 
@@ -55,6 +61,15 @@ export default function SettingsPage() {
           {errors.map((e) => <p key={e} className="os-field-error" style={{ margin: 0 }}>{e}</p>)}
         </div>
       ) : null}
+      <Panel title="Votre profil" hint="Ce nom apparaît dans le message d'accueil du tableau de bord">
+        <div className="fx-form fx-form-2">
+          <label className="fx-field">
+            Nom affiché
+            <input className="os-input" value={nameDraft} maxLength={60} onChange={(e) => setNameDraft(e.target.value)} placeholder={session?.name ?? ""} />
+            <small>Laissez vide pour reprendre le nom du compte ({session?.name}).</small>
+          </label>
+        </div>
+      </Panel>
       <Panel title="Seuils d'alerte" hint="Utilisés par la cloche, les alertes du tableau de bord et « élève en danger »">
         <div className="fx-form fx-form-2">
           {field("Impayé signalé après (jours)", draft.unpaidDays, "unpaidDays", "Un impayé échu depuis ce nombre de jours déclenche l'alerte.")}

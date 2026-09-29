@@ -24,7 +24,7 @@ export type Account = {
 export const DEMO_PASSWORD = "tas2026";
 
 const STAFF: Account[] = [
-  { matricule: "CEO-26-0001", name: "Fondateur TAS", space: "ceo", role: "founder", personId: "u-ceo", firstLoginDefault: false },
+  { matricule: "CEO-26-0001", name: "Adama Coulibaly", space: "ceo", role: "founder", personId: "u-ceo", firstLoginDefault: false },
   { matricule: "ADM-26-0001", name: "Administration Alajo", space: "admin", role: "admin", personId: "u-adm", firstLoginDefault: false },
   { matricule: "ADM-26-0002", name: "Admissions", space: "admin", role: "admin", personId: "u-adm", firstLoginDefault: true },
   { matricule: "ADM-26-0003", name: "Kadidia Sylla", space: "admin", role: "admin", personId: "u-adm", firstLoginDefault: true },

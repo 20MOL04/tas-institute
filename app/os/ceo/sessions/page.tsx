@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Badge, KpiCard } from "../../_components/ui";
-import { Segmented } from "../../_components/charts";
+import { FillBars, Segmented } from "../../_components/charts";
 import OsDrawer from "../../_components/OsDrawer";
 import { useOs } from "../../_components/OsProvider";
 import { useToast } from "../../_components/Toast";
@@ -69,6 +69,15 @@ export default function SessionsPage() {
           { value: "teachers", label: "Enseignants", count: teachers.length },
         ]}
       />
+
+      {tab === "sessions" ? (
+        <Panel title="Remplissage des sessions" hint={`Repère à ${snap.settings.fillPct} %`}>
+          <FillBars
+            threshold={snap.settings.fillPct}
+            rows={fill.rows.map((r) => ({ id: r.session.id, label: r.session.name, hint: program(r.session.programId), taken: r.taken, capacity: r.capacity }))}
+          />
+        </Panel>
+      ) : null}
 
       {tab === "sessions" ? (
         <Panel title="Sessions" hint="Places prises sur capacité">

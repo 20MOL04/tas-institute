@@ -397,6 +397,30 @@ export function staleLeads(snap: Snapshot, campus: CampusFilter): Lead[] {
   );
 }
 
+/** Canaux numériques : une demande venue d'un de ces canaux compte comme « inscription en ligne ». */
+export const ONLINE_SOURCES = new Set(["Formulaire", "Contact", "WhatsApp", "Facebook", "Instagram", "TikTok", "YouTube", "Google"]);
+
+/** Demandes reçues sur la période par un canal en ligne (site, WhatsApp, réseaux sociaux, Google). */
+export function onlineLeadsIn(snap: Snapshot, campus: CampusFilter, r: Range): Lead[] {
+  return leadsIn(snap, campus, r).filter((l) => ONLINE_SOURCES.has(l.source));
+}
+
+/**
+ * Demandes en cours : demandes reçues sur la période qui ne sont ni inscrites,
+ * ni perdues, ni refusées. C'est le portefeuille encore ouvert à traiter.
+ */
+export function openLeadsIn(snap: Snapshot, campus: CampusFilter, r: Range): Lead[] {
+  return leadsIn(snap, campus, r).filter((l) => {
+    if (l.stage === "enrolled" || l.stage === "paid" || l.stage === "lost") return false;
+    if (leadEnrolled(snap, l)) return false;
+    if (l.applicationId) {
+      const a = snap.applications.find((x) => x.id === l.applicationId);
+      if (a && (a.status === "rejected" || a.status === "enrolled")) return false;
+    }
+    return true;
+  });
+}
+
 export function applicationsIn(snap: Snapshot, campus: CampusFilter, r: Range): Application[] {
   return snap.applications.filter((a) => inR(a.submittedAt, r) && okCampus(campus, a.campusId));
 }
@@ -508,6 +532,8 @@ export type KpiValues = {
   demandes: number;
   inscrits: number;
   presence: number | null;
+  enLigne: number;
+  enCours: number;
   danger: number;
   attendu: number;
   recouvrement: number | null;
@@ -534,6 +560,8 @@ export function kpiValues(snap: Snapshot, campus: CampusFilter, r: Range): KpiVa
     demandes: f.demandes,
     inscrits: f.inscrits,
     presence: attendanceIn(snap, campus, r).rate,
+    enLigne: onlineLeadsIn(snap, campus, r).length,
+    enCours: openLeadsIn(snap, campus, r).length,
     danger: dangerOn(snap, campus, r.end).length,
     attendu: att,
     recouvrement: att > 0 ? (enc / att) * 100 : null,
@@ -549,7 +577,7 @@ export function delta(current: number | null, previous: number | null | undefine
 
 /* ----- chart series --------------------------------------------------------------- */
 
-export type SeriesMetric = "actifs" | "encaisse" | "reste" | "remplissage" | "inscriptions" | "demandes" | "attendu";
+export type SeriesMetric = "actifs" | "encaisse" | "reste" | "remplissage" | "inscriptions" | "demandes" | "attendu" | "enligne" | "encours" | "presence";
 
 export type Series = {
   buckets: Bucket[];
@@ -579,6 +607,14 @@ function valueFor(snap: Snapshot, campus: CampusFilter, metric: SeriesMetric, b:
       return leadsIn(snap, campus, b).length;
     case "attendu":
       return expectedIn(snap, campus, b);
+    case "enligne":
+      return onlineLeadsIn(snap, campus, b).length;
+    case "encours":
+      return openLeadsIn(snap, campus, b).length;
+    case "presence": {
+      const a = attendanceIn(snap, campus, b);
+      return a.rate === null ? 0 : Math.round(a.rate * 10) / 10;
+    }
   }
 }
 

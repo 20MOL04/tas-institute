@@ -3,13 +3,13 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { KpiCard } from "../../_components/ui";
-import { ComboChart, EmptyState } from "../../_components/charts";
+import { ComboChart, Donut, EmptyState } from "../../_components/charts";
 import { IcCoins, IcDownload, IcTrend, IcUsers, IcWallet } from "../../_components/icons";
 import { useOs } from "../../_components/OsProvider";
 import { useToast } from "../../_components/Toast";
 import { downloadCsv } from "../../_lib/exportFile";
 import { PROGRAMS, fmtAxisMoney, fmtInt, fmtMoney } from "../../_data/core";
-import { delta, seriesFor, agingOn, byMethod, byProgramme, collected, expectedIn, payersIn, outstandingOn, AGING_LABEL, paymentsIn, type AgingKey } from "../../_data/metrics";
+import { delta, seriesFor, agingOn, byMethod, byProgramme, collected, expectedIn, payersIn, outstandingOn, AGING_LABEL, paymentsIn, paymentMix, type AgingKey } from "../../_data/metrics";
 import { voidPayment } from "../../_data/repo";
 import type { Kpi } from "../../_data";
 import { fmtDayYear } from "../../_lib/dates";
@@ -107,6 +107,7 @@ export default function FinancePage() {
     toast.success("Paiement annulé, trace conservée dans le journal ✓");
   }
 
+  const mix = paymentMix(snap, campus, range.end);
   const hasData = enc.values.some((v) => v > 0) || att.values.some((v) => v > 0);
 
   return (
@@ -139,6 +140,17 @@ export default function FinancePage() {
           unit="money"
           ariaLabel={`Encaissé et attendu, ${f.phrase}`}
           empty={!hasData}
+        />
+      </Panel>
+
+      <Panel title="Statut des paiements" hint={`Élèves en formation au ${new Date(range.end + "T12:00:00").toLocaleDateString("fr-FR", { day: "numeric", month: "long" })}`}>
+        <Donut
+          centerLabel="élèves"
+          parts={[
+            { label: "À jour", count: mix.paid.count, color: "var(--color-success)" },
+            { label: "Partiel", count: mix.partial.count, amount: `reste ${fmtMoney(mix.partial.amount)}`, color: "var(--color-warning)" },
+            { label: "Impayé", count: mix.unpaid.count, amount: `reste ${fmtMoney(mix.unpaid.amount)}`, color: "var(--color-danger)" },
+          ]}
         />
       </Panel>
 
