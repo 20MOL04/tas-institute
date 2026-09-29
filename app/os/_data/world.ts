@@ -459,8 +459,6 @@ function generate(today: string) {
   /* ---- attendance ---- */
   const attRows = new Map<string, { present: number; absent: number; late: number }>();
   const absences: Record<string, string[]> = {};
-  const absentBy = new Map<string, number>();
-  const daysBy = new Map<string, number>();
   const holidays = new Set<string>();
   for (let i = 0; i < 24; i++) holidays.add(addDays(today, -between(R, 3, 560)));
   for (const s of students) {
@@ -492,8 +490,6 @@ function generate(today: string) {
     }
     const total = present + absent;
     s.attendanceRate = total === 0 ? 100 : Math.round((present / total) * 100);
-    absentBy.set(s.id, absent);
-    daysBy.set(s.id, total);
     s.averageGrade = Math.round(Math.max(6, Math.min(19, 7 + (s.attendanceRate - 60) * 0.11 + R() * 5)) * 10) / 10;
     if (m.begin > today) s.averageGrade = 0;
   }

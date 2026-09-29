@@ -8,7 +8,7 @@ import { IcAlert, IcDownload, IcUsers } from "../../_components/icons";
 import { useToast } from "../../_components/Toast";
 import { downloadCsv } from "../../_lib/exportFile";
 import { PROGRAMS, fmtMoney } from "../../_data/core";
-import { activeCount, dangerOn, newEnrollments, studentsIn } from "../../_data/metrics";
+import { activeCount, dangerOn, delta, newEnrollments, studentsIn } from "../../_data/metrics";
 import type { StudentStatus } from "../../_data";
 import { FounderHeader, FiltersBar, Pager, Panel, usePaged } from "../_components/Bits";
 import { useFounderFilters } from "../_lib/useFilters";
@@ -43,6 +43,8 @@ export default function FounderStudents() {
   const base = { compare: true, compareLabel: f.compareLabel, hint: "" } as const;
   const cur = activeCount(snap, campus, range.end);
   const news = newEnrollments(snap, campus, range);
+  const curP = f.prev ? activeCount(snap, campus, f.prev.end) : null;
+  const newsP = f.prev ? newEnrollments(snap, campus, f.prev) : null;
 
   function exportRows() {
     downloadCsv(
@@ -62,8 +64,8 @@ export default function FounderStudents() {
       </FounderHeader>
       <FiltersBar filters={f} />
       <section className="fx-kpis" aria-label="Élèves en chiffres">
-        <KpiCard size="hero" icon={<IcUsers />} kpi={{ ...base, id: "a", label: "Élèves actifs", value: String(cur), raw: cur, delta: null }} />
-        <KpiCard size="hero" icon={<IcUsers />} kpi={{ ...base, id: "n", label: "Nouveaux inscrits", value: String(news), raw: news, delta: null, sub: f.phrase }} />
+        <KpiCard size="hero" icon={<IcUsers />} kpi={{ ...base, id: "a", label: "Élèves actifs", value: String(cur), raw: cur, delta: delta(cur, curP) }} />
+        <KpiCard size="hero" icon={<IcUsers />} kpi={{ ...base, id: "n", label: "Nouveaux inscrits", value: String(news), raw: news, delta: delta(news, newsP), sub: f.phrase }} />
         <KpiCard size="hero" icon={<IcUsers />} kpi={{ ...base, compare: false, id: "g", label: "En pause ou partis", value: String(gone), raw: gone, delta: null }} />
         <KpiCard size="hero" icon={<IcAlert />} kpi={{ ...base, compare: false, id: "d", label: "En danger", value: String(danger.length), raw: danger.length, delta: null, sub: `présence < ${snap.settings.attendancePct} % ou impayé ≥ ${snap.settings.unpaidDays} j` }} />
       </section>
